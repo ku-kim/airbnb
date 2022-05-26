@@ -89,10 +89,10 @@ final class SearchHomeViewController: UIViewController {
             self?.destinationCollectionView.reloadData()
         }
         
-        viewModel.loadHeader(())
-        viewModel.loadImage(())
-        viewModel.loadCityName(())
-        viewModel.loadTheme(())
+        viewModel.acceptHeader(value: ())
+        viewModel.acceptImage(value: ())
+        viewModel.acceptCityName(value: ())
+        viewModel.acceptTheme(value: ())
     }
 }
 
