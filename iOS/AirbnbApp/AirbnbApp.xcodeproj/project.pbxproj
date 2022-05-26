@@ -18,7 +18,9 @@
 		1ED648D8283D1E6B00AA5380 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648D7283D1E6B00AA5380 /* MainTabBarViewController.swift */; };
 		1ED648DA283D32E200AA5380 /* CustomObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648D9283D32E200AA5380 /* CustomObservable.swift */; };
 		1ED648DC283D444000AA5380 /* SearchHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648DB283D444000AA5380 /* SearchHomeViewModel.swift */; };
-		1ED648F8283F4D2A00AA5380 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648F7283F4D2A00AA5380 /* ViewModelProtocol.swift */; };
+		1ED648FD283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648FC283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift */; };
+		1ED648FF283F9FFF00AA5380 /* SearchHomeViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648FE283F9FFF00AA5380 /* SearchHomeViewModelState.swift */; };
+		1ED64901283FA00300AA5380 /* SearchHomeViewModelAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED64900283FA00300AA5380 /* SearchHomeViewModelAction.swift */; };
 		6C1AB72C283B911000A0314F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AB72B283B911000A0314F /* AppDelegate.swift */; };
 		6C1AB72E283B911000A0314F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AB72D283B911000A0314F /* SceneDelegate.swift */; };
 		6C1AB730283B911000A0314F /* SearchHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1AB72F283B911000A0314F /* SearchHomeViewController.swift */; };
@@ -48,7 +50,9 @@
 		1ED648D7283D1E6B00AA5380 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		1ED648D9283D32E200AA5380 /* CustomObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomObservable.swift; sourceTree = "<group>"; };
 		1ED648DB283D444000AA5380 /* SearchHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeViewModel.swift; sourceTree = "<group>"; };
-		1ED648F7283F4D2A00AA5380 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		1ED648FC283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeViewModelBindable.swift; sourceTree = "<group>"; };
+		1ED648FE283F9FFF00AA5380 /* SearchHomeViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeViewModelState.swift; sourceTree = "<group>"; };
+		1ED64900283FA00300AA5380 /* SearchHomeViewModelAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeViewModelAction.swift; sourceTree = "<group>"; };
 		6C1AB728283B911000A0314F /* AirbnbApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirbnbApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1AB72B283B911000A0314F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6C1AB72D283B911000A0314F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				1ED648D9283D32E200AA5380 /* CustomObservable.swift */,
-				1ED648F7283F4D2A00AA5380 /* ViewModelProtocol.swift */,
 				1ED648AE283C86DE00AA5380 /* Model */,
 				1ED648AF283C86E600AA5380 /* Repository */,
 				1ED648B3283C870F00AA5380 /* LifeCycle */,
@@ -138,6 +141,7 @@
 			children = (
 				1ED648E4283DEE0E00AA5380 /* Common */,
 				1ED648DD283DE8DD00AA5380 /* MainTabBar */,
+				1ED648FB283F58BD00AA5380 /* Search */,
 				1ED648DF283DE91100AA5380 /* SearchHome */,
 			);
 			path = Present;
@@ -172,25 +176,21 @@
 		1ED648DF283DE91100AA5380 /* SearchHome */ = {
 			isa = PBXGroup;
 			children = (
-				1ED648E2283DED3300AA5380 /* CollectionViewCell */,
-				6C1AB72F283B911000A0314F /* SearchHomeViewController.swift */,
+				1ED64900283FA00300AA5380 /* SearchHomeViewModelAction.swift */,
+				1ED648FE283F9FFF00AA5380 /* SearchHomeViewModelState.swift */,
+				1ED648FC283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift */,
 				1ED648DB283D444000AA5380 /* SearchHomeViewModel.swift */,
+				1ED64902283FA02C00AA5380 /* ViewModel */,
+				6C1AB72F283B911000A0314F /* SearchHomeViewController.swift */,
+				1ED648A0283BD40E00AA5380 /* DestinationCollecionViewDataSource.swift */,
 				1ED648AA283C81E100AA5380 /* DestinationSearchBar.swift */,
 				1E71CBDB283BB93600F6D2D0 /* DestinationSearchBarDelegate.swift */,
 				1ED648A6283BDCBA00AA5380 /* DestinationHeaderView.swift */,
 				6C9C7E63283CD08F00FA8EA4 /* HeroImageViewCell.swift */,
 				6C6647BC283D0E47009DE03F /* TravelThemeViewCell.swift */,
-				1ED648A0283BD40E00AA5380 /* DestinationCollecionViewDataSource.swift */,
 				1ED648E5283DFBC200AA5380 /* Support */,
 			);
 			path = SearchHome;
-			sourceTree = "<group>";
-		};
-		1ED648E2283DED3300AA5380 /* CollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		1ED648E4283DEE0E00AA5380 /* Common */ = {
@@ -209,6 +209,20 @@
 				6C2E85D7283DE37C00A33517 /* SectionLayoutFactory.swift */,
 			);
 			path = Support;
+			sourceTree = "<group>";
+		};
+		1ED648FB283F58BD00AA5380 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		1ED64902283FA02C00AA5380 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		6C1AB71F283B911000A0314F = {
@@ -347,8 +361,8 @@
 			files = (
 				1ED648D8283D1E6B00AA5380 /* MainTabBarViewController.swift in Sources */,
 				6C2E85DA283F247E00A33517 /* CustomLabel.swift in Sources */,
+				1ED64901283FA00300AA5380 /* SearchHomeViewModelAction.swift in Sources */,
 				1ED648DA283D32E200AA5380 /* CustomObservable.swift in Sources */,
-				1ED648F8283F4D2A00AA5380 /* ViewModelProtocol.swift in Sources */,
 				6C6647BD283D0E47009DE03F /* TravelThemeViewCell.swift in Sources */,
 				6C1AB730283B911000A0314F /* SearchHomeViewController.swift in Sources */,
 				1ED648DC283D444000AA5380 /* SearchHomeViewModel.swift in Sources */,
@@ -360,8 +374,10 @@
 				6C2E85D8283DE37C00A33517 /* SectionLayoutFactory.swift in Sources */,
 				6C6647BB283D0904009DE03F /* DestinationCollectionViewSection.swift in Sources */,
 				6C1AB745283C9C7900A0314F /* UIFont+Extension.swift in Sources */,
+				1ED648FD283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift in Sources */,
 				1E71CBDC283BB93600F6D2D0 /* DestinationSearchBarDelegate.swift in Sources */,
 				1ED648A7283BDCBA00AA5380 /* DestinationHeaderView.swift in Sources */,
+				1ED648FF283F9FFF00AA5380 /* SearchHomeViewModelState.swift in Sources */,
 				1ED648A1283BD40E00AA5380 /* DestinationCollecionViewDataSource.swift in Sources */,
 				6C1AB72E283B911000A0314F /* SceneDelegate.swift in Sources */,
 			);
