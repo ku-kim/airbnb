@@ -176,10 +176,6 @@
 		1ED648DF283DE91100AA5380 /* SearchHome */ = {
 			isa = PBXGroup;
 			children = (
-				1ED64900283FA00300AA5380 /* SearchHomeViewModelAction.swift */,
-				1ED648FE283F9FFF00AA5380 /* SearchHomeViewModelState.swift */,
-				1ED648FC283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift */,
-				1ED648DB283D444000AA5380 /* SearchHomeViewModel.swift */,
 				1ED64902283FA02C00AA5380 /* ViewModel */,
 				6C1AB72F283B911000A0314F /* SearchHomeViewController.swift */,
 				1ED648A0283BD40E00AA5380 /* DestinationCollecionViewDataSource.swift */,
@@ -221,6 +217,10 @@
 		1ED64902283FA02C00AA5380 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1ED64900283FA00300AA5380 /* SearchHomeViewModelAction.swift */,
+				1ED648FE283F9FFF00AA5380 /* SearchHomeViewModelState.swift */,
+				1ED648FC283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift */,
+				1ED648DB283D444000AA5380 /* SearchHomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
