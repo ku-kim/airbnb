@@ -14,14 +14,23 @@ import team13.kuje.airbnb.repository.PlaceRepository;
 @RequiredArgsConstructor
 public class PlaceService {
 
+	public static final int ANGLE_OF_SEARCH_RANGE = 2;
 	private final PlaceRepository placeRepository;
 
+	/**
+	 * northEastPosition : inputPosition 기준 ANGLE_OF_SEARCH_RANGE 를 더한 오른쪽 위 대각선 위치
+	 * southWestPosition : inputPosition 기준 ANGLE_OF_SEARCH_RANGE 를 뺀 왼쪽 아래 대각선 위치
+	 */
 	@Transactional(readOnly = true)
 	public List<PlaceDto> findByPosition(String tag, Double lat, Double lng) {
 		validateTag(tag);
 
 		Position inputPosition = new Position(lat, lng);
-		List<Place> places = placeRepository.findAll();
+
+		Position northEastPosition = new Position(lat + ANGLE_OF_SEARCH_RANGE, lng + ANGLE_OF_SEARCH_RANGE);
+		Position southWestPosition = new Position(lat - ANGLE_OF_SEARCH_RANGE, lng - ANGLE_OF_SEARCH_RANGE);
+
+		List<Place> places = placeRepository.findByPosition(southWestPosition, northEastPosition);
 
 		return places.stream()
 			.map(p -> new PlaceDto(p, inputPosition))
