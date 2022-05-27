@@ -17,7 +17,7 @@ public class EventService {
 
 	@Transactional(readOnly = true)
 	public List<EventDto> findByCategoryTag(String tag) {
-		validate(tag);
+		validateTag(tag);
 
 		List<Event> events = eventRepository.findByCategoryTag(tag);
 
@@ -25,7 +25,7 @@ public class EventService {
 			.collect(Collectors.toList());
 	}
 
-	private void validate(String tag) {
+	private void validateTag(String tag) {
 		if (tag.equals("main") || tag.equals("list")) {
 			return;
 		}
