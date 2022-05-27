@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("PositionTest 클래스")
+@DisplayName("Position 클래스")
 class PositionTest {
 
 	@Nested

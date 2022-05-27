@@ -15,7 +15,7 @@ import team13.kuje.airbnb.domain.Position;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("PlaceServiceTest 클래스")
+@DisplayName("PlaceService 클래스")
 @SpringBootTest
 @Transactional
 class PlaceServiceTest {

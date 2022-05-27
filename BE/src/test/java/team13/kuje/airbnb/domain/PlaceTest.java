@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("PlaceTest 클래스")
+@DisplayName("Place 클래스")
 class PlaceTest {
 
 

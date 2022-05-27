@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import team13.kuje.airbnb.controller.model.EventDto;
 import team13.kuje.airbnb.domain.Event;
 
-@DisplayName("EventServiceTest 클래스")
+@DisplayName("EventService 클래스")
 @SpringBootTest
 @Transactional
 class EventServiceTest {
