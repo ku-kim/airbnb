@@ -29,8 +29,8 @@ class PositionTest {
 	    }
 
 		@Nested
-		@DisplayName("만약 위경도가 주어지지 않는다면")
-		class Context_with_empty_lat_lng {
+		@DisplayName("만약 위경도가 모두 주어지지 않는다면")
+		class Context_with_empty_lat_and_lng {
 
 			@Test
 			@DisplayName("서울 시청 위경도를 가지고 있는 객체를 반환한다")
@@ -39,6 +39,18 @@ class PositionTest {
 
 				assertThat(position.getLat()).isEqualTo(37.5666805);
 				assertThat(position.getLng()).isEqualTo(126.9784147);
+			}
+		}
+
+		@Nested
+		@DisplayName("만약 위경도가 하나만 주어지지 않는다면")
+		class Context_with_empty_lat_or_lng {
+
+			@Test
+			@DisplayName("예외를 발생시킨다.")
+			void It_return_object() {
+				assertThatThrownBy(() -> new Position(null, 127.1))
+					.isInstanceOf(IllegalArgumentException.class);
 			}
 		}
 
