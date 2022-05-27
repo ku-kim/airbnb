@@ -14,10 +14,12 @@ class Provider<EndPoint: EndPointable> {
         guard let url = endPoint.fullUrl else { return }
         AF.request(url,
                    method: endPoint.method,
-                   parameters: endPoint.parameter).responseDecodable(of: SearchHomeEntity.self) { response in
+                   parameters: endPoint.parameter)
+        .responseDecodable(of: SearchHomeEntity.self) { response in
             switch response.result {
+            // TODO: success, failure handling
             case .success(let result):
-                print( result.data )
+                print(result.data)
             case .failure(let error):
                 print(error.localizedDescription)
             }
