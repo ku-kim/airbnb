@@ -57,6 +57,8 @@ final class SearchHomeViewController: UIViewController {
         super.viewDidLoad()
         layoutSearchBar()
         layoutDestinationCollecionView()
+        let endPoint = EndPoint.requestNearDestination(latitude: 35.1, longtitude: 123.1)
+        Provider.foo(endPoint: endPoint)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -8,14 +8,12 @@
 import Foundation
 import Alamofire
 
-//typealias HTTPMethod = Alamofire.HTTPMethod
-
 enum EndPoint: EndPointable {
     case requestNearDestination(latitude: Double, longtitude: Double)
 }
 
 extension EndPoint {
-    var baseURL: URL? {
+    var baseUrl: URL? {
         switch self {
         case .requestNearDestination:
             return URL(string: "https://64b821c3-c430-4534-be15-75a65a45b818.mock.pstmn.io/api")
@@ -29,6 +27,10 @@ extension EndPoint {
         }
     }
     
+    var fullUrl: Alamofire.URLConvertible? {
+        return baseUrl?.appendingPathComponent(path ?? "")
+    }
+    
     var parameter: [String: Any]? {
         switch self {
         case .requestNearDestination(let latitude, let longtitue):
@@ -38,17 +40,10 @@ extension EndPoint {
         }
     }
     
-    var method: HTTPMethod {
+    var method: Alamofire.HTTPMethod {
         switch self {
         case .requestNearDestination:
             return .get
-        }
-    }
-    
-    var content: HTTPContentType {
-        switch self {
-        case .requestNearDestination:
-            return .json
         }
     }
 }

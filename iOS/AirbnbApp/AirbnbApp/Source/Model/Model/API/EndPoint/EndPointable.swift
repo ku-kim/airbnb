@@ -6,17 +6,13 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol EndPointable {
-    var baseURL: URL? { get }
+    var baseUrl: URL? { get }
     var path: String? { get }
-    var parameter: [String: Any]? { get }
-    var method: HTTPMethod { get }
-    var content: HTTPContentType { get }
-}
+    var fullUrl: Alamofire.URLConvertible? { get }
+    var parameter: Alamofire.Parameters? { get }
+    var method: Alamofire.HTTPMethod { get }
 
-extension EndPointable {
-    var header: [String: String]? {
-        ["Content-Type": content.value]
-    }
 }
