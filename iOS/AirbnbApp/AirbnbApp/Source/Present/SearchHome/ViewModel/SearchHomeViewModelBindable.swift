@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SearchHomeViewModelBindable: SearchHomeViewModelAction & SearchHomeViewModelState {
+protocol SearchHomeViewModelBindable: SearchHomeViewModelAction, SearchHomeViewModelState {
     func action() -> SearchHomeViewModelAction
     func state() -> SearchHomeViewModelState
 }
