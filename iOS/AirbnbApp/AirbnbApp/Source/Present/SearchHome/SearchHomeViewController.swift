@@ -57,6 +57,8 @@ final class SearchHomeViewController: UIViewController {
         super.viewDidLoad()
         layoutSearchBar()
         layoutDestinationCollecionView()
+        let endPoint = EndPoint.requestNearDestination(latitude: 35.1, longtitude: 123.1)
+        Provider.foo(endPoint: endPoint)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -89,10 +91,10 @@ final class SearchHomeViewController: UIViewController {
             self?.destinationCollectionView.reloadData()
         }
         
-        viewModel.loadHeader(())
-        viewModel.loadImage(())
-        viewModel.loadCityName(())
-        viewModel.loadTheme(())
+        viewModel.acceptHeader(value: ())
+        viewModel.acceptImage(value: ())
+        viewModel.acceptCityName(value: ())
+        viewModel.acceptTheme(value: ())
     }
 }
 
