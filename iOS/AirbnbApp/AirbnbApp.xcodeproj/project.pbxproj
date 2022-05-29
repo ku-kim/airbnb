@@ -43,6 +43,9 @@
 		6C6647BB283D0904009DE03F /* DestinationCollectionViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6647BA283D0904009DE03F /* DestinationCollectionViewSection.swift */; };
 		6C6647BD283D0E47009DE03F /* TravelThemeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6647BC283D0E47009DE03F /* TravelThemeViewCell.swift */; };
 		6C9C7E64283CD08F00FA8EA4 /* HeroImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C9C7E63283CD08F00FA8EA4 /* HeroImageViewCell.swift */; };
+		6CB1D8C6284357A80051EF2F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB1D8C5284357A80051EF2F /* SearchViewController.swift */; };
+		6CB1D8C8284359E80051EF2F /* PopularCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB1D8C7284359E80051EF2F /* PopularCollectionViewDataSource.swift */; };
+		6CB1D8CE28435DC00051EF2F /* PopularHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB1D8CD28435DC00051EF2F /* PopularHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,9 @@
 		6C6647BA283D0904009DE03F /* DestinationCollectionViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCollectionViewSection.swift; sourceTree = "<group>"; };
 		6C6647BC283D0E47009DE03F /* TravelThemeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelThemeViewCell.swift; sourceTree = "<group>"; };
 		6C9C7E63283CD08F00FA8EA4 /* HeroImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroImageViewCell.swift; sourceTree = "<group>"; };
+		6CB1D8C5284357A80051EF2F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = AirbnbApp/Source/Present/Search/SearchViewController.swift; sourceTree = SOURCE_ROOT; };
+		6CB1D8C7284359E80051EF2F /* PopularCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		6CB1D8CD28435DC00051EF2F /* PopularHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +211,9 @@
 		1ED648FB283F58BD00AA5380 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				6CB1D8C5284357A80051EF2F /* SearchViewController.swift */,
+				6CB1D8C7284359E80051EF2F /* PopularCollectionViewDataSource.swift */,
+				6CB1D8CD28435DC00051EF2F /* PopularHeaderView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -386,8 +395,10 @@
 				1ED64914283FA7B900AA5380 /* NetworkError.swift in Sources */,
 				1ED648D8283D1E6B00AA5380 /* MainTabBarViewController.swift in Sources */,
 				1ED64910283FA7A900AA5380 /* EndPointable.swift in Sources */,
+				6CB1D8C6284357A80051EF2F /* SearchViewController.swift in Sources */,
 				6C2E85DA283F247E00A33517 /* CustomLabel.swift in Sources */,
 				1ED64901283FA00300AA5380 /* SearchHomeViewModelAction.swift in Sources */,
+				6CB1D8CE28435DC00051EF2F /* PopularHeaderView.swift in Sources */,
 				1ED648DA283D32E200AA5380 /* CustomObservable.swift in Sources */,
 				6C6647BD283D0E47009DE03F /* TravelThemeViewCell.swift in Sources */,
 				6C1AB730283B911000A0314F /* SearchHomeViewController.swift in Sources */,
@@ -403,6 +414,7 @@
 				6C1AB745283C9C7900A0314F /* UIFont+Extension.swift in Sources */,
 				1ED648FD283F9FFA00AA5380 /* SearchHomeViewModelBindable.swift in Sources */,
 				1E71CBDC283BB93600F6D2D0 /* DestinationSearchBarDelegate.swift in Sources */,
+				6CB1D8C8284359E80051EF2F /* PopularCollectionViewDataSource.swift in Sources */,
 				1ED648A7283BDCBA00AA5380 /* DestinationHeaderView.swift in Sources */,
 				1ED648FF283F9FFF00AA5380 /* SearchHomeViewModelState.swift in Sources */,
 				1ED64912283FA7B300AA5380 /* Provider.swift in Sources */,
