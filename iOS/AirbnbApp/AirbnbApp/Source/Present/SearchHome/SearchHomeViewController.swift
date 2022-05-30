@@ -66,7 +66,7 @@ final class SearchHomeViewController: UIViewController {
     private func bind() {
         searchBarDelegate.tapTextField
             .bind { [weak self] in
-                self?.navigationController?.pushViewController(UIViewController(), animated: true)
+                self?.navigationController?.pushViewController(SearchViewController(), animated: true)
             }
         
         // TODO: 전체를 다 reload하지 않는 방법 생각해보기
@@ -74,22 +74,22 @@ final class SearchHomeViewController: UIViewController {
             self?.destinationCollectionViewDataSource.mockHeader = headers
             self?.destinationCollectionView.reloadData()
         }
-        
+
         viewModel.bindHeroBanner { [weak self] banner in
             self?.destinationCollectionViewDataSource.banner = banner
             self?.destinationCollectionView.reloadData()
         }
-        
+
         viewModel.bindNearCities { [weak self] cities in
             self?.destinationCollectionViewDataSource.nearCities = cities
             self?.destinationCollectionView.reloadData()
         }
-        
+
         viewModel.bindTheme { [weak self] themes in
             self?.destinationCollectionViewDataSource.mockTheme = themes
             self?.destinationCollectionView.reloadData()
         }
-        
+
         viewModel.acceptHeader(value: ())
         viewModel.acceptHeroBanner(value: ())
         viewModel.acceptNearCities(value: ())

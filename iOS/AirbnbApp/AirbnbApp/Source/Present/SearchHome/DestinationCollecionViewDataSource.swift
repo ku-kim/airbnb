@@ -15,7 +15,7 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
     var banner: [SearchHomeEntity.Banner] = []
     var mockTheme: [String] = []
     
-    let imageManager = ImageManager() //TODO: 주입?
+    let imageManager = ImageManager() // TODO: 주입?
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sectionKind = DestinationCollectionViewSection(rawValue: section) else { return 0 }
