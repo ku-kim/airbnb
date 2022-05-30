@@ -7,18 +7,48 @@
 
 import Foundation
 
-struct SearchHomeEntity: Decodable {
-    let data: [Datum]
+struct SearchHomeEntity { }
+
+extension SearchHomeEntity {
+    struct NearCity: Decodable {
+        let nearCities: [City]
+        
+        enum CodingKeys: String, CodingKey {
+            case nearCities = "data"
+        }
+    }
+    
+    struct City: Decodable {
+        let cityName: String
+        let imageUrl: String
+        let time: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case cityName = "title"
+            case imageUrl = "image_url"
+            case time
+        }
+    }
 }
 
-struct Datum: Decodable {
-    let cityName: String
-    let imageURL: String
-    let time: String
+extension SearchHomeEntity {
+    struct HeroBanner: Decodable {
+        let banners: [Banner]
+        
+        enum CodingKeys: String, CodingKey {
+            case banners = "data"
+        }
+    }
     
-    enum CodingKeys: String, CodingKey {
-        case cityName = "title"
-        case imageURL = "image_url"
-        case time
+    struct Banner: Decodable {
+        let title: String
+        let description: String
+        let imageUrl: String
+        
+        enum CodingKeys: String, CodingKey {
+            case title
+            case description
+            case imageUrl = "image_url"
+        }
     }
 }
