@@ -10,7 +10,7 @@ import UIKit
 enum SectionLayoutFactory {
     static func createPopularDestinationLayout() -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(0.7),
+            widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalWidth(0.3)
         )
         

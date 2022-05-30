@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import MapKit
 
-final class SearchViewController: UIViewController {
+final class SearchViewController: UIViewController, MKLocalSearchCompleterDelegate {
     
-    private lazy var searchBarDelegate = DestinationSearchBarDelegate()
+    private var searchedLocations = PublishRelay<[MKLocalSearchCompletion]>()
+    
+    private lazy var searchBarDelegate = SearchBarDelegate()
     private lazy var searchBar: DestinationSearchBar = {
         let searchBar = DestinationSearchBar()
         searchBar.delegate = searchBarDelegate
@@ -17,6 +20,8 @@ final class SearchViewController: UIViewController {
     }()
     
     private lazy var popularCollectionViewDataSource = PopularCollectionViewDataSource()
+    private lazy var searchCollectionViewDataSource = SearchCollectionViewDataSource()
+    
     private lazy var popularCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout())
         collectionView.register(NearDestinationViewCell.self, forCellWithReuseIdentifier: NearDestinationViewCell.identifier)
@@ -24,6 +29,14 @@ final class SearchViewController: UIViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: PopularHeaderView.identifier)
         collectionView.dataSource = self.popularCollectionViewDataSource
+        return collectionView
+    }()
+    
+    private lazy var searchResultCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout())
+        collectionView.register(SearchResultViewCell.self, forCellWithReuseIdentifier: SearchResultViewCell.identifier)
+        collectionView.dataSource = self.searchCollectionViewDataSource
+        collectionView.isHidden = true
         return collectionView
     }()
     
@@ -41,6 +54,8 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         layoutSearchBar()
         layoutDestinationCollectionView()
+        layoutSearchResultCollectionView()
+        bind()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -52,6 +67,24 @@ final class SearchViewController: UIViewController {
 // MARK: - View Layout
 
 private extension SearchViewController {
+    
+    func bind() {
+        searchedLocations.bind { [weak self] locations in
+            self?.searchCollectionViewDataSource.locations = locations
+            self?.searchResultCollectionView.reloadData()
+        }
+        
+        searchBarDelegate.bindEditTextField { [weak self] locations in
+            self?.popularCollectionView.isHidden = true
+            self?.searchResultCollectionView.isHidden = false
+            self?.searchedLocations.accept(locations)
+        }
+        
+        searchBarDelegate.bindDismissTextField { [weak self] in
+            self?.searchResultCollectionView.isHidden = true
+            self?.popularCollectionView.isHidden = false
+        }
+    }
     
     func layoutSearchBar() {
         view.addSubview(searchBar)
@@ -66,6 +99,14 @@ private extension SearchViewController {
         view.addSubview(popularCollectionView)
         
         popularCollectionView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+    func layoutSearchResultCollectionView() {
+        view.addSubview(searchResultCollectionView)
+        
+        searchResultCollectionView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
