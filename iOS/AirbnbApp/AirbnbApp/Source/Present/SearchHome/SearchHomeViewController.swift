@@ -57,6 +57,7 @@ final class SearchHomeViewController: UIViewController {
         bind()
         layoutSearchBar()
         layoutDestinationCollecionView()
+        configureNavigationItem()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -93,6 +94,9 @@ final class SearchHomeViewController: UIViewController {
 // MARK: - View Layout
 
 private extension SearchHomeViewController {
+    func configureNavigationItem() {
+        self.navigationItem.backButtonTitle = "뒤로"
+    }
     
     func layoutSearchBar() {
         view.addSubview(searchBar)

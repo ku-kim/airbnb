@@ -20,7 +20,7 @@ class SearchBarDelegate: NSObject, UISearchBarDelegate {
     
     private func setupSearchCompleter() {
         searchCompleter.delegate = self
-        searchCompleter.resultTypes = .address
+        searchCompleter.resultTypes = .query
     }
     
 }
@@ -28,18 +28,15 @@ class SearchBarDelegate: NSObject, UISearchBarDelegate {
 extension SearchBarDelegate: MKLocalSearchCompleterDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            dismissTextField.accept(())
+            return
+        }
         searchCompleter.queryFragment = searchText
     }
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         editTextField.accept(completer.results)
-    }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        dismissTextField.accept(())
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        dismissTextField.accept(())
     }
     
     func bindEditTextField(_ completion: @escaping ([MKLocalSearchCompletion]) -> Void) {

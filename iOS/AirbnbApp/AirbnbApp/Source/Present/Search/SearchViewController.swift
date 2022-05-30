@@ -13,10 +13,14 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
     private var searchedLocations = PublishRelay<[MKLocalSearchCompletion]>()
     
     private lazy var searchBarDelegate = SearchBarDelegate()
-    private lazy var searchBar: CustomSearchBar = {
-        let searchBar = CustomSearchBar()
-        searchBar.delegate = searchBarDelegate
-        return searchBar
+    private lazy var searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.searchBar.delegate = searchBarDelegate
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "어디로 여행가세요?"
+        searchController.searchBar.showsCancelButton = false
+        
+        return searchController
     }()
     
     private lazy var popularCollectionViewDataSource = PopularCollectionViewDataSource()
@@ -40,19 +44,9 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
         return collectionView
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        layoutSearchBar()
+        configureSearchController()
         layoutDestinationCollectionView()
         layoutSearchResultCollectionView()
         bind()
@@ -86,29 +80,25 @@ private extension SearchViewController {
         }
     }
     
-    func layoutSearchBar() {
-        view.addSubview(searchBar)
-        
-        searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(12)
-            make.leading.trailing.equalToSuperview()
-        }
+    func configureSearchController() {
+        self.navigationController?.navigationBar.backgroundColor = .Custom.gray6
+        self.navigationItem.searchController = self.searchController
+        self.navigationItem.title = "숙소 찾기"
+        self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     func layoutDestinationCollectionView() {
         view.addSubview(popularCollectionView)
         
         popularCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
     func layoutSearchResultCollectionView() {
         view.addSubview(searchResultCollectionView)
         
         searchResultCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(searchBar.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
     
