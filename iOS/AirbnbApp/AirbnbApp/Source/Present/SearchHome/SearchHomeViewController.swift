@@ -35,7 +35,6 @@ final class SearchHomeViewController: UIViewController {
     init(viewModel: SearchHomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        bind()
     }
     
     @available(*, unavailable)
@@ -55,10 +54,9 @@ final class SearchHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         layoutSearchBar()
         layoutDestinationCollecionView()
-        let endPoint = EndPoint.requestNearDestination(latitude: 35.1, longtitude: 123.1)
-        Provider.foo(endPoint: endPoint)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -71,13 +69,19 @@ final class SearchHomeViewController: UIViewController {
                 self?.navigationController?.pushViewController(UIViewController(), animated: true)
             }
         
+        // TODO: 전체를 다 reload하지 않는 방법 생각해보기
         viewModel.bindHeader { [weak self] headers in
             self?.destinationCollectionViewDataSource.mockHeader = headers
             self?.destinationCollectionView.reloadData()
         }
         
-        viewModel.bindImage { [weak self] imageName in
-            self?.destinationCollectionViewDataSource.mockImage.append( UIImage(named: imageName) ?? UIImage())
+        viewModel.bindHeroBanner { [weak self] banner in
+            self?.destinationCollectionViewDataSource.banner = banner
+            self?.destinationCollectionView.reloadData()
+        }
+        
+        viewModel.bindNearCities { [weak self] cities in
+            self?.destinationCollectionViewDataSource.nearCities = cities
             self?.destinationCollectionView.reloadData()
         }
         
@@ -86,14 +90,9 @@ final class SearchHomeViewController: UIViewController {
             self?.destinationCollectionView.reloadData()
         }
         
-        viewModel.bindCityName { [weak self] cityNames in
-            self?.destinationCollectionViewDataSource.mockCity = cityNames
-            self?.destinationCollectionView.reloadData()
-        }
-        
         viewModel.acceptHeader(value: ())
-        viewModel.acceptImage(value: ())
-        viewModel.acceptCityName(value: ())
+        viewModel.acceptHeroBanner(value: ())
+        viewModel.acceptNearCities(value: ())
         viewModel.acceptTheme(value: ())
     }
 }
@@ -118,6 +117,10 @@ private extension SearchHomeViewController {
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    func appendCities() {
+        
     }
     
 }

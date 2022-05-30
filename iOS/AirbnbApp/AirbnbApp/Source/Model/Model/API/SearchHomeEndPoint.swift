@@ -1,5 +1,5 @@
 //
-//  EndPoint.swift
+//  SearchHomeEndPoint.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/26.
@@ -8,41 +8,46 @@
 import Foundation
 import Alamofire
 
-enum EndPoint: EndPointable {
-    case requestNearDestination(latitude: Double, longtitude: Double)
+enum SearchHomeEndPoint: Requestable {
+    case nearDestination(latitude: Double, longtitude: Double)
+    case heroBanner
 }
 
-extension EndPoint {
+extension SearchHomeEndPoint {
     var baseUrl: URL? {
         switch self {
-        case .requestNearDestination:
+        case .nearDestination, .heroBanner:
             return URL(string: "https://64b821c3-c430-4534-be15-75a65a45b818.mock.pstmn.io/api")
         }
     }
     
     var path: String? {
         switch self {
-        case .requestNearDestination:
+        case .nearDestination:
             return "/place"
+        case .heroBanner:
+            return "/events"
         }
     }
     
-    var fullUrl: Alamofire.URLConvertible? {
+    var fullUrl: URL? {
         return baseUrl?.appendingPathComponent(path ?? "")
     }
     
     var parameter: [String: Any]? {
         switch self {
-        case .requestNearDestination(let latitude, let longtitue):
+        case .nearDestination(let latitude, let longtitue):
             return ["category_tag": "map",
                     "lat": "\(latitude)",
                     "lng": "\(longtitue)"]
+        case .heroBanner:
+            return ["category_tag": "main"]
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .requestNearDestination:
+        case .nearDestination, .heroBanner:
             return .get
         }
     }

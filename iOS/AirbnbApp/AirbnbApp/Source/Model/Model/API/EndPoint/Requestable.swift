@@ -8,11 +8,10 @@
 import Foundation
 import Alamofire
 
-protocol EndPointable {
+protocol Requestable {
     var baseUrl: URL? { get }
     var path: String? { get }
-    var fullUrl: Alamofire.URLConvertible? { get }
+    var fullUrl: URL? { get }
     var parameter: Alamofire.Parameters? { get }
     var method: Alamofire.HTTPMethod { get }
-
 }

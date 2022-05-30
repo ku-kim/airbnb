@@ -8,9 +8,7 @@
 import Foundation
 
 enum NetworkError: Error {
-    case unknown
-    case invalidRequest
-    case statusCode
-    case decode
+    case invalidUrl
+    case failToDecode
     case emptyData
 }

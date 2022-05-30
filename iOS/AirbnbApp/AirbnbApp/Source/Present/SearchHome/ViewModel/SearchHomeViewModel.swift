@@ -11,32 +11,46 @@ final class SearchHomeViewModel: SearchHomeViewModelBindable {
     
     func action() -> SearchHomeViewModelAction { self }
     var loadHeader = PublishRelay<Void>()
-    var loadImage = PublishRelay<Void>()
-    var loadCityName = PublishRelay<Void>()
+    var loadHeroBanner = PublishRelay<Void>()
+    var loadNearCities = PublishRelay<Void>()
     var loadTheme = PublishRelay<Void>()
     
     func state() -> SearchHomeViewModelState { self }
     var loadedHeader = PublishRelay<[String]>()
-    var loadedImage = PublishRelay<String>()
-    var loadedCityName = PublishRelay<[String]>()
+    var loadedHeroBanner = PublishRelay<[SearchHomeEntity.Banner]>()
+    var loadedNearCities = PublishRelay<[SearchHomeEntity.City]>()
     var loadedTheme = PublishRelay<[String]>()
     
+    let repository = SearchHomeRepositoryImpl() // TODO: 주입?
+    
     init() {
-        // TODO: String -> Network Manager로부터 받아온 값을 넘겨주는 방식으로 변경
         action().loadHeader
             .bind(onNext: { [weak self] in
                 self?.state().loadedHeader.accept(["", "가까운 여행지 둘러보기", "어디에서나, 여행은 살아보는거야!"])
             })
         
-        action().loadImage
+        action().loadNearCities
             .bind(onNext: { [weak self] in
-                // TODO: Mock -> Network Manager로 받아온 URL 넘겨주는 방식으로 변경해보기
-                self?.state().loadedImage.accept("mockimage.png")
+                self?.repository.requestNearDestination(latitude: 35.1, longtitude: 123.1) { result in
+                    switch result {
+                    case .success(let entity):
+                        self?.state().loadedNearCities.accept(entity.nearCities)
+                    case .failure(let error):
+                        print(error.localizedDescription) // TODO: Error 처리
+                    }
+                }
             })
         
-        action().loadCityName
+        action().loadHeroBanner
             .bind(onNext: { [weak self] in
-                self?.state().loadedCityName.accept(["서울", "광주", "부산", "대구"])
+                self?.repository.requestHeroBanner { result in
+                    switch result {
+                    case .success(let entity):
+                        self?.state().loadedHeroBanner.accept(entity.banners)
+                    case .failure(let error):
+                        print(error.localizedDescription) // TODO: Error 처리
+                    }
+                }
             })
         
         action().loadTheme
@@ -54,28 +68,28 @@ extension SearchHomeViewModel {
         action().loadHeader.accept(value)
     }
     
-    func acceptImage(value: Void) {
-        action().loadImage.accept(value)
+    func acceptNearCities(value: Void) {
+        action().loadNearCities.accept(value)
     }
     
-    func acceptCityName(value: Void) {
-        action().loadCityName.accept(value)
+    func acceptHeroBanner(value: Void) {
+        action().loadHeroBanner.accept(value)
     }
     
     func acceptTheme(value: Void) {
         action().loadTheme.accept(value)
     }
     
+    func bindNearCities(completion: @escaping ([SearchHomeEntity.City]) -> Void) {
+        state().loadedNearCities.bind(onNext: completion)
+    }
+    
+    func bindHeroBanner(completion: @escaping ([SearchHomeEntity.Banner]) -> Void) {
+        state().loadedHeroBanner.bind(onNext: completion)
+    }
+    
     func bindHeader(completion: @escaping ([String]) -> Void) {
         state().loadedHeader.bind(onNext: completion)
-    }
-    
-    func bindImage(completion: @escaping (String) -> Void) {
-        state().loadedImage.bind(onNext: completion)
-    }
-    
-    func bindCityName(completion: @escaping ([String]) -> Void) {
-        state().loadedCityName.bind(onNext: completion)
     }
     
     func bindTheme(completion: @escaping ([String]) -> Void) {
