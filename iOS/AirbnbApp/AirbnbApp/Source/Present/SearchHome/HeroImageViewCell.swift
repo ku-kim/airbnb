@@ -19,11 +19,11 @@ final class HeroImageViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    private lazy var titleLabel = CustomLabel(text: "슬기로운\n자연생활",
+    private lazy var titleLabel = CustomLabel(text: "",
                                                        font: .SFProDisplay.medium,
                                                        fontColor: .Custom.black)
     
-    private lazy var descriptionLabel = CustomLabel(text: "에어비앤비가 엄선한\n위시리스트를 만나보세요",
+    private lazy var descriptionLabel = CustomLabel(text: "",
                                                              font: .SFProDisplay.regular(17),
                                                              fontColor: .Custom.gray1)
     
@@ -104,5 +104,13 @@ extension HeroImageViewCell {
     
     func setHeroImageView(image: UIImage) {
         heroImageView.image = image
+    }
+    
+    func setTitleLabel(text: String) {
+        titleLabel.text = text
+    }
+    
+    func setDescriptionLabel(text: String) {
+        descriptionLabel.text = text
     }
 }

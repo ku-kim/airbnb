@@ -89,7 +89,7 @@ extension NearDestinationViewCell {
         cityTitleLabel.text = text
     }
     
-    func setDistanceLabel(text: String) {
-        distanceLabel.text = text
+    func setDistanceLabel(text: Int) {
+        distanceLabel.text = "\(text)"
     }
 }

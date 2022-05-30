@@ -9,12 +9,7 @@ import Foundation
 
 protocol SearchHomeViewModelAction {
     var loadHeader: PublishRelay<Void> { get }
-    var loadImage: PublishRelay<Void> { get }
-    var loadCityName: PublishRelay<Void> { get }
+    var loadNearCities: PublishRelay<Void> { get }
+    var loadHeroBanner: PublishRelay<Void> { get }
     var loadTheme: PublishRelay<Void> { get }
-    
-    func acceptHeader(value: Void)
-    func acceptImage(value: Void)
-    func acceptCityName(value: Void)
-    func acceptTheme(value: Void)
 }
