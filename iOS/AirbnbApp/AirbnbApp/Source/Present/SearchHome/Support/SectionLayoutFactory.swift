@@ -8,6 +8,34 @@
 import UIKit
 
 enum SectionLayoutFactory {
+    static func createPopularDestinationLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(0.3)
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(
+            top: 0,
+            leading: 0,
+            bottom: 0,
+            trailing: 0
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets.leading = 15
+        
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(56)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .topLeading)
+        ]
+        return UICollectionViewCompositionalLayout(section: section)
+    }
     
     static func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
