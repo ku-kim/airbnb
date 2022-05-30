@@ -70,11 +70,6 @@ final class SearchHomeViewController: UIViewController {
             }
         
         // TODO: 전체를 다 reload하지 않는 방법 생각해보기
-        viewModel.bindHeader { [weak self] headers in
-            self?.collectionViewDataSource.mockHeader = headers
-            self?.collectionView.reloadData()
-        }
-        
         viewModel.bindHeroBanner { [weak self] banner in
             self?.collectionViewDataSource.banners = banner
             self?.collectionView.reloadData()
@@ -90,7 +85,6 @@ final class SearchHomeViewController: UIViewController {
             self?.collectionView.reloadData()
         }
         
-        viewModel.acceptHeader(value: ())
         viewModel.acceptHeroBanner(value: ())
         viewModel.acceptNearCities(value: ())
         viewModel.acceptTheme(value: ())

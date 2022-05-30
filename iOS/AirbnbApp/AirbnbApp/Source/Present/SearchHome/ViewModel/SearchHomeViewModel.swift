@@ -10,7 +10,6 @@ import SwiftUI
 
 final class SearchHomeViewModel {
     
-    private var headerViewModel = HeaderViewModel()
     private var bannerViewModel = HeroBannerViewModel()
     private var nearCitiesViewModel = NearCityViewModel()
     private var themeViewModel = ThemeJourneyViewModel()
@@ -22,10 +21,6 @@ final class SearchHomeViewModel {
 // MARK: - Providing Function
 
 extension SearchHomeViewModel {
-    
-    func acceptHeader(value: Void) {
-        headerViewModel.accept(value)
-    }
     
     func acceptNearCities(value: Void) {
         nearCitiesViewModel.accept(value)
@@ -45,10 +40,6 @@ extension SearchHomeViewModel {
     
     func bindHeroBanner(completion: @escaping ([SearchHomeEntity.Banner]) -> Void) {
         bannerViewModel.bind(completion)
-    }
-    
-    func bindHeader(completion: @escaping ([String]) -> Void) {
-        headerViewModel.bind(completion)
     }
     
     func bindTheme(completion: @escaping ([SearchHomeEntity.Theme]) -> Void) {

@@ -10,7 +10,6 @@ import UIKit
 final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     // TODO: Private으로 변경
-    var mockHeader: [String] = []
     var nearCities: [SearchHomeEntity.City] = []
     var banners: [SearchHomeEntity.Banner] = []
     var themeJourney: [SearchHomeEntity.Theme] = []
@@ -105,7 +104,7 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
                 for: indexPath
             ) as? SearchHomeHeaderView else { return UICollectionReusableView() }
             
-            headerView.setHeaderLabel(text: mockHeader[indexPath.section])
+            headerView.setHeaderLabel(text: SearchHomeCollectionViewSection.allCases[indexPath.section].header)
             return headerView
         }
         
