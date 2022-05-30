@@ -52,3 +52,25 @@ extension SearchHomeEntity {
         }
     }
 }
+
+extension SearchHomeEntity {
+    struct ThemeJourney: Decodable {
+        let themes: [Theme]
+        
+        enum CodingKeys: String, CodingKey {
+            case themes = "data"
+        }
+        
+    }
+    
+    struct Theme: Decodable {
+        let description: String
+        let imageUrl: String
+        
+        enum CodingKeys: String, CodingKey {
+            case description
+            case imageUrl = "image_url"
+        }
+    }
+    
+}

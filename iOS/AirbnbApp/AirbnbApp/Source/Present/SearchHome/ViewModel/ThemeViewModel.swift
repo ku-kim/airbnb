@@ -10,7 +10,7 @@ import Foundation
 final class ThemeViewModel: ViewModelBindable {
     
     typealias actionType = Void
-    typealias stateType = [String]
+    typealias stateType = [SearchHomeEntity.Theme]
     
     private(set) var loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
@@ -19,8 +19,15 @@ final class ThemeViewModel: ViewModelBindable {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-                self?.loadedState.accept(["자연생활을 만끽할 수 있는 숙소", "독특한 공간"])
-            })
+            self?.repository.requestTheme { result in
+                switch result {
+                case .success(let themeJourney) :
+                    self?.loadedState.accept(themeJourney.themes)
+                case .failure(let error):
+                    print(error) // TODO: error
+                }
+            }
+        })
     }
 }
 

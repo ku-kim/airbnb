@@ -55,7 +55,6 @@ private extension TravelThemeViewCell {
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(16)
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(44)
         }
     }
     

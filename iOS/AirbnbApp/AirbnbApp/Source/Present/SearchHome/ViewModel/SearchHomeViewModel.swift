@@ -51,7 +51,7 @@ extension SearchHomeViewModel {
         headerViewModel.bind(completion)
     }
 
-    func bindTheme(completion: @escaping ([String]) -> Void) {
+    func bindTheme(completion: @escaping ([SearchHomeEntity.Theme]) -> Void) {
         themeViewModel.bind(completion)
     }
 }

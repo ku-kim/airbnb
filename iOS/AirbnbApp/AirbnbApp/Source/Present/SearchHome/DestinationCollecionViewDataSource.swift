@@ -13,7 +13,7 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
     var mockHeader: [String] = []
     var nearCities: [SearchHomeEntity.City] = []
     var banner: [SearchHomeEntity.Banner] = []
-    var mockTheme: [String] = []
+    var themeJourney: [SearchHomeEntity.Theme] = []
     
     let imageManager = ImageManager() // TODO: 주입?
     
@@ -26,7 +26,7 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
         case .nearby:
             return nearCities.count
         case .theme:
-            return mockTheme.count
+            return themeJourney.count
         }
     }
     
@@ -78,9 +78,16 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
             }
             
             // TODO: Network에서 받아오는 이미지 사용하도록 변경
-            guard let image = UIImage(named: "mockimage.png") else { return cell }
-            cell.setImageView(image: image)
-            cell.setDescriptionLabel(text: mockTheme[indexPath.item])
+            let item = themeJourney[indexPath.item]
+            let imageUrl = URL(string: item.imageUrl)
+            imageManager.fetchImage(from: imageUrl) { image in
+                DispatchQueue.main.async {
+                    cell.setImageView(image: image ?? UIImage())
+                    // TODO: image가 nil일 경우 handling하는 에러 구현하기
+                }
+            }
+            
+            cell.setDescriptionLabel(text: item.description)
             return cell
         }
     }

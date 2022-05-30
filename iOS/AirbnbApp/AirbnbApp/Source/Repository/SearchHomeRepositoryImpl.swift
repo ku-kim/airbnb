@@ -41,7 +41,19 @@ class SearchHomeRepositoryImpl: NetworkRepository<SearchHomeEndPoint>, SearchHom
         }
     }
     
-    func requestTheme() {
-        
+    func requestTheme(completion: @escaping (Result< SearchHomeEntity.ThemeJourney, NetworkError>) -> Void) {
+        networkManager.request(endPoint: .themeJourney) { response in
+            switch response {
+            case .success(let data):
+                if let decodedData = Self.decode(SearchHomeEntity.ThemeJourney.self, decodeTarget: data) {
+                    completion(.success(decodedData))
+                } else {
+                    completion(.failure(.failToDecode))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+            
+        }
     }
 }

@@ -86,7 +86,7 @@ final class SearchHomeViewController: UIViewController {
         }
 
         viewModel.bindTheme { [weak self] themes in
-            self?.destinationCollectionViewDataSource.mockTheme = themes
+            self?.destinationCollectionViewDataSource.themeJourney = themes
             self?.destinationCollectionView.reloadData()
         }
 

@@ -12,7 +12,8 @@ protocol SearchHomeRepository {
     func requestNearDestination(latitude: Double,
                                 longtitude: Double,
                                 completion: @escaping (Result<SearchHomeEntity.NearCity, NetworkError>) -> Void)
+    
     func requestHeroBanner(completion: @escaping (Result<SearchHomeEntity.HeroBanner, NetworkError>) -> Void)
     
-    func requestTheme()
+    func requestTheme(completion: @escaping (Result<SearchHomeEntity.ThemeJourney, NetworkError>) -> Void)
 }
