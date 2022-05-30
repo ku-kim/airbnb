@@ -20,4 +20,8 @@ enum SearchHomeCollectionViewSection: Int, CaseIterable {
             return "어디에서나, 여행은 살아보는거야!"
         }
     }
+    
+    var indexSet: IndexSet {
+        return IndexSet(integer: rawValue)
+    }
 }

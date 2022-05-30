@@ -69,20 +69,19 @@ final class SearchHomeViewController: UIViewController {
                 self?.navigationController?.pushViewController(SearchViewController(), animated: true)
             }
         
-        // TODO: 전체를 다 reload하지 않는 방법 생각해보기
         viewModel.bindHeroBanner { [weak self] banner in
             self?.collectionViewDataSource.banners = banner
-            self?.collectionView.reloadData()
+            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.heroBanner.indexSet)
         }
         
         viewModel.bindNearCities { [weak self] cities in
             self?.collectionViewDataSource.nearCities = cities
-            self?.collectionView.reloadData()
+            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.nearCity.indexSet)
         }
         
         viewModel.bindTheme { [weak self] themes in
             self?.collectionViewDataSource.themeJourney = themes
-            self?.collectionView.reloadData()
+            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.themeJourney.indexSet)
         }
         
         viewModel.acceptHeroBanner(value: ())
