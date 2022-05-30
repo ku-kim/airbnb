@@ -26,7 +26,6 @@ class ImageManager {
         let destination = cachesDirectory.appendingPathComponent(fileName)
         
         if fileManager.fileExists(atPath: destination.path) {
-            print("Cache Hit")
             let image = UIImage(contentsOfFile: destination.path)
             completion(image)
             return

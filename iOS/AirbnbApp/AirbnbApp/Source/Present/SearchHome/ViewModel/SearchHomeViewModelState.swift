@@ -9,12 +9,7 @@ import Foundation
 
 protocol SearchHomeViewModelState {
     var loadedHeader: PublishRelay<[String]> { get }
-    var loadedImage: PublishRelay<String> { get }
-    var loadedCityName: PublishRelay<[String]> { get }
+    var loadedNearCities: PublishRelay<[SearchHomeEntity.City]> { get }
+    var loadedHeroBanner: PublishRelay<[SearchHomeEntity.Banner]> { get }
     var loadedTheme: PublishRelay<[String]> { get }
-    
-    func bindHeader(completion: @escaping ([String]) -> Void)
-    func bindImage(completion: @escaping (String) -> Void)
-    func bindCityName(completion: @escaping ([String]) -> Void)
-    func bindTheme(completion: @escaping ([String]) -> Void)
 }
