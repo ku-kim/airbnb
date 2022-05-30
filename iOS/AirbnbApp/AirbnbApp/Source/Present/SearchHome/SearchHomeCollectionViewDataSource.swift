@@ -1,5 +1,5 @@
 //
-//  DestinationCollecionViewDataSource.swift
+//  SearchHomeCollectionViewDataSource.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/23.
@@ -7,39 +7,39 @@
 
 import UIKit
 
-final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSource {
+final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     // TODO: Private으로 변경
     var mockHeader: [String] = []
     var nearCities: [SearchHomeEntity.City] = []
-    var banner: [SearchHomeEntity.Banner] = []
+    var banners: [SearchHomeEntity.Banner] = []
     var themeJourney: [SearchHomeEntity.Theme] = []
     
     let imageManager = ImageManager() // TODO: 주입?
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sectionKind = DestinationCollectionViewSection(rawValue: section) else { return 0 }
+        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section) else { return 0 }
         
         switch sectionKind {
-        case .image:
-            return banner.count
-        case .nearby:
+        case .heroBanner:
+            return banners.count
+        case .nearCity:
             return nearCities.count
-        case .theme:
+        case .themeJourney:
             return themeJourney.count
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let sectionKind = DestinationCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
         
         switch sectionKind {
-        case .image:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroImageViewCell.identifier, for: indexPath) as? HeroImageViewCell else {
+        case .heroBanner:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroBannerViewCell.identifier, for: indexPath) as? HeroBannerViewCell else {
                 return UICollectionViewCell()
             }
             
-            let item = banner[indexPath.item]
+            let item = banners[indexPath.item]
             
             let imageUrl = URL(string: item.imageUrl)
             imageManager.fetchImage(from: imageUrl) { image in
@@ -51,8 +51,8 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
             cell.setDescriptionLabel(text: item.description)
             return cell
             
-        case .nearby:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearDestinationViewCell.identifier, for: indexPath) as? NearDestinationViewCell else {
+        case .nearCity:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityViewCell.identifier, for: indexPath) as? CityViewCell else {
                 return UICollectionViewCell()
             }
             
@@ -72,8 +72,8 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
             cell.setDistanceLabel(text: item.time)
             return cell
             
-        case .theme:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TravelThemeViewCell.identifier, for: indexPath) as? TravelThemeViewCell else {
+        case .themeJourney:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThemeJourneyViewCell.identifier, for: indexPath) as? ThemeJourneyViewCell else {
                 return UICollectionViewCell()
             }
             
@@ -93,7 +93,7 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return mockHeader.count
+        return SearchHomeCollectionViewSection.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -101,9 +101,9 @@ final class DestinationCollecionViewDataSource: NSObject, UICollectionViewDataSo
             
             guard let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: DestinationHeaderView.identifier,
+                withReuseIdentifier: SearchHomeHeaderView.identifier,
                 for: indexPath
-            ) as? DestinationHeaderView else { return UICollectionReusableView() }
+            ) as? SearchHomeHeaderView else { return UICollectionReusableView() }
             
             headerView.setHeaderLabel(text: mockHeader[indexPath.section])
             return headerView

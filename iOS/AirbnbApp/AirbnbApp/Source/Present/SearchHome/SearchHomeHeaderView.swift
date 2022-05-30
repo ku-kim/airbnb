@@ -1,5 +1,5 @@
 //
-//  DestinationHeaderCollectionReusableView.swift
+//  SearchHomeHeaderView.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class DestinationHeaderView: UICollectionReusableView {
+final class SearchHomeHeaderView: UICollectionReusableView {
     
     static var identifier: String {
         return "\(self)"
@@ -29,7 +29,7 @@ final class DestinationHeaderView: UICollectionReusableView {
 
 // MARK: - View Layout
 
-private extension DestinationHeaderView {
+private extension SearchHomeHeaderView {
     
     func layoutHeaderLabel() {
         addSubview(headerLabel)
@@ -42,7 +42,7 @@ private extension DestinationHeaderView {
 
 // MARK: - Providing Function
 
-extension DestinationHeaderView {
+extension SearchHomeHeaderView {
     
     func setHeaderLabel(text: String) {
         headerLabel.text = text

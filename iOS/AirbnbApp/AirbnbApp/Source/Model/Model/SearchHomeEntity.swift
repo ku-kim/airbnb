@@ -11,10 +11,10 @@ struct SearchHomeEntity { }
 
 extension SearchHomeEntity {
     struct NearCity: Decodable {
-        let nearCities: [City]
+        let cities: [City]
         
         enum CodingKeys: String, CodingKey {
-            case nearCities = "data"
+            case cities = "data"
         }
     }
     

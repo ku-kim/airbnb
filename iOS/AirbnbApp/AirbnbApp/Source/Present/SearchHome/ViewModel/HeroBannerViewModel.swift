@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HearoBannerViewModel: ViewModelBindable {
+final class HeroBannerViewModel: ViewModelBindable {
     typealias actionType = Void
     typealias stateType = [SearchHomeEntity.Banner]
     
@@ -18,21 +18,21 @@ final class HearoBannerViewModel: ViewModelBindable {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-                self?.repository.requestHeroBanner { result in
-                    switch result {
-                    case .success(let entity):
-                        self?.loadedState.accept(entity.banners)
-                    case .failure(let error):
-                        print(error.localizedDescription) // TODO: Error 처리
-                    }
+            self?.repository.requestHeroBanner { result in
+                switch result {
+                case .success(let heroBanner):
+                    self?.loadedState.accept(heroBanner.banners)
+                case .failure(let error):
+                    print(error.localizedDescription) // TODO: Error 처리
                 }
-            })
+            }
+        })
     }
 }
 
 // MARK: - Providing Function
 
-extension HearoBannerViewModel {
+extension HeroBannerViewModel {
     
     func accept(_ value: actionType) {
         loadAction.accept(value)

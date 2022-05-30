@@ -39,15 +39,15 @@ enum SectionLayoutFactory {
     
     static func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            guard let sectionKind = DestinationCollectionViewSection(rawValue: sectionNumber) else { return nil }
+            guard let sectionKind = SearchHomeCollectionViewSection(rawValue: sectionNumber) else { return nil }
             let section: NSCollectionLayoutSection
             
             switch sectionKind {
-            case .image:
+            case .heroBanner:
                 section = heroImageLayoutSection()
-            case .nearby:
+            case .nearCity:
                 section = nearDestinationLayoutSection()
-            case .theme:
+            case .themeJourney:
                 section = themeLayoutSection()
             }
             
@@ -143,7 +143,7 @@ enum SectionLayoutFactory {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.8),
-            heightDimension: .fractionalWidth(0.8)
+            heightDimension: .fractionalWidth(1.0)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(

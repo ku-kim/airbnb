@@ -1,5 +1,5 @@
 //
-//  NearDestinationViewCell.swift
+//  CityViewCell.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/23.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class NearDestinationViewCell: UICollectionViewCell {
+final class CityViewCell: UICollectionViewCell {
     
     static var identifier: String {
         return "\(self)"
@@ -25,8 +25,8 @@ final class NearDestinationViewCell: UICollectionViewCell {
                                                   fontColor: .Custom.gray1)
     
     private lazy var distanceLabel = CustomLabel(text: "차로 30분 거리",
-                                                          font: .SFProDisplay.regular(17),
-                                                          fontColor: .Custom.gray3)
+                                                 font: .SFProDisplay.regular(17),
+                                                 fontColor: .Custom.gray3)
     
     private lazy var informationStackView: UIStackView = {
         let stackView = UIStackView()
@@ -54,7 +54,7 @@ final class NearDestinationViewCell: UICollectionViewCell {
 
 // MARK: - View Layout
 
-private extension NearDestinationViewCell {
+private extension CityViewCell {
     
     func layoutCityImageView() {
         addSubview(cityImageView)
@@ -79,7 +79,7 @@ private extension NearDestinationViewCell {
 
 // MARK: - Providing Function
 
-extension NearDestinationViewCell {
+extension CityViewCell {
     
     func setCityImageView(image: UIImage) {
         cityImageView.image = image

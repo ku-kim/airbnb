@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchResultViewCell: UICollectionViewCell {
-
+    
     static var identifier: String {
         return "\(self)"
     }
@@ -20,10 +20,10 @@ class SearchResultViewCell: UICollectionViewCell {
         image.image = UIImage(named: "Mockimage.png")
         return image
     }()
-
+    
     private lazy var descriptionLabel = CustomLabel(text: "양재동, 서초구, 서울특별시",
                                                     font: .NotoSans.regular,
-                                                          fontColor: .Custom.gray1)
+                                                    fontColor: .Custom.gray1)
     
     private lazy var informationStackView: UIStackView = {
         let stackView = UIStackView()
@@ -77,7 +77,7 @@ private extension SearchResultViewCell {
 // MARK: - Providing Function
 
 extension SearchResultViewCell {
-
+    
     func setDescription(text: String) {
         descriptionLabel.text = text
     }

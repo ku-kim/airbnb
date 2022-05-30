@@ -13,8 +13,8 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
     private var searchedLocations = PublishRelay<[MKLocalSearchCompletion]>()
     
     private lazy var searchBarDelegate = SearchBarDelegate()
-    private lazy var searchBar: DestinationSearchBar = {
-        let searchBar = DestinationSearchBar()
+    private lazy var searchBar: CustomSearchBar = {
+        let searchBar = CustomSearchBar()
         searchBar.delegate = searchBarDelegate
         return searchBar
     }()
@@ -24,7 +24,7 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
     
     private lazy var popularCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout())
-        collectionView.register(NearDestinationViewCell.self, forCellWithReuseIdentifier: NearDestinationViewCell.identifier)
+        collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
         collectionView.register(PopularHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: PopularHeaderView.identifier)

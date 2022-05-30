@@ -12,23 +12,23 @@ final class SearchHomeViewController: UIViewController {
     
     private let viewModel: SearchHomeViewModel
     
-    private lazy var searchBarDelegate = DestinationSearchBarDelegate()
-    private lazy var searchBar: DestinationSearchBar = {
-        let searchBar = DestinationSearchBar()
+    private lazy var searchBarDelegate = SearchHomeSearchBarDelegate()
+    private lazy var searchBar: CustomSearchBar = {
+        let searchBar = CustomSearchBar()
         searchBar.delegate = searchBarDelegate
         return searchBar
     }()
     
-    private lazy var destinationCollectionViewDataSource = DestinationCollecionViewDataSource()
-    private lazy var destinationCollectionView: UICollectionView = {
+    private lazy var collectionViewDataSource = SearchHomeCollectionViewDataSource()
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCompositionalLayout())
-        collectionView.register(HeroImageViewCell.self, forCellWithReuseIdentifier: HeroImageViewCell.identifier)
-        collectionView.register(NearDestinationViewCell.self, forCellWithReuseIdentifier: NearDestinationViewCell.identifier)
-        collectionView.register(TravelThemeViewCell.self, forCellWithReuseIdentifier: TravelThemeViewCell.identifier)
-        collectionView.register(DestinationHeaderView.self,
+        collectionView.register(HeroBannerViewCell.self, forCellWithReuseIdentifier: HeroBannerViewCell.identifier)
+        collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
+        collectionView.register(ThemeJourneyViewCell.self, forCellWithReuseIdentifier: ThemeJourneyViewCell.identifier)
+        collectionView.register(SearchHomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: DestinationHeaderView.identifier)
-        collectionView.dataSource = self.destinationCollectionViewDataSource
+                                withReuseIdentifier: SearchHomeHeaderView.identifier)
+        collectionView.dataSource = self.collectionViewDataSource
         return collectionView
     }()
     
@@ -71,25 +71,25 @@ final class SearchHomeViewController: UIViewController {
         
         // TODO: 전체를 다 reload하지 않는 방법 생각해보기
         viewModel.bindHeader { [weak self] headers in
-            self?.destinationCollectionViewDataSource.mockHeader = headers
-            self?.destinationCollectionView.reloadData()
+            self?.collectionViewDataSource.mockHeader = headers
+            self?.collectionView.reloadData()
         }
-
+        
         viewModel.bindHeroBanner { [weak self] banner in
-            self?.destinationCollectionViewDataSource.banner = banner
-            self?.destinationCollectionView.reloadData()
+            self?.collectionViewDataSource.banners = banner
+            self?.collectionView.reloadData()
         }
-
+        
         viewModel.bindNearCities { [weak self] cities in
-            self?.destinationCollectionViewDataSource.nearCities = cities
-            self?.destinationCollectionView.reloadData()
+            self?.collectionViewDataSource.nearCities = cities
+            self?.collectionView.reloadData()
         }
-
+        
         viewModel.bindTheme { [weak self] themes in
-            self?.destinationCollectionViewDataSource.themeJourney = themes
-            self?.destinationCollectionView.reloadData()
+            self?.collectionViewDataSource.themeJourney = themes
+            self?.collectionView.reloadData()
         }
-
+        
         viewModel.acceptHeader(value: ())
         viewModel.acceptHeroBanner(value: ())
         viewModel.acceptNearCities(value: ())
@@ -111,9 +111,9 @@ private extension SearchHomeViewController {
     }
     
     func layoutDestinationCollecionView() {
-        view.addSubview(destinationCollectionView)
+        view.addSubview(collectionView)
         
-        destinationCollectionView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }

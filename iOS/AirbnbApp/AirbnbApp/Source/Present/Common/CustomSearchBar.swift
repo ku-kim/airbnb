@@ -1,5 +1,5 @@
 //
-//  DestinationSearchBar.swift
+//  CustomSearchBar.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class DestinationSearchBar: UISearchBar {
+final class CustomSearchBar: UISearchBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

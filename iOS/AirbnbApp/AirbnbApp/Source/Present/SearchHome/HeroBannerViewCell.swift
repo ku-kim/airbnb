@@ -1,5 +1,5 @@
 //
-//  HeroImageViewCell.swift
+//  HeroBannerViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,24 +8,24 @@
 import UIKit
 import SnapKit
 
-final class HeroImageViewCell: UICollectionViewCell {
+final class HeroBannerViewCell: UICollectionViewCell {
     
     static var identifier: String {
         return "\(self)"
     }
     
-    private lazy var heroImageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
     
     private lazy var titleLabel = CustomLabel(text: "",
-                                                       font: .SFProDisplay.medium,
-                                                       fontColor: .Custom.black)
+                                              font: .SFProDisplay.medium,
+                                              fontColor: .Custom.black)
     
     private lazy var descriptionLabel = CustomLabel(text: "",
-                                                             font: .SFProDisplay.regular(17),
-                                                             fontColor: .Custom.gray1)
+                                                    font: .SFProDisplay.regular(17),
+                                                    fontColor: .Custom.gray1)
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView()
@@ -65,29 +65,29 @@ final class HeroImageViewCell: UICollectionViewCell {
 
 // MARK: - View Layout
 
-private extension HeroImageViewCell {
+private extension HeroBannerViewCell {
     
     func layoutHeroImageView() {
-        addSubview(heroImageView)
+        addSubview(imageView)
         
-        heroImageView.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.top.leading.bottom.trailing.equalToSuperview()
             make.height.width.equalToSuperview()
         }
     }
     
     func layoutContainerStackView() {
-        heroImageView.addSubview(containerStackView)
+        imageView.addSubview(containerStackView)
         
         containerStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(105)
+            make.trailing.equalToSuperview().offset(-105)
         }
     }
     
     func layoutReceiveIdeaButton() {
-        heroImageView.addSubview(receiveIdeaButton)
+        imageView.addSubview(receiveIdeaButton)
         
         receiveIdeaButton.snp.makeConstraints { make in
             make.top.equalTo(containerStackView.snp.bottom).offset(16)
@@ -100,10 +100,10 @@ private extension HeroImageViewCell {
 
 // MARK: - Providing Function
 
-extension HeroImageViewCell {
+extension HeroBannerViewCell {
     
     func setHeroImageView(image: UIImage) {
-        heroImageView.image = image
+        imageView.image = image
     }
     
     func setTitleLabel(text: String) {

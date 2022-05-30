@@ -17,7 +17,7 @@ final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearDestinationViewCell.identifier, for: indexPath) as? NearDestinationViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityViewCell.identifier, for: indexPath) as? CityViewCell else {
             return UICollectionViewCell()
         }
         guard let image = UIImage(named: "mockimage.png") else { return cell }

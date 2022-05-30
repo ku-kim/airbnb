@@ -13,7 +13,7 @@ final class HeaderViewModel: ViewModelBindable {
     
     private(set) var loadAction =  PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
-
+    
     let repository = SearchHomeRepositoryImpl() // TODO: 주입?
     
     init() {
@@ -30,7 +30,7 @@ extension HeaderViewModel {
     func accept(_ value: actionType) {
         loadAction.accept(value)
     }
-            
+    
     func bind(_ completion: @escaping (stateType) -> Void) {
         loadedState.bind(onNext: completion)
     }

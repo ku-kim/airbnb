@@ -1,5 +1,5 @@
 //
-//  TravelThemeViewCell.swift
+//  ThemeJourneyViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class TravelThemeViewCell: UICollectionViewCell {
+final class ThemeJourneyViewCell: UICollectionViewCell {
     
     static var identifier: String {
         return "\(self)"
@@ -39,13 +39,14 @@ final class TravelThemeViewCell: UICollectionViewCell {
 
 // MARK: - View Layout
 
-private extension TravelThemeViewCell {
+private extension ThemeJourneyViewCell {
     
     func layoutImageView() {
         addSubview(imageView)
         
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.82)
         }
     }
     
@@ -54,7 +55,7 @@ private extension TravelThemeViewCell {
         
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(16)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
     }
     
@@ -62,7 +63,7 @@ private extension TravelThemeViewCell {
 
 // MARK: - Providing Function
 
-extension TravelThemeViewCell {
+extension ThemeJourneyViewCell {
     
     func setImageView(image: UIImage) {
         imageView.image = image

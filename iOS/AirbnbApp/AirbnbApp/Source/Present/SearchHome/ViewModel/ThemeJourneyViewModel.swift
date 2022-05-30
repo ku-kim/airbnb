@@ -1,5 +1,5 @@
 //
-//  ThemeViewModel.swift
+//  ThemeJourneyViewModel.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/30.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ThemeViewModel: ViewModelBindable {
+final class ThemeJourneyViewModel: ViewModelBindable {
     
     typealias actionType = Void
     typealias stateType = [SearchHomeEntity.Theme]
@@ -21,8 +21,8 @@ final class ThemeViewModel: ViewModelBindable {
         loadAction.bind(onNext: { [weak self] in
             self?.repository.requestTheme { result in
                 switch result {
-                case .success(let themeJourney) :
-                    self?.loadedState.accept(themeJourney.themes)
+                case .success(let result) :
+                    self?.loadedState.accept(result.themes)
                 case .failure(let error):
                     print(error) // TODO: error
                 }
@@ -33,7 +33,7 @@ final class ThemeViewModel: ViewModelBindable {
 
 // MARK: - Providing Function
 
-extension ThemeViewModel {
+extension ThemeJourneyViewModel {
     func accept(_ value: actionType) {
         loadAction.accept(value)
     }
