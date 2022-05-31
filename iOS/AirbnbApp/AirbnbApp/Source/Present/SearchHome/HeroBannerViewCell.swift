@@ -52,14 +52,15 @@ final class HeroBannerViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layoutHeroImageView()
-        layoutContainerStackView()
-        layoutReceiveIdeaButton()
+        
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+        super.init(coder: coder)
+        layoutHeroImageView()
+        layoutContainerStackView()
+        layoutReceiveIdeaButton()
     }
 }
 

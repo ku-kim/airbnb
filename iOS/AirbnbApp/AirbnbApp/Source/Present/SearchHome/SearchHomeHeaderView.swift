@@ -23,7 +23,8 @@ final class SearchHomeHeaderView: UICollectionReusableView {
     }
     
     @available(*, unavailable) required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+        super.init(coder: coder)
+        layoutHeaderLabel()
     }
 }
 

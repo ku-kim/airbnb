@@ -33,7 +33,9 @@ final class ThemeJourneyViewCell: UICollectionViewCell {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+        super.init(coder: coder)
+        layoutImageView()
+        layoutDescriptionLabel()
     }
 }
 

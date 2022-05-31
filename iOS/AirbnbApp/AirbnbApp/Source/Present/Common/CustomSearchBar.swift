@@ -13,15 +13,14 @@ final class CustomSearchBar: UISearchBar {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        
-        searchTextField.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview().inset(16)
-        }
+        layoutSearchTextField()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        configure()
+        layoutSearchTextField()
     }
     
     private func configure() {
@@ -31,5 +30,11 @@ final class CustomSearchBar: UISearchBar {
             string: "어디로 여행가세요?",
             attributes: [.foregroundColor: UIColor.Custom.gray3]
         )
+    }
+    
+    private func layoutSearchTextField() {
+        searchTextField.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview().inset(16)
+        }
     }
 }

@@ -47,14 +47,15 @@ class SearchResultViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        layoutCityImageView()
         layoutImageContainerView()
         layoutInformationStackView()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+        super.init(coder: coder)
+        layoutImageContainerView()
+        layoutInformationStackView()
     }
 }
 

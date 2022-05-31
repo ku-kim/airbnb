@@ -21,8 +21,10 @@ final class PopularHeaderView: UICollectionReusableView {
         layoutHeaderLabel()
     }
     
-    @available(*, unavailable) required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layoutHeaderLabel()
     }
 }
 
