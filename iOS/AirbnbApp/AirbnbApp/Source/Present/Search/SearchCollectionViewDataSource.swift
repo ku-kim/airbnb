@@ -10,7 +10,7 @@ import MapKit
 
 final class SearchCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    var locations: [MKLocalSearchCompletion] = []
+    private var locations: [MKLocalSearchCompletion] = []
     
     let selectedCellIndex = PublishRelay<Int>()
     let selectedLocation = PublishRelay<MKLocalSearchCompletion>()
@@ -36,4 +36,12 @@ final class SearchCollectionViewDataSource: NSObject, UICollectionViewDataSource
         return cell
     }
     
+}
+
+// MARK: - Providing Function
+
+extension SearchCollectionViewDataSource {
+    func set(locations: [MKLocalSearchCompletion]) {
+        self.locations = locations
+    }
 }

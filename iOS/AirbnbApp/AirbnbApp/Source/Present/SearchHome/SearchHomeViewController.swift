@@ -71,17 +71,17 @@ final class SearchHomeViewController: UIViewController {
             }
         
         viewModel.bindHeroBanner { [weak self] banner in
-            self?.collectionViewDataSource.banners = banner
+            self?.collectionViewDataSource.set(banners: banner)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.heroBanner.indexSet)
         }
         
         viewModel.bindNearCities { [weak self] cities in
-            self?.collectionViewDataSource.nearCities = cities
+            self?.collectionViewDataSource.set(nearCities: cities)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.nearCity.indexSet)
         }
         
         viewModel.bindTheme { [weak self] themes in
-            self?.collectionViewDataSource.themeJourney = themes
+            self?.collectionViewDataSource.set(themeJourney: themes)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.themeJourney.indexSet)
         }
         

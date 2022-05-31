@@ -79,7 +79,7 @@ private extension SearchViewController {
     
     func bind() {
         searchedLocations.bind { [weak self] locations in
-            self?.searchCollectionViewDataSource.locations = locations
+            self?.searchCollectionViewDataSource.set(locations: locations)
             self?.searchResultCollectionView.reloadData()
         }
         
@@ -95,7 +95,7 @@ private extension SearchViewController {
         }
         
         viewModel.bind { [weak self] cities in
-            self?.popularCollectionViewDataSource.nearCities = cities
+            self?.popularCollectionViewDataSource.set(nearCities: cities)
             self?.popularCollectionView.reloadData()
         }
         

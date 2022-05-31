@@ -9,7 +9,7 @@ import UIKit
 
 final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    var nearCities: [SearchHomeEntity.City] = []
+    private var nearCities: [SearchHomeEntity.City] = []
     
     let imageManager = NetworkContainer.shared.imageManager
     
@@ -51,4 +51,12 @@ final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSourc
         return UICollectionReusableView()
     }
     
+}
+
+// MARK: - Providing Function
+
+extension PopularCollectionViewDataSource {
+    func set(nearCities: [SearchHomeEntity.City]) {
+        self.nearCities = nearCities
+    }
 }

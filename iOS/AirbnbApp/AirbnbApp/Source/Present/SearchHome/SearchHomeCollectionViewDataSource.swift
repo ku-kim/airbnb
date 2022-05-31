@@ -9,10 +9,9 @@ import UIKit
 
 final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    // TODO: Private으로 변경
-    var nearCities: [SearchHomeEntity.City] = []
-    var banners: [SearchHomeEntity.Banner] = []
-    var themeJourney: [SearchHomeEntity.Theme] = []
+    private var nearCities: [SearchHomeEntity.City] = []
+    private var banners: [SearchHomeEntity.Banner] = []
+    private var themeJourney: [SearchHomeEntity.Theme] = []
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
@@ -110,5 +109,21 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
         }
         
         return UICollectionReusableView()
+    }
+}
+
+// MARK: - Providing Function
+
+extension SearchHomeCollectionViewDataSource {
+    func set(banners: [SearchHomeEntity.Banner]) {
+        self.banners = banners
+    }
+    
+    func set(nearCities: [SearchHomeEntity.City]) {
+        self.nearCities = nearCities
+    }
+    
+    func set(themeJourney: [SearchHomeEntity.Theme]) {
+        self.themeJourney = themeJourney
     }
 }
