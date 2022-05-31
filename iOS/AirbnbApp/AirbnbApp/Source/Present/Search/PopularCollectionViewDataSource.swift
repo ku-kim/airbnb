@@ -5,7 +5,6 @@
 //  Created by dale on 2022/05/29.
 //
 
-import Foundation
 import UIKit
 
 final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

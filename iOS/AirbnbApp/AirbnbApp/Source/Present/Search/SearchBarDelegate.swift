@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+
 class SearchBarDelegate: NSObject, UISearchBarDelegate {
     private var searchCompleter = MKLocalSearchCompleter()
     
