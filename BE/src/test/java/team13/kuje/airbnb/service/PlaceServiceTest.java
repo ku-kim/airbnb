@@ -15,7 +15,7 @@ import team13.kuje.airbnb.domain.Position;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("PlaceServiceTest 클래스")
+@DisplayName("PlaceService 클래스")
 @SpringBootTest
 @Transactional
 class PlaceServiceTest {
@@ -31,6 +31,10 @@ class PlaceServiceTest {
 		em.persist(new Place(null, "서울1", "url", new Position(37.5666805, 126.9784147)));
 		em.persist(new Place(null, "서울2", "url", new Position(37.6666805, 126.7784147)));
 		em.persist(new Place(null, "서울3", "url", new Position(37.8666805, 127.9784147)));
+		em.persist(new Place(null, "독도", "url", new Position(35., 125.)));
+		em.persist(new Place(null, "중국", "url", new Position(35., 123.)));
+		em.persist(new Place(null, "뉴욕", "url", new Position(-37.8666805, -127.9784147)));
+
 
 		em.flush();
 		em.clear();
@@ -46,7 +50,7 @@ class PlaceServiceTest {
 	void 정상적인_요청이_들어오면_현재위치_기준_인기여행지리스트가_반환된다() {
 		List<PlaceDto> result = placeService.findByPosition("map", 37., 127.);
 
-		assertThat(result).hasSize(3);
+		assertThat(result).hasSize(4);
 	}
 
 }

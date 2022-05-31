@@ -29,7 +29,7 @@ public class Place {
 
 
 	public int calculateTime(Position inputPosition) {
-		double distance = MapUtils.distance(this.position.getLat(), this.position.getLng(),
+		double distance = MapUtils.calculateDistance(this.position.getLat(), this.position.getLng(),
 			inputPosition.getLat(), inputPosition.getLng());
 
 		return (int) ((distance / AVERAGE_SPEED) * HOUR_TO_MIN);

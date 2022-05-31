@@ -8,8 +8,8 @@ public class MapUtils {
 	/**
 	 * 두 점의 위경도에 사이의 거리 (단위, km)
 	 */
-	// referencehttp://www.geodatasource.com/developers/
-	public static double distance(double lat1, double lng1, double lat2, double lng2) {
+	// reference http://www.geodatasource.com/developers/
+	public static double calculateDistance(double lat1, double lng1, double lat2, double lng2) {
 
 		double theta = lng1 - lng2;
 		double dist =
