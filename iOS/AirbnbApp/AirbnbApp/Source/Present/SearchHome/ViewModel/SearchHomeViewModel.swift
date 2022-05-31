@@ -12,8 +12,9 @@ final class SearchHomeViewModel {
     private var bannerViewModel = HeroBannerViewModel()
     private var nearCitiesViewModel = NearCityViewModel()
     private var themeViewModel = ThemeJourneyViewModel()
-    
-    let repository = SearchHomeRepositoryImpl() // TODO: 주입?
+      
+    @NetworkInject(keypath: \.searchHomeRepositoryImplement)
+    private var repository: SearchHomeRepositoryImpl
     
 }
 

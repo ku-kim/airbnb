@@ -14,7 +14,11 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
     var banners: [SearchHomeEntity.Banner] = []
     var themeJourney: [SearchHomeEntity.Theme] = []
     
-    let imageManager = ImageManager() // TODO: 주입?
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
+    
+    @NetworkInject(keypath: \.searchHomeRepositoryImplement)
+    private var repository: SearchHomeRepositoryImpl
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section) else { return 0 }
@@ -74,7 +78,6 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
                 return UICollectionViewCell()
             }
             
-            // TODO: Network에서 받아오는 이미지 사용하도록 변경
             let item = themeJourney[indexPath.item]
             let imageUrl = URL(string: item.imageUrl)
             imageManager.fetchImage(from: imageUrl) { image in

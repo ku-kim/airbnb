@@ -11,7 +11,7 @@ final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSourc
     
     var nearCities: [SearchHomeEntity.City] = []
     
-    let imageManager = ImageManager()
+    let imageManager = NetworkContainer.shared.imageManager
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return nearCities.count

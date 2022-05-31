@@ -14,7 +14,8 @@ final class HeroBannerViewModel: ViewModelBindable {
     private(set) var loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
     
-    let repository = SearchHomeRepositoryImpl() // TODO: 주입?
+    @NetworkInject(keypath: \.searchHomeRepositoryImplement)
+    private var repository: SearchHomeRepositoryImpl
     
     init() {
         loadAction.bind(onNext: { [weak self] in
