@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-final class SearchViewController: UIViewController, MKLocalSearchCompleterDelegate {
+final class SearchViewController: UIViewController {
     
     private let viewModel: NearCityViewModel
     
@@ -21,7 +21,6 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.placeholder = "어디로 여행가세요?"
         searchController.searchBar.showsCancelButton = false
-        
         return searchController
     }()
     
@@ -58,6 +57,16 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
         collectionView.isHidden = true
         return collectionView
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +118,8 @@ private extension SearchViewController {
                 self?.navigationItem.backButtonTitle = "뒤로"
                 self?.navigationController?.pushViewController(FilteringViewController(location: location), animated: true)
         }
+        
+        viewModel.accept(())
     }
     
     func configureSearchController() {

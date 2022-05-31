@@ -18,7 +18,7 @@ extension SearchHomeEndPoint {
     var baseUrl: URL? {
         switch self {
         case .nearDestination, .heroBanner, .themeJourney:
-            return URL(string: "https://64b821c3-c430-4534-be15-75a65a45b818.mock.pstmn.io/api")
+            return URL(string: "http://3.34.196.158/api")
         }
     }
     

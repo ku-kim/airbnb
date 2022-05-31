@@ -86,7 +86,7 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
                 }
             }
             
-            cell.setDescriptionLabel(text: item.description)
+            cell.setDescriptionLabel(text: item.title)
             return cell
         }
     }

@@ -52,7 +52,9 @@ final class HeroBannerViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        layoutHeroImageView()
+        layoutContainerStackView()
+        layoutReceiveIdeaButton()
     }
     
     @available(*, unavailable)

@@ -25,7 +25,7 @@ extension SearchHomeEntity {
         
         enum CodingKeys: String, CodingKey {
             case cityName = "title"
-            case imageUrl = "image_url"
+            case imageUrl
             case time
         }
     }
@@ -48,7 +48,7 @@ extension SearchHomeEntity {
         enum CodingKeys: String, CodingKey {
             case title
             case description
-            case imageUrl = "image_url"
+            case imageUrl
         }
     }
 }
@@ -64,12 +64,12 @@ extension SearchHomeEntity {
     }
     
     struct Theme: Decodable {
-        let description: String
+        let title: String
         let imageUrl: String
         
         enum CodingKeys: String, CodingKey {
-            case description
-            case imageUrl = "image_url"
+            case title
+            case imageUrl
         }
     }
     

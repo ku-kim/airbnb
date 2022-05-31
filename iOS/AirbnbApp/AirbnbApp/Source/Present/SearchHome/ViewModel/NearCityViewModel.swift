@@ -20,7 +20,7 @@ final class NearCityViewModel: ViewModelBindable {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-            self?.repository.requestNearDestination(latitude: 35.1, longtitude: 123.1) { result in
+            self?.repository.requestNearDestination(latitude: 37.5, longtitude: 127.1) { result in
                 switch result {
                 case .success(let nearCity):
                     self?.loadedState.accept(nearCity.cities)

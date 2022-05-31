@@ -10,7 +10,7 @@ import Foundation
 final class SearchHomeViewModel {
     
     private var bannerViewModel = HeroBannerViewModel()
-    private var nearCitiesViewModel = NearCityViewModel()
+    private(set) var nearCitiesViewModel = NearCityViewModel()
     private var themeViewModel = ThemeJourneyViewModel()
       
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
