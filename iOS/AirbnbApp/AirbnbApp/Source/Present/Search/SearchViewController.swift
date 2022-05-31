@@ -106,7 +106,8 @@ private extension SearchViewController {
         
         searchCollectionViewDataSource.selectedLocation
             .bind { [weak self] location in
-                // TODO: location을 인자로 받는 ViewController로 Push
+                self?.navigationItem.backButtonTitle = "뒤로"
+                self?.navigationController?.pushViewController(FilteringViewController(location: location), animated: true)
         }
     }
     
