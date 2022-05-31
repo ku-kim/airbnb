@@ -38,6 +38,8 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
     private lazy var popularCollectionViewDataSource = PopularCollectionViewDataSource()
     private lazy var searchCollectionViewDataSource = SearchCollectionViewDataSource()
     
+    private lazy var searchCollectionViewDelegate = SearchCollectionViewDelegate()
+    
     private lazy var popularCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout(isHeaderExist: true))
         collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
@@ -51,7 +53,8 @@ final class SearchViewController: UIViewController, MKLocalSearchCompleterDelega
     private lazy var searchResultCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout(isHeaderExist: false))
         collectionView.register(SearchResultViewCell.self, forCellWithReuseIdentifier: SearchResultViewCell.identifier)
-        collectionView.dataSource = self.searchCollectionViewDataSource
+        collectionView.dataSource = searchCollectionViewDataSource
+        collectionView.delegate = searchCollectionViewDelegate
         collectionView.isHidden = true
         return collectionView
     }()
@@ -94,6 +97,16 @@ private extension SearchViewController {
         viewModel.bind { [weak self] cities in
             self?.popularCollectionViewDataSource.nearCities = cities
             self?.popularCollectionView.reloadData()
+        }
+        
+        searchCollectionViewDelegate.selectedCell
+            .bind { [weak self] index in
+                self?.searchCollectionViewDataSource.selectedCellIndex.accept(index)
+        }
+        
+        searchCollectionViewDataSource.selectedLocation
+            .bind { [weak self] location in
+                // TODO: location을 인자로 받는 ViewController로 Push
         }
     }
     

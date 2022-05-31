@@ -8,9 +8,20 @@
 import UIKit
 import MapKit
 
-final class SearchCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+final class SearchCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     var locations: [MKLocalSearchCompletion] = []
+    
+    let selectedCellIndex = PublishRelay<Int>()
+    let selectedLocation = PublishRelay<MKLocalSearchCompletion>()
+    
+    override init() {
+        super.init()
+        selectedCellIndex.bind { [weak self] index in
+            guard let index = self?.locations[index] else { return }
+            self?.selectedLocation.accept(index)
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return locations.count
