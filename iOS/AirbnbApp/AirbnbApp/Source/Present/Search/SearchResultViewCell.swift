@@ -13,16 +13,24 @@ class SearchResultViewCell: UICollectionViewCell {
         return "\(self)"
     }
     
-    private lazy var cityImageView: UIImageView = {
-        let image = UIImageView()
-        image.layer.cornerRadius = 10
-        image.clipsToBounds = true
-        image.image = UIImage(named: "Mockimage.png")
-        return image
+    private lazy var imageContainerView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.Custom.gray3.cgColor
+        view.clipsToBounds = true
+        return view
     }()
     
-    private lazy var descriptionLabel = CustomLabel(text: "양재동, 서초구, 서울특별시",
-                                                    font: .NotoSans.regular,
+    private lazy var cityImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "mappin.and.ellipse")?
+            .withAlignmentRectInsets(UIEdgeInsets(top: -21, left: -23, bottom: -21, right: -23))
+        imageView.tintColor = .Custom.gray3
+        return imageView
+    }()
+    
+    private lazy var descriptionLabel = CustomLabel(font: .NotoSans.regular,
                                                     fontColor: .Custom.gray1)
     
     private lazy var informationStackView: UIStackView = {
@@ -39,7 +47,8 @@ class SearchResultViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layoutCityImageView()
+//        layoutCityImageView()
+        layoutImageContainerView()
         layoutInformationStackView()
     }
     
@@ -53,12 +62,18 @@ class SearchResultViewCell: UICollectionViewCell {
 
 private extension SearchResultViewCell {
     
-    func layoutCityImageView() {
-        addSubview(cityImageView)
+    func layoutImageContainerView() {
+        addSubview(imageContainerView)
+        imageContainerView.addSubview(cityImageView)
+        
+        imageContainerView.snp.makeConstraints { make in
+            make.top.bottom.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(imageContainerView.snp.height)
+        }
         
         cityImageView.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
-            make.height.width.equalTo(74)
+            make.centerX.centerY.equalToSuperview()
         }
     }
     
@@ -66,9 +81,9 @@ private extension SearchResultViewCell {
         addSubview(informationStackView)
         
         informationStackView.snp.makeConstraints { make in
-            make.leading.equalTo(cityImageView.snp.trailing).offset(16)
+            make.leading.equalTo(imageContainerView.snp.trailing).offset(16)
             make.trailing.equalToSuperview()
-            make.centerY.equalTo(cityImageView.snp.centerY)
+            make.centerY.equalTo(imageContainerView.snp.centerY)
         }
     }
     

@@ -66,9 +66,7 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
             }
             
             cell.setCityTitleLabel(text: item.cityName)
-            
-            // TODO: 시간, 분 나누는 로직 추가해서 String으로 넘겨주기 "0시간 00분"
-            cell.setDistanceLabel(text: item.time)
+            cell.setDistanceLabel(text: item.time.convertIntoTime())
             return cell
             
         case .themeJourney:

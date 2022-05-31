@@ -10,20 +10,29 @@ import UIKit
 
 final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    var mockCity: [String] = ["서울", "광주", "부산", "대구"]
+    var nearCities: [SearchHomeEntity.City] = []
+    
+    let imageManager = ImageManager()
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return mockCity.count
+        return nearCities.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityViewCell.identifier, for: indexPath) as? CityViewCell else {
             return UICollectionViewCell()
         }
-        guard let image = UIImage(named: "mockimage.png") else { return cell }
+        let item = nearCities[indexPath.item]
         
-        cell.setCityImageView(image: image)
-        cell.setCityTitleLabel(text: mockCity[indexPath.item])
+        let imageUrl = URL(string: item.imageUrl)
+        imageManager.fetchImage(from: imageUrl) { image in
+            DispatchQueue.main.async {
+                cell.setCityImageView(image: image ?? UIImage())
+                // TODO: image가 nil일 경우 handling하는 에러 구현하기
+            }
+        }
+        cell.setCityTitleLabel(text: item.cityName)
+        cell.setDistanceLabel(text: item.time.convertIntoTime())
         return cell
     }
     

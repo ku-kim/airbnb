@@ -67,7 +67,7 @@ final class SearchHomeViewController: UIViewController {
     private func bind() {
         searchBarDelegate.tapTextField
             .bind { [weak self] in
-                self?.navigationController?.pushViewController(SearchViewController(), animated: true)
+                self?.navigationController?.pushViewController(SearchViewController(viewModel: NearCityViewModel()), animated: true)
             }
         
         viewModel.bindHeroBanner { [weak self] banner in

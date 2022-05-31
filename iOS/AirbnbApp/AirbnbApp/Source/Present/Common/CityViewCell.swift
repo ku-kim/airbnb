@@ -60,8 +60,9 @@ private extension CityViewCell {
         addSubview(cityImageView)
         
         cityImageView.snp.makeConstraints { make in
-            make.top.leading.equalToSuperview()
-            make.height.width.equalTo(74)
+            make.top.bottom.leading.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(cityImageView.snp.height)
         }
     }
     
@@ -89,7 +90,7 @@ extension CityViewCell {
         cityTitleLabel.text = text
     }
     
-    func setDistanceLabel(text: Int) {
-        distanceLabel.text = "\(text)"
+    func setDistanceLabel(text: String) {
+        distanceLabel.text = "차로 \(text) 거리"
     }
 }
