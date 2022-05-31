@@ -11,18 +11,16 @@ class CustomLabel: UILabel {
     
     convenience init(text: String? = nil, font: UIFont?, fontColor: UIColor) {
         self.init()
-        self.text = "asdasdsadsadsa"
-        configureFont(text: text, font: font, fontColor: fontColor)
+        configureFont(text: text, font: font, textColor: fontColor)
     }
 }
 
 private extension CustomLabel {
-    func configureFont(text: String? = nil, font: UIFont?, fontColor: UIColor) {
+    func configureFont(text: String? = nil, font: UIFont?, textColor: UIColor) {
         self.text = text
         self.font = font
-        self.textColor = fontColor
-        self.numberOfLines = 0
-        self.lineBreakMode = .byWordWrapping
-    
+        self.textColor = textColor
+        numberOfLines = 0
+        lineBreakMode = .byWordWrapping
     }
 }
