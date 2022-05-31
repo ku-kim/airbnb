@@ -21,8 +21,8 @@ final class ThemeJourneyViewModel: ViewModelBindable {
         loadAction.bind(onNext: { [weak self] in
             self?.repository.requestTheme { result in
                 switch result {
-                case .success(let result) :
-                    self?.loadedState.accept(result.themes)
+                case .success(let themeJourney) :
+                    self?.loadedState.accept(themeJourney.themes)
                 case .failure(let error):
                     print(error) // TODO: error
                 }
