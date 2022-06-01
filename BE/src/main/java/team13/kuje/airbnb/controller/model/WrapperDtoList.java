@@ -4,11 +4,11 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class WrapperDto<T> {
+public class WrapperDtoList<T> {
 
 	private final List<T> data;
 
-	public WrapperDto(List<T> dtos) {
+	public WrapperDtoList(List<T> dtos) {
 		this.data = dtos;
 	}
 }
