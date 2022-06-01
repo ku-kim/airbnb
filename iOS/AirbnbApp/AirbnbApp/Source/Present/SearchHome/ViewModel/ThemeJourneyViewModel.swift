@@ -10,7 +10,7 @@ import Foundation
 final class ThemeJourneyViewModel: ViewModelBindable {
     
     typealias actionType = Void
-    typealias stateType = [SearchHomeEntity.Theme]
+    typealias stateType = [SearchHomeCellViewModel]
     
     private(set) var loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
@@ -23,7 +23,10 @@ final class ThemeJourneyViewModel: ViewModelBindable {
             self?.repository.requestTheme { result in
                 switch result {
                 case .success(let themeJourney) :
-                    self?.loadedState.accept(themeJourney.themes)
+                    let viewModels = themeJourney
+                        .themes
+                        .map { ThemeJourneyCellViewModel(theme: $0) }
+                    self?.loadedState.accept(viewModels)
                 case .failure(let error):
                     print(error) // TODO: error
                 }

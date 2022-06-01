@@ -104,8 +104,8 @@ private extension SearchViewController {
         }
         
         viewModel.bind { [weak self] cities in
-            self?.popularCollectionViewDataSource.set(nearCities: cities)
-            self?.popularCollectionView.reloadData()
+//            self?.popularCollectionViewDataSource.set(nearCities: cities)
+//            self?.popularCollectionView.reloadData()
         }
         
         searchCollectionViewDelegate.selectedCell

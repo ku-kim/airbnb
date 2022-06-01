@@ -34,15 +34,15 @@ extension SearchHomeViewModel {
         themeViewModel.accept(value)
     }
     
-    func bindNearCities(completion: @escaping ([SearchHomeEntity.City]) -> Void) {
+    func bindNearCities(completion: @escaping ([SearchHomeCellViewModel]) -> Void) {
         nearCitiesViewModel.bind(completion)
     }
     
-    func bindHeroBanner(completion: @escaping ([SearchHomeEntity.Banner]) -> Void) {
+    func bindHeroBanner(completion: @escaping ([SearchHomeCellViewModel]) -> Void) {
         bannerViewModel.bind(completion)
     }
     
-    func bindTheme(completion: @escaping ([SearchHomeEntity.Theme]) -> Void) {
+    func bindTheme(completion: @escaping ([SearchHomeCellViewModel]) -> Void) {
         themeViewModel.bind(completion)
     }
 }

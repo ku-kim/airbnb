@@ -8,7 +8,39 @@
 import UIKit
 import SnapKit
 
-final class HeroBannerViewCell: UICollectionViewCell {
+class HeroBannerCellViewModel: SearchHomeCellViewModel {
+    private let banner: SearchHomeEntity.Banner
+    
+    init(banner: SearchHomeEntity.Banner) {
+        self.banner = banner
+    }
+    
+    func getBanner() -> SearchHomeEntity.Banner {
+        return banner
+    }
+}
+
+final class HeroBannerViewCell: UICollectionViewCell, SearhHomeCellView {
+    
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
+    
+    func setViewModel(_ viewModel: SearchHomeCellViewModel) {
+        
+        guard let viewModel = viewModel as? HeroBannerCellViewModel else { return }
+        let banner = viewModel.getBanner()
+        
+        
+        let imageUrl = URL(string: banner.imageUrl)
+        imageManager.fetchImage(from: imageUrl) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.setHeroImageView(image: image ?? UIImage())
+            }
+        }
+        
+        setTitleLabel(text: banner.title)
+        setDescriptionLabel(text: banner.description)
+    }
     
     static var identifier: String {
         return "\(self)"

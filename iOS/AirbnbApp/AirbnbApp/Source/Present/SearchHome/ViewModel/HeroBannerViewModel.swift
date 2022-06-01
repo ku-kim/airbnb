@@ -9,9 +9,9 @@ import Foundation
 
 final class HeroBannerViewModel: ViewModelBindable {
     typealias actionType = Void
-    typealias stateType = [SearchHomeEntity.Banner]
+    typealias stateType = [SearchHomeCellViewModel]
     
-    private(set) var loadAction = PublishRelay<actionType>()
+    let loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
     
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
@@ -22,7 +22,10 @@ final class HeroBannerViewModel: ViewModelBindable {
             self?.repository.requestHeroBanner { result in
                 switch result {
                 case .success(let heroBanner):
-                    self?.loadedState.accept(heroBanner.banners)
+                    let viewModels = heroBanner
+                        .banners
+                        .map { HeroBannerCellViewModel(banner: $0) }
+                    self?.loadedState.accept(viewModels)
                 case .failure(let error):
                     print(error.localizedDescription) // TODO: Error 처리
                 }

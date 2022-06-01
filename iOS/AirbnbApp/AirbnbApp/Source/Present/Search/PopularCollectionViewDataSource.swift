@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     private var nearCities: [SearchHomeEntity.City] = []
     

@@ -19,7 +19,7 @@ class ImageManager {
         
         let fileName = url.lastPathComponent
         
-        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+        guard let cachesDirectory = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return
         }
         

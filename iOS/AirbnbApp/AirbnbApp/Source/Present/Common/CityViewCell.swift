@@ -8,7 +8,39 @@
 import UIKit
 import SnapKit
 
-final class CityViewCell: UICollectionViewCell {
+class CityCellViewModel: SearchHomeCellViewModel {
+    private let city: SearchHomeEntity.City
+    
+    init(city: SearchHomeEntity.City) {
+        self.city = city
+    }
+    
+    func getCity() -> SearchHomeEntity.City {
+        return city
+    }
+}
+
+final class CityViewCell: UICollectionViewCell, SearhHomeCellView {
+    
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
+    
+    func setViewModel(_ viewModel: SearchHomeCellViewModel) {
+        
+        guard let viewModel = viewModel as? CityCellViewModel else { return }
+        let city = viewModel.getCity()
+        
+        let imageUrl = URL(string: city.imageUrl)
+        imageManager.fetchImage(from: imageUrl) { [weak self] image in
+            DispatchQueue.main.async {
+                self?.setCityImageView(image: image ?? UIImage())
+                // TODO: image가 nil일 경우 handling하는 에러 구현하기
+            }
+        }
+        
+        setCityTitleLabel(text: city.cityName)
+        setDistanceLabel(text: city.time.convertIntoTime())
+    }
     
     static var identifier: String {
         return "\(self)"

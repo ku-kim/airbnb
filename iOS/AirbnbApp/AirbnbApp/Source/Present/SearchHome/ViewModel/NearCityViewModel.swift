@@ -10,7 +10,7 @@ import Foundation
 final class NearCityViewModel: ViewModelBindable {
     
     typealias actionType = Void
-    typealias stateType = [SearchHomeEntity.City]
+    typealias stateType = [SearchHomeCellViewModel]
     
     private(set) var loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
@@ -23,7 +23,10 @@ final class NearCityViewModel: ViewModelBindable {
             self?.repository.requestNearDestination(coordinate: Coordinate(lat: 37.5, lng: 127.1)) { result in
                 switch result {
                 case .success(let nearCity):
-                    self?.loadedState.accept(nearCity.cities)
+                    let viewModels = nearCity
+                        .cities
+                        .map { CityCellViewModel(city: $0) }
+                    self?.loadedState.accept(viewModels)
                 case .failure(let error):
                     print(error.localizedDescription) // TODO: Error 처리
                 }
