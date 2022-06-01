@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum SearchHomeEndPoint: Requestable {
-    case nearDestination(latitude: Double, longtitude: Double)
+    case nearDestination(coordinate: Coordinate)
     case heroBanner
     case themeJourney
 }
@@ -37,10 +37,10 @@ extension SearchHomeEndPoint {
     
     var parameter: [String: Any]? {
         switch self {
-        case .nearDestination(let latitude, let longtitue):
+        case .nearDestination(let coordinate):
             return ["category_tag": "map",
-                    "lat": "\(latitude)",
-                    "lng": "\(longtitue)"]
+                    "lat": "\(coordinate.lat)",
+                    "lng": "\(coordinate.lng)"]
         case .heroBanner:
             return ["category_tag": "main"]
         case .themeJourney:

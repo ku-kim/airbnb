@@ -9,8 +9,7 @@ import Foundation
 
 protocol SearchHomeRepository {
     
-    func requestNearDestination(latitude: Double,
-                                longtitude: Double,
+    func requestNearDestination(coordinate: Coordinate,
                                 completion: @escaping (Result<SearchHomeEntity.NearCity, NetworkError>) -> Void)
     
     func requestHeroBanner(completion: @escaping (Result<SearchHomeEntity.HeroBanner, NetworkError>) -> Void)

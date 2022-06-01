@@ -9,10 +9,9 @@ import Foundation
 
 class SearchHomeRepositoryImpl: NetworkRepository<SearchHomeEndPoint>, SearchHomeRepository {
     
-    func requestNearDestination(latitude: Double,
-                                longtitude: Double,
+    func requestNearDestination(coordinate: Coordinate,
                                 completion: @escaping (Result<SearchHomeEntity.NearCity, NetworkError>) -> Void) {
-        networkManager.request(endPoint: .nearDestination(latitude: latitude, longtitude: longtitude)) { response in
+        networkManager.request(endPoint: .nearDestination(coordinate: coordinate)) { response in
             switch response {
             case .success(let data):
                 if let decodedData = Self.decode(SearchHomeEntity.NearCity.self, decodeTarget: data) {
