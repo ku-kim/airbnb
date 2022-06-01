@@ -7,26 +7,26 @@
 
 import UIKit
 
-protocol SearchHomeCellViewModel { }
+protocol SearchHomeCellViewModelable { }
 
-protocol SearhHomeCellView: UICollectionViewCell {
-    func setViewModel(_ viewModel: SearchHomeCellViewModel)
+protocol SearhHomeCellable: UICollectionViewCell {
+    func configureCell(with viewModel: SearchHomeCellViewModelable)
 }
 
-protocol SearchHomeProtocol {
+protocol SearchHomeSectionable {
     var count: Int { get }
     var header: String { get }
     
     var identifier: String { get }
     
-    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModel
+    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModelable
     
-    func set(viewModels: [SearchHomeCellViewModel])
+    func set(viewModels: [SearchHomeCellViewModelable])
 }
 
-class CityViewModel: SearchHomeProtocol {
+class CityViewModel: SearchHomeSectionable {
     
-    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModel {
+    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModelable {
         return viewModels[indexPath.item]
     }
     
@@ -38,9 +38,9 @@ class CityViewModel: SearchHomeProtocol {
         return CityViewCell.self
     }
     
-    private var viewModels: [SearchHomeCellViewModel] = []
+    private var viewModels: [SearchHomeCellViewModelable] = []
     
-    func set(viewModels: [SearchHomeCellViewModel]) {
+    func set(viewModels: [SearchHomeCellViewModelable]) {
         self.viewModels = viewModels
     }
     
@@ -54,9 +54,9 @@ class CityViewModel: SearchHomeProtocol {
     
 }
 
-class BannerViewModel: SearchHomeProtocol {
+class BannerViewModel: SearchHomeSectionable {
     
-    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModel {
+    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModelable {
         return viewModels[indexPath.item]
     }
     
@@ -68,9 +68,9 @@ class BannerViewModel: SearchHomeProtocol {
         return HeroBannerViewCell.self
     }
     
-    private var viewModels: [SearchHomeCellViewModel] = []
+    private var viewModels: [SearchHomeCellViewModelable] = []
     
-    func set(viewModels: [SearchHomeCellViewModel]) {
+    func set(viewModels: [SearchHomeCellViewModelable]) {
         self.viewModels = viewModels
     }
     
@@ -83,8 +83,8 @@ class BannerViewModel: SearchHomeProtocol {
     }
 }
 
-class ThemeViewModel: SearchHomeProtocol {
-    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModel {
+class ThemeViewModel: SearchHomeSectionable {
+    func getViewModel(indexPath: IndexPath) -> SearchHomeCellViewModelable {
         return viewModels[indexPath.item]
     }
     
@@ -96,12 +96,6 @@ class ThemeViewModel: SearchHomeProtocol {
         return ThemeJourneyViewCell.self
     }
     
-    private var viewModels: [SearchHomeCellViewModel] = []
-    
-    func set(viewModels: [SearchHomeCellViewModel]) {
-        self.viewModels = viewModels
-    }
-    
     var count: Int {
         return viewModels.count
     }
@@ -109,14 +103,18 @@ class ThemeViewModel: SearchHomeProtocol {
     var header: String {
         return "어디에서나, 여행은 살아보는거야!"
     }
+    
+    private var viewModels: [SearchHomeCellViewModelable] = []
+    
+    func set(viewModels: [SearchHomeCellViewModelable]) {
+        self.viewModels = viewModels
+    }
+    
 }
-
-
-
 
 final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private var viewModelMap: [SearchHomeCollectionViewSection: SearchHomeProtocol] = [.nearCity: CityViewModel(),
+    private var sectionViewModelMap: [SearchHomeCollectionViewSection: SearchHomeSectionable] = [.nearCity: CityViewModel(),
                                                                                        .heroBanner: BannerViewModel(),
                                                                                        .themeJourney: ThemeViewModel()]
     
@@ -128,30 +126,27 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section) else { return 0 }
-        guard let count = viewModelMap[sectionKind]?.count else { return 0 }
+        guard let count = sectionViewModelMap[sectionKind]?.count else { return 0 }
         return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
         
-        
-        
-        guard let dataSource = viewModelMap[sectionKind],
-              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: dataSource.identifier,
-                                                            for: indexPath) as? SearhHomeCellView else {
+        guard let sectionViewModel = sectionViewModelMap[sectionKind],
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sectionViewModel.identifier,
+                                                            for: indexPath) as? SearhHomeCellable else {
             return UICollectionViewCell()
         }
         
-        let viewModel = dataSource.getViewModel(indexPath: indexPath)
-        cell.setViewModel(viewModel)
-        
+        let cellViewModel = sectionViewModel.getViewModel(indexPath: indexPath)
+        cell.configureCell(with: cellViewModel)
         
         return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return SearchHomeCollectionViewSection.allCases.count
+        return sectionViewModelMap.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -174,7 +169,7 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
 // MARK: - Providing Function
 
 extension SearchHomeCollectionViewDataSource {
-    func set(viewModels: [SearchHomeCellViewModel], sectionType: SearchHomeCollectionViewSection) {
-        viewModelMap[sectionType]?.set(viewModels: viewModels)
+    func set(sectionType: SearchHomeCollectionViewSection, viewModels: [SearchHomeCellViewModelable]) {
+        sectionViewModelMap[sectionType]?.set(viewModels: viewModels)
     }
 }

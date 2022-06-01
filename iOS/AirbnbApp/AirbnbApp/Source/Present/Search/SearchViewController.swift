@@ -10,7 +10,7 @@ import MapKit
 
 final class SearchViewController: UIViewController {
     
-    private let viewModel: NearCityViewModel
+    private let viewModel: CitySectionViewModel
     
     private var searchedLocations = PublishRelay<[MKLocalSearchCompletion]>()
     
@@ -24,7 +24,7 @@ final class SearchViewController: UIViewController {
         return searchController
     }()
     
-    init(viewModel: NearCityViewModel) {
+    init(viewModel: CitySectionViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

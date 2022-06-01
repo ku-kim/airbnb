@@ -67,24 +67,24 @@ final class SearchHomeViewController: UIViewController {
     private func bind() {
         searchBarDelegate.tapTextField
             .bind { [weak self] in
-                self?.navigationController?.pushViewController(SearchViewController(viewModel: NearCityViewModel()), animated: true)
+                self?.navigationController?.pushViewController(SearchViewController(viewModel: CitySectionViewModel()), animated: true)
             }
         
         viewModel.bindHeroBanner { [weak self] banner in
             self?.collectionViewDataSource
-                .set(viewModels: banner, sectionType: .heroBanner)
+                .set(sectionType: .heroBanner, viewModels: banner)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.heroBanner.indexSet)
         }
         
         viewModel.bindNearCities { [weak self] cities in
             self?.collectionViewDataSource
-                .set(viewModels: cities, sectionType: .nearCity)
+                .set(sectionType: .nearCity, viewModels: cities)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.nearCity.indexSet)
         }
         
         viewModel.bindTheme { [weak self] themes in
             self?.collectionViewDataSource
-                .set(viewModels: themes, sectionType: .themeJourney)
+                .set(sectionType: .themeJourney, viewModels: themes)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.themeJourney.indexSet)
         }
         

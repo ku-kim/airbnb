@@ -1,5 +1,5 @@
 //
-//  HeroBannerViewModel.swift
+//  CitySectionViewModel.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/30.
@@ -7,11 +7,12 @@
 
 import Foundation
 
-final class HeroBannerViewModel: ViewModelBindable {
-    typealias actionType = Void
-    typealias stateType = [SearchHomeCellViewModel]
+final class CitySectionViewModel: ViewModelBindable {
     
-    let loadAction = PublishRelay<actionType>()
+    typealias actionType = Void
+    typealias stateType = [SearchHomeCellViewModelable]
+    
+    private(set) var loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
     
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
@@ -19,12 +20,12 @@ final class HeroBannerViewModel: ViewModelBindable {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-            self?.repository.requestHeroBanner { result in
+            self?.repository.requestNearDestination(coordinate: Coordinate(lat: 37.5, lng: 127.1)) { result in
                 switch result {
-                case .success(let heroBanner):
-                    let viewModels = heroBanner
-                        .banners
-                        .map { HeroBannerCellViewModel(banner: $0) }
+                case .success(let nearCity):
+                    let viewModels = nearCity
+                        .cities
+                        .map { CityCellViewModel(city: $0) }
                     self?.loadedState.accept(viewModels)
                 case .failure(let error):
                     print(error.localizedDescription) // TODO: Error 처리
@@ -36,7 +37,7 @@ final class HeroBannerViewModel: ViewModelBindable {
 
 // MARK: - Providing Function
 
-extension HeroBannerViewModel {
+extension CitySectionViewModel {
     
     func accept(_ value: actionType) {
         loadAction.accept(value)

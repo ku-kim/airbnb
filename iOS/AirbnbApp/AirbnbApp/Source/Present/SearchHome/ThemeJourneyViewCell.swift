@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ThemeJourneyCellViewModel: SearchHomeCellViewModel {
+class ThemeJourneyCellViewModel: SearchHomeCellViewModelable {
     private let theme: SearchHomeEntity.Theme
     
     init(theme: SearchHomeEntity.Theme) {
@@ -20,12 +20,12 @@ class ThemeJourneyCellViewModel: SearchHomeCellViewModel {
     }
 }
 
-final class ThemeJourneyViewCell: UICollectionViewCell, SearhHomeCellView {
+final class ThemeJourneyViewCell: UICollectionViewCell, SearhHomeCellable {
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
     
-    func setViewModel(_ viewModel: SearchHomeCellViewModel) {
+    func configureCell(with viewModel: SearchHomeCellViewModelable) {
         
         guard let viewModel = viewModel as? ThemeJourneyCellViewModel else { return }
         let theme = viewModel.getTheme()

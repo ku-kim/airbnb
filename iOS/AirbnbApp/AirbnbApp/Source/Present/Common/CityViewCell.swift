@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class CityCellViewModel: SearchHomeCellViewModel {
+class CityCellViewModel: SearchHomeCellViewModelable {
     private let city: SearchHomeEntity.City
     
     init(city: SearchHomeEntity.City) {
@@ -20,12 +20,12 @@ class CityCellViewModel: SearchHomeCellViewModel {
     }
 }
 
-final class CityViewCell: UICollectionViewCell, SearhHomeCellView {
+final class CityViewCell: UICollectionViewCell, SearhHomeCellable {
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
     
-    func setViewModel(_ viewModel: SearchHomeCellViewModel) {
+    func configureCell(with viewModel: SearchHomeCellViewModelable) {
         
         guard let viewModel = viewModel as? CityCellViewModel else { return }
         let city = viewModel.getCity()

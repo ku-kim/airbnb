@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class HeroBannerCellViewModel: SearchHomeCellViewModel {
+class HeroBannerCellViewModel: SearchHomeCellViewModelable {
     private let banner: SearchHomeEntity.Banner
     
     init(banner: SearchHomeEntity.Banner) {
@@ -20,12 +20,12 @@ class HeroBannerCellViewModel: SearchHomeCellViewModel {
     }
 }
 
-final class HeroBannerViewCell: UICollectionViewCell, SearhHomeCellView {
+final class HeroBannerViewCell: UICollectionViewCell, SearhHomeCellable {
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
     
-    func setViewModel(_ viewModel: SearchHomeCellViewModel) {
+    func configureCell(with viewModel: SearchHomeCellViewModelable) {
         
         guard let viewModel = viewModel as? HeroBannerCellViewModel else { return }
         let banner = viewModel.getBanner()
