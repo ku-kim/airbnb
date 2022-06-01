@@ -1,13 +1,23 @@
 package team13.kuje.airbnb.repository;
 
 import java.util.Optional;
+import javax.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import team13.kuje.airbnb.domain.Room;
 
 @Repository
+@RequiredArgsConstructor
 public class RoomsRepository {
 
+	private final EntityManager entityManager;
+
 	public Optional<Room> findById(Long id) {
-		throw new UnsupportedOperationException("RoomsRepository#findById 아직 구현하지 않음 :)");
+//		try {
+		return Optional.ofNullable(entityManager.find(Room.class, id));
+//		} catch (IllegalArgumentException e) {
+//			return Optional.empty();
+//		}
+//	}
 	}
 }
