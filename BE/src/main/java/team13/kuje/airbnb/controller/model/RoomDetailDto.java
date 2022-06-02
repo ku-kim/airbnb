@@ -1,5 +1,6 @@
 package team13.kuje.airbnb.controller.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Getter;
@@ -20,10 +21,11 @@ public class RoomDetailDto {
 	private final int bedroomCount;
 	private final int bathroomCount;
 	private final String description;
-//	private final long dailyPrice;
+	private final long dailyPrice;
 	private final int reviewCount;
 	private final float ratingStarScore;
 	private final Boolean checkWish;
+	@JsonProperty(value = "detailPrice")
 	private RoomDetailPriceDto roomDetailPriceDto;
 
 
@@ -41,7 +43,7 @@ public class RoomDetailDto {
 		this.bedroomCount = room.getBedroomCount();
 		this.bathroomCount = room.getBathroomCount();
 		this.description = room.getDescription();
-//		this.dailyPrice = room.getDailyPrice();
+		this.dailyPrice = room.getRoomPriceInfo().getDailyPrice();
 		this.reviewCount = room.getReviewCount();
 		this.ratingStarScore = room.getRatingStarScore();
 		this.roomDetailPriceDto = roomDetailPriceDto;
