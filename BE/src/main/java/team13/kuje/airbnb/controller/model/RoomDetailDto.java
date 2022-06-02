@@ -20,7 +20,7 @@ public class RoomDetailDto {
 	private final int bedroomCount;
 	private final int bathroomCount;
 	private final String description;
-	private final long dailyPrice;
+//	private final long dailyPrice;
 	private final int reviewCount;
 	private final float ratingStarScore;
 	private final Boolean checkWish;
@@ -41,7 +41,7 @@ public class RoomDetailDto {
 		this.bedroomCount = room.getBedroomCount();
 		this.bathroomCount = room.getBathroomCount();
 		this.description = room.getDescription();
-		this.dailyPrice = room.getDailyPrice();
+//		this.dailyPrice = room.getDailyPrice();
 		this.reviewCount = room.getReviewCount();
 		this.ratingStarScore = room.getRatingStarScore();
 		this.roomDetailPriceDto = roomDetailPriceDto;

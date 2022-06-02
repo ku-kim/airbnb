@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import team13.kuje.airbnb.controller.model.RoomDetailDto;
 import team13.kuje.airbnb.controller.model.RoomDetailPriceDto;
+import team13.kuje.airbnb.domain.ReservationPeriod;
 import team13.kuje.airbnb.domain.Room;
 import team13.kuje.airbnb.repository.RoomsRepository;
 
@@ -18,7 +19,7 @@ public class RoomsService {
 	public RoomDetailDto findById(Long id, LocalDateTime checkIn, LocalDateTime checkOut,
 		Integer adults,
 		Integer children, Integer infants) {
-		validateCheckInOut(checkIn, checkOut);
+		ReservationPeriod reservationPeriod = new ReservationPeriod(checkIn, checkOut);
 		validateHeadCount(adults, children, infants);
 
 		Optional<Room> findRoom = roomsRepository.findById(id);
@@ -26,8 +27,10 @@ public class RoomsService {
 		Room room = findRoom.orElseThrow(
 			() -> new IllegalArgumentException("조회한 Room ID는 존재하지 않습니다."));
 
+		room.calculatePrice(reservationPeriod);
+
 		// dto 변환
-		RoomDetailPriceDto roomDetailPriceDto = new RoomDetailPriceDto(room, checkIn, checkOut,
+		RoomDetailPriceDto roomDetailPriceDto = new RoomDetailPriceDto(room,
 			adults + children);
 
 		return new RoomDetailDto(room, roomDetailPriceDto); // TODO 수정해야함
@@ -47,13 +50,4 @@ public class RoomsService {
 		}
 	}
 
-	private void validateCheckInOut(LocalDateTime checkIn, LocalDateTime checkOut) {
-		if (checkIn == null || checkOut == null) {
-			throw new IllegalArgumentException("checkIn & checkOut이 유효하지 않은 입니다.");
-		}
-
-		if (checkIn.isAfter(checkOut)) {
-			throw new IllegalArgumentException("checkIn & checkOut이 유효하지 않은 입니다.");
-		}
-	}
 }

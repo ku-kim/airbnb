@@ -1,7 +1,6 @@
 package team13.kuje.airbnb.controller.model;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +13,8 @@ public class RoomDetailPriceDto {
 
 	private final LocalDateTime checkIn;
 	private final LocalDateTime checkOut;
-	private final Integer dayCount;
-	private final Integer headCount;
+	private final Long dayCount;
+	private final Long headCount;
 	private final Long totalOriginalPrice;
 	private final Long dailyOriginalPrice;
 	private final Long saleRatio;
@@ -27,20 +26,21 @@ public class RoomDetailPriceDto {
 	private final Long fixedDailyPrice;
 	private final Long fixedTotalPrice;
 
-	public RoomDetailPriceDto(Room room, LocalDateTime checkIn, LocalDateTime checkOut, int headCount) {
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
-		this.dayCount = (int) ChronoUnit.DAYS.between(checkIn, checkOut);
+	public RoomDetailPriceDto(Room room,
+		long headCount) {
+		this.checkIn = room.getRoomPrice().getReservationPeriod().getCheckIn();
+		this.checkOut = room.getRoomPrice().getReservationPeriod().getCheckOut();
+		this.dayCount = room.getRoomPrice().getReservationPeriod().getDayCount();
 		this.headCount = headCount;
-		this.dailyOriginalPrice = room.getDailyPrice();
-		this.totalOriginalPrice = dailyOriginalPrice * dayCount;
-		this.saleRatio = room.getSaleRatio();
-		this.savedPrice = (long) (totalOriginalPrice * saleRatio / 100f);
-		this.cleanigFee = room.getCleaningFee();
-		this.serviceFee = room.getServiceFee();
-		this.lodgingTaxRatio = room.getLodgingTaxRatio();
-		this.lodgingTax = (long) (serviceFee * lodgingTaxRatio / 100f);
-		this.fixedTotalPrice = totalOriginalPrice - savedPrice + cleanigFee + serviceFee + lodgingTax;
-		this.fixedDailyPrice = (long) (fixedTotalPrice / (float) dayCount);
+		this.dailyOriginalPrice = room.getRoomPriceInfo().getDailyPrice();
+		this.totalOriginalPrice = room.getRoomPrice().getTotalOriginalPrice();
+		this.saleRatio = room.getRoomPriceInfo().getSaleRatio();
+		this.savedPrice = room.getRoomPrice().getSavedPrice();
+		this.cleanigFee = room.getRoomPriceInfo().getCleaningFee();
+		this.serviceFee = room.getRoomPriceInfo().getServiceFee();
+		this.lodgingTaxRatio = room.getRoomPriceInfo().getLodgingTaxRatio();
+		this.lodgingTax = room.getRoomPrice().getLodgingTax();
+		this.fixedTotalPrice = room.getRoomPrice().getFixedTotalPrice();
+		this.fixedDailyPrice = room.getRoomPrice().getFixedDailyPrice();
 	}
 }

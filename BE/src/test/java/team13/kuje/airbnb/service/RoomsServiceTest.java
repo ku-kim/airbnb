@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 //@Sql({"/testdb/schema.sql", "/testdb/data.sql"})
 class RoomsServiceTest {
-	
+
 	@Autowired
 	RoomsService roomsService;
 
@@ -31,7 +31,10 @@ class RoomsServiceTest {
 	void 유효한_숙소ID로_숙소를_조회하면_숙소_디테일_조회_DTO를_반환한다() {
 		Room saveRoom = initSaveRoom();
 
-		RoomDetailDto result = roomsService.findById(saveRoom.getId(), LocalDateTime.now(), LocalDateTime.now(), 3, 1 ,0);
+		RoomDetailDto result = roomsService.findById(saveRoom.getId(),
+			LocalDateTime.of(2022, 6, 1, 0, 0),
+			LocalDateTime.of(2022, 6, 3, 0, 0),
+			3, 1, 0);
 
 		assertThat(result.getId()).isEqualTo(saveRoom.getId());
 	}

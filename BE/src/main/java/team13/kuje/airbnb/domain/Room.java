@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,11 +38,12 @@ public class Room {
 	private int bedCount;
 	private int bedroomCount;
 	private int bathroomCount;
-	private long dailyPrice;
-	private long cleaningFee;
-	private long serviceFee;
-	private long saleRatio;
-	private long lodgingTaxRatio;
+
+	@Embedded
+	private RoomPriceInfo roomPriceInfo;
+
+	@Transient
+	private RoomPrice roomPrice;
 
 	@OneToMany(mappedBy = "room")
 	private List<RoomImage> images = new ArrayList<>();
@@ -65,11 +68,8 @@ public class Room {
 		room.setBedCount(bedCount);
 		room.setBedroomCount(bedroomCount);
 		room.setBathroomCount(bathroomCount);
-		room.setDailyPrice(dailyPrice);
-		room.setCleaningFee(cleaningFee);
-		room.setServiceFee(serviceFee);
-		room.setSaleRatio(saleRatio);
-		room.setLodgingTaxRatio(lodgingTaxRatio);
+		room.roomPriceInfo = RoomPriceInfo.of(dailyPrice, cleaningFee, serviceFee, saleRatio,
+			lodgingTaxRatio);
 		room.setReviewCount(reviewCount);
 		room.setRatingStarScore(ratingStarScore);
 		return room;
@@ -88,4 +88,7 @@ public class Room {
 		host.getRooms().add(this);
 	}
 
+	public void calculatePrice(ReservationPeriod reservationPeriod) {
+		roomPrice = RoomPrice.of(reservationPeriod, roomPriceInfo);
+	}
 }
