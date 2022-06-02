@@ -23,6 +23,7 @@ public class RoomDetailDto {
 	private final long dailyPrice;
 	private final int reviewCount;
 	private final float ratingStarScore;
+	private final Boolean checkWish;
 	private RoomDetailPriceDto roomDetailPriceDto;
 
 
@@ -44,5 +45,7 @@ public class RoomDetailDto {
 		this.reviewCount = room.getReviewCount();
 		this.ratingStarScore = room.getRatingStarScore();
 		this.roomDetailPriceDto = roomDetailPriceDto;
+
+		this.checkWish = false; // todo 나중에 USER 구현한 후에 구현해야 함
 	}
 }

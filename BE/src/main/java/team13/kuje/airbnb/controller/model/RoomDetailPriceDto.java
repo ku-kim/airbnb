@@ -26,7 +26,6 @@ public class RoomDetailPriceDto {
 	private final Long lodgingTax;
 	private final Long fixedDailyPrice;
 	private final Long fixedTotalPrice;
-	private final Boolean checkWish;
 
 	public RoomDetailPriceDto(Room room, LocalDateTime checkIn, LocalDateTime checkOut, int headCount) {
 		this.checkIn = checkIn;
@@ -43,6 +42,5 @@ public class RoomDetailPriceDto {
 		this.lodgingTax = (long) (serviceFee * lodgingTaxRatio / 100f);
 		this.fixedTotalPrice = totalOriginalPrice - savedPrice + cleanigFee + serviceFee + lodgingTax;
 		this.fixedDailyPrice = (long) (fixedTotalPrice / (float) dayCount);
-		this.checkWish = false; //todo 나중에 유저 Entity 만들어야 함
 	}
 }
