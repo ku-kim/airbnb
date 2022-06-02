@@ -16,14 +16,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Room {
 
 	@Id
@@ -34,6 +32,8 @@ public class Room {
 	private String title;
 	private String description;
 	private String address;
+	@Embedded
+	private Position position;
 	private int headerCountCapacity;
 	private int bedCount;
 	private int bedroomCount;
