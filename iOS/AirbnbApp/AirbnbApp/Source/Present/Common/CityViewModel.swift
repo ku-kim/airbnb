@@ -1,5 +1,5 @@
 //
-//  ThemeSectionViewModel.swift
+//  CityViewModel.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/30.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class ThemeSectionViewModel: ViewModelBindable {
+final class CityViewModel: ViewModelBindable {
     
     typealias actionType = Void
-    typealias stateType = [SearchHomeCellViewModelable]
+    typealias stateType = [CellViewModelable]
     
     private(set) var loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
@@ -20,15 +20,15 @@ final class ThemeSectionViewModel: ViewModelBindable {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-            self?.repository.requestTheme { result in
+            self?.repository.requestNearCity(at: Coordinate(lat: 37.5, lng: 127.1)) { result in
                 switch result {
-                case .success(let themeJourney) :
-                    let viewModels = themeJourney
-                        .themes
-                        .map { ThemeJourneyCellViewModel(theme: $0) }
+                case .success(let nearCity):
+                    let viewModels = nearCity
+                        .cities
+                        .map { CityCellViewModel(city: $0) }
                     self?.loadedState.accept(viewModels)
                 case .failure(let error):
-                    print(error) // TODO: error
+                    print(error.localizedDescription) // TODO: Error 처리
                 }
             }
         })
@@ -37,7 +37,8 @@ final class ThemeSectionViewModel: ViewModelBindable {
 
 // MARK: - Providing Function
 
-extension ThemeSectionViewModel {
+extension CityViewModel {
+    
     func accept(_ value: actionType) {
         loadAction.accept(value)
     }
@@ -45,4 +46,5 @@ extension ThemeSectionViewModel {
     func bind(_ completion: @escaping (stateType) -> Void) {
         loadedState.bind(onNext: completion)
     }
+    
 }

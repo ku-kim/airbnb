@@ -22,9 +22,9 @@ final class SearchHomeViewController: UIViewController {
     private lazy var collectionViewDataSource = SearchHomeCollectionViewDataSource()
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCompositionalLayout())
-        collectionView.register(HeroBannerViewCell.self, forCellWithReuseIdentifier: HeroBannerViewCell.identifier)
+        collectionView.register(BannerViewCell.self, forCellWithReuseIdentifier: BannerViewCell.identifier)
         collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
-        collectionView.register(ThemeJourneyViewCell.self, forCellWithReuseIdentifier: ThemeJourneyViewCell.identifier)
+        collectionView.register(ThemeViewCell.self, forCellWithReuseIdentifier: ThemeViewCell.identifier)
         collectionView.register(SearchHomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SearchHomeHeaderView.identifier)
@@ -56,7 +56,7 @@ final class SearchHomeViewController: UIViewController {
         super.viewDidLoad()
         bind()
         layoutSearchBar()
-        layoutDestinationCollecionView()
+        layoutNearCityCollectionView()
         configureNavigationItem()
     }
     
@@ -67,29 +67,29 @@ final class SearchHomeViewController: UIViewController {
     private func bind() {
         searchBarDelegate.tapTextField
             .bind { [weak self] in
-                self?.navigationController?.pushViewController(SearchViewController(viewModel: CitySectionViewModel()), animated: true)
+                self?.navigationController?.pushViewController(SearchViewController(viewModel: CityViewModel()), animated: true)
             }
         
-        viewModel.bindHeroBanner { [weak self] banner in
+        viewModel.bindHeroBanner { [weak self] cellViewModels in
             self?.collectionViewDataSource
-                .set(sectionType: .heroBanner, viewModels: banner)
-            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.heroBanner.indexSet)
+                .configure(sectionType: .banner, with: cellViewModels)
+            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.banner.indexSet)
         }
         
-        viewModel.bindNearCities { [weak self] cities in
+        viewModel.bindCities { [weak self] cellViewModels in
             self?.collectionViewDataSource
-                .set(sectionType: .nearCity, viewModels: cities)
+                .configure(sectionType: .nearCity, with: cellViewModels)
             self?.collectionView.reloadSections(SearchHomeCollectionViewSection.nearCity.indexSet)
         }
         
-        viewModel.bindTheme { [weak self] themes in
+        viewModel.bindTheme { [weak self] cellViewModels in
             self?.collectionViewDataSource
-                .set(sectionType: .themeJourney, viewModels: themes)
-            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.themeJourney.indexSet)
+                .configure(sectionType: .theme, with: cellViewModels)
+            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.theme.indexSet)
         }
         
         viewModel.acceptHeroBanner(value: ())
-        viewModel.acceptNearCities(value: ())
+        viewModel.acceptNearCity(value: ())
         viewModel.acceptTheme(value: ())
     }
 }
@@ -110,7 +110,7 @@ private extension SearchHomeViewController {
         }
     }
     
-    func layoutDestinationCollecionView() {
+    func layoutNearCityCollectionView() {
         view.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in

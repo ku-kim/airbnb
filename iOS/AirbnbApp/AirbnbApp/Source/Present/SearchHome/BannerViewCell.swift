@@ -1,5 +1,5 @@
 //
-//  HeroBannerViewCell.swift
+//  BannerViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,38 +8,35 @@
 import UIKit
 import SnapKit
 
-class HeroBannerCellViewModel: SearchHomeCellViewModelable {
-    private let banner: SearchHomeEntity.Banner
+final class BannerViewCell: UICollectionViewCell, ViewCellBindable {
     
-    init(banner: SearchHomeEntity.Banner) {
-        self.banner = banner
-    }
-    
-    func getBanner() -> SearchHomeEntity.Banner {
-        return banner
-    }
-}
-
-final class HeroBannerViewCell: UICollectionViewCell, SearhHomeCellable {
+    private var viewModel: CellViewModelable?
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
     
-    func configureCell(with viewModel: SearchHomeCellViewModelable) {
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? BannerCellViewModel else { return }
         
-        guard let viewModel = viewModel as? HeroBannerCellViewModel else { return }
-        let banner = viewModel.getBanner()
+        viewModel.loadedBannerTitle.bind { [ weak self ] title in
+            self?.titleLabel.text = title
+        }
         
-        
-        let imageUrl = URL(string: banner.imageUrl)
-        imageManager.fetchImage(from: imageUrl) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.setHeroImageView(image: image ?? UIImage())
+        viewModel.loadedBannerImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
             }
         }
         
-        setTitleLabel(text: banner.title)
-        setDescriptionLabel(text: banner.description)
+        viewModel.loadedDescription.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadBannerData.accept(())
     }
     
     static var identifier: String {
@@ -100,7 +97,7 @@ final class HeroBannerViewCell: UICollectionViewCell, SearhHomeCellable {
 
 // MARK: - View Layout
 
-private extension HeroBannerViewCell {
+private extension BannerViewCell {
     
     func layoutHeroImageView() {
         addSubview(imageView)
@@ -131,21 +128,4 @@ private extension HeroBannerViewCell {
         }
     }
     
-}
-
-// MARK: - Providing Function
-
-extension HeroBannerViewCell {
-    
-    func setHeroImageView(image: UIImage) {
-        imageView.image = image
-    }
-    
-    func setTitleLabel(text: String) {
-        titleLabel.text = text
-    }
-    
-    func setDescriptionLabel(text: String) {
-        descriptionLabel.text = text
-    }
 }

@@ -16,6 +16,6 @@ extension Int {
         let hour = self / 60
         let minute = self % 60
         
-        return minute > 30 ? "\(hour + 1) 시간" : "\(Double(hour) + 0.5) 시간"
+        return minute > 30 ? "\(hour + 1)시간" : "\(Double(hour) + 0.5)시간"
     }
 }

@@ -8,56 +8,52 @@
 import UIKit
 import SnapKit
 
-class CityCellViewModel: SearchHomeCellViewModelable {
-    private let city: SearchHomeEntity.City
+final class CityViewCell: UICollectionViewCell, ViewCellBindable {
     
-    init(city: SearchHomeEntity.City) {
-        self.city = city
-    }
-    
-    func getCity() -> SearchHomeEntity.City {
-        return city
-    }
-}
-
-final class CityViewCell: UICollectionViewCell, SearhHomeCellable {
+    private var viewModel: CellViewModelable?
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
     
-    func configureCell(with viewModel: SearchHomeCellViewModelable) {
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? CityCellViewModel else { return }
         
-        guard let viewModel = viewModel as? CityCellViewModel else { return }
-        let city = viewModel.getCity()
+        viewModel.loadedCityName.bind { [ weak self ] title in
+            self?.titleLabel.text = title
+        }
         
-        let imageUrl = URL(string: city.imageUrl)
-        imageManager.fetchImage(from: imageUrl) { [weak self] image in
-            DispatchQueue.main.async {
-                self?.setCityImageView(image: image ?? UIImage())
-                // TODO: image가 nil일 경우 handling하는 에러 구현하기
+        viewModel.loadedCityImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
             }
         }
         
-        setCityTitleLabel(text: city.cityName)
-        setDistanceLabel(text: city.time.convertIntoTime())
+        viewModel.loadedTime.bind { [ weak self ] time in
+            self?.distanceLabel.text = "차로 \(time.convertIntoTime()) 거리"
+        }
+        
+        viewModel.loadCityData.accept(())
     }
     
     static var identifier: String {
         return "\(self)"
     }
     
-    private lazy var cityImageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 10
         image.clipsToBounds = true
         return image
     }()
     
-    private lazy var cityTitleLabel = CustomLabel(font: .SFProDisplay.semiBold,
+    private lazy var titleLabel = CustomLabel(font: .SFProDisplay.semiBold,
                                                   fontColor: .Custom.gray1)
     
-    private lazy var distanceLabel = CustomLabel(text: "차로 30분 거리",
-                                                 font: .SFProDisplay.regular(17),
+    private lazy var distanceLabel = CustomLabel(font: .SFProDisplay.regular(17),
                                                  fontColor: .Custom.gray3)
     
     private lazy var informationStackView: UIStackView = {
@@ -66,7 +62,7 @@ final class CityViewCell: UICollectionViewCell, SearhHomeCellable {
         stackView.distribution = .fillEqually
         stackView.axis = .vertical
         stackView.spacing = 4
-        [cityTitleLabel, distanceLabel].forEach { subview in
+        [titleLabel, distanceLabel].forEach { subview in
             stackView.addArrangedSubview(subview)
         }
         return stackView
@@ -91,12 +87,12 @@ final class CityViewCell: UICollectionViewCell, SearhHomeCellable {
 private extension CityViewCell {
     
     func layoutCityImageView() {
-        addSubview(cityImageView)
+        addSubview(imageView)
         
-        cityImageView.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.top.bottom.leading.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.width.equalTo(cityImageView.snp.height)
+            make.width.equalTo(imageView.snp.height)
         }
     }
     
@@ -104,27 +100,10 @@ private extension CityViewCell {
         addSubview(informationStackView)
         
         informationStackView.snp.makeConstraints { make in
-            make.leading.equalTo(cityImageView.snp.trailing).offset(16)
+            make.leading.equalTo(imageView.snp.trailing).offset(16)
             make.trailing.equalToSuperview()
-            make.centerY.equalTo(cityImageView.snp.centerY)
+            make.centerY.equalTo(imageView.snp.centerY)
         }
     }
     
-}
-
-// MARK: - Providing Function
-
-extension CityViewCell {
-    
-    func setCityImageView(image: UIImage) {
-        cityImageView.image = image
-    }
-    
-    func setCityTitleLabel(text: String) {
-        cityTitleLabel.text = text
-    }
-    
-    func setDistanceLabel(text: String) {
-        distanceLabel.text = "차로 \(text) 거리"
-    }
 }

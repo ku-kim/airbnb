@@ -9,9 +9,9 @@ import Foundation
 
 final class SearchHomeViewModel {
     
-    private var bannerViewModel = BannerSectionViewModel()
-    private(set) var nearCitiesViewModel = CitySectionViewModel()
-    private var themeViewModel = ThemeSectionViewModel()
+    private var bannerViewModel = BannerViewModel()
+    private var cityViewModel = CityViewModel()
+    private var themeViewModel = ThemeViewModel()
       
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
     private var repository: SearchHomeRepositoryImpl
@@ -22,8 +22,8 @@ final class SearchHomeViewModel {
 
 extension SearchHomeViewModel {
     
-    func acceptNearCities(value: Void) {
-        nearCitiesViewModel.accept(value)
+    func acceptNearCity(value: Void) {
+        cityViewModel.accept(value)
     }
     
     func acceptHeroBanner(value: Void) {
@@ -34,15 +34,15 @@ extension SearchHomeViewModel {
         themeViewModel.accept(value)
     }
     
-    func bindNearCities(completion: @escaping ([SearchHomeCellViewModelable]) -> Void) {
-        nearCitiesViewModel.bind(completion)
+    func bindCities(completion: @escaping ([CellViewModelable]) -> Void) {
+        cityViewModel.bind(completion)
     }
     
-    func bindHeroBanner(completion: @escaping ([SearchHomeCellViewModelable]) -> Void) {
+    func bindHeroBanner(completion: @escaping ([CellViewModelable]) -> Void) {
         bannerViewModel.bind(completion)
     }
     
-    func bindTheme(completion: @escaping ([SearchHomeCellViewModelable]) -> Void) {
+    func bindTheme(completion: @escaping ([CellViewModelable]) -> Void) {
         themeViewModel.bind(completion)
     }
 }

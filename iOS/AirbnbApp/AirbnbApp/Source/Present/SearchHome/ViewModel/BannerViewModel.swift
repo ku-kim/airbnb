@@ -1,5 +1,5 @@
 //
-//  BannerSectionViewModel.swift
+//  BannerViewModel.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/30.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class BannerSectionViewModel: ViewModelBindable {
+final class BannerViewModel: ViewModelBindable {
     typealias actionType = Void
-    typealias stateType = [SearchHomeCellViewModelable]
+    typealias stateType = [CellViewModelable]
     
     let loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
@@ -24,7 +24,7 @@ final class BannerSectionViewModel: ViewModelBindable {
                 case .success(let heroBanner):
                     let viewModels = heroBanner
                         .banners
-                        .map { HeroBannerCellViewModel(banner: $0) }
+                        .map { BannerCellViewModel(banner: $0) }
                     self?.loadedState.accept(viewModels)
                 case .failure(let error):
                     print(error.localizedDescription) // TODO: Error 처리
@@ -36,7 +36,7 @@ final class BannerSectionViewModel: ViewModelBindable {
 
 // MARK: - Providing Function
 
-extension BannerSectionViewModel {
+extension BannerViewModel {
     
     func accept(_ value: actionType) {
         loadAction.accept(value)
