@@ -9,11 +9,8 @@ import Foundation
 
 final class CityViewModel: ViewModelBindable {
     
-    typealias actionType = Void
-    typealias stateType = [CellViewModelable]
-    
-    private(set) var loadAction = PublishRelay<actionType>()
-    private(set) var loadedState = PublishRelay<stateType>()
+    let loadAction = PublishRelay<Void>()
+    let loadedState = PublishRelay<[CellViewModelable]>()
     
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
     private var repository: SearchHomeRepositoryImpl
@@ -33,18 +30,4 @@ final class CityViewModel: ViewModelBindable {
             }
         })
     }
-}
-
-// MARK: - Providing Function
-
-extension CityViewModel {
-    
-    func accept(_ value: actionType) {
-        loadAction.accept(value)
-    }
-    
-    func bind(_ completion: @escaping (stateType) -> Void) {
-        loadedState.bind(onNext: completion)
-    }
-    
 }

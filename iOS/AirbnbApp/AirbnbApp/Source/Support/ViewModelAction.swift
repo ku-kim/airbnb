@@ -8,6 +8,5 @@
 import Foundation
 
 protocol ViewModelAction {
-    associatedtype actionType
-    var loadAction: PublishRelay<actionType> { get }
+    var loadAction: PublishRelay<Void> { get }
 }

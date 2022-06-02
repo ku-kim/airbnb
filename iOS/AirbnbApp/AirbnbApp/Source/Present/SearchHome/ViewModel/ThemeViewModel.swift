@@ -9,11 +9,8 @@ import Foundation
 
 final class ThemeViewModel: ViewModelBindable {
     
-    typealias actionType = Void
-    typealias stateType = [CellViewModelable]
-    
-    private(set) var loadAction = PublishRelay<actionType>()
-    private(set) var loadedState = PublishRelay<stateType>()
+    let loadAction = PublishRelay<Void>()
+    let loadedState = PublishRelay<[CellViewModelable]>()
     
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
     private var repository: SearchHomeRepositoryImpl
@@ -32,17 +29,5 @@ final class ThemeViewModel: ViewModelBindable {
                 }
             }
         })
-    }
-}
-
-// MARK: - Providing Function
-
-extension ThemeViewModel {
-    func accept(_ value: actionType) {
-        loadAction.accept(value)
-    }
-    
-    func bind(_ completion: @escaping (stateType) -> Void) {
-        loadedState.bind(onNext: completion)
     }
 }

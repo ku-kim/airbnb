@@ -8,6 +8,17 @@
 import Foundation
 
 protocol ViewModelBindable: ViewModelAction, ViewModelState {
-    func accept(_ value: actionType)
-    func bind(_ completion: @escaping (stateType) -> Void)
+    func accept(_ value: Void)
+    func bind(_ completion: @escaping ([CellViewModelable]) -> Void)
+}
+
+extension ViewModelBindable {
+    
+    func accept(_ value: Void) {
+        loadAction.accept(value)
+    }
+    
+    func bind(_ completion: @escaping ([CellViewModelable]) -> Void) {
+        loadedState.bind(onNext: completion)
+    }
 }

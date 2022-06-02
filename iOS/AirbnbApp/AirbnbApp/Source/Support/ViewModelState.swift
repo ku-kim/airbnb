@@ -8,6 +8,5 @@
 import Foundation
 
 protocol ViewModelState {
-    associatedtype stateType
-    var loadedState: PublishRelay<stateType> { get }
+    var loadedState: PublishRelay<[CellViewModelable]> { get }
 }

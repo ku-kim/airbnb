@@ -8,11 +8,9 @@
 import Foundation
 
 final class BannerViewModel: ViewModelBindable {
-    typealias actionType = Void
-    typealias stateType = [CellViewModelable]
     
-    let loadAction = PublishRelay<actionType>()
-    private(set) var loadedState = PublishRelay<stateType>()
+    let loadAction = PublishRelay<Void>()
+    let loadedState = PublishRelay<[CellViewModelable]>()
     
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
     private var repository: SearchHomeRepositoryImpl
@@ -32,18 +30,4 @@ final class BannerViewModel: ViewModelBindable {
             }
         })
     }
-}
-
-// MARK: - Providing Function
-
-extension BannerViewModel {
-    
-    func accept(_ value: actionType) {
-        loadAction.accept(value)
-    }
-    
-    func bind(_ completion: @escaping (stateType) -> Void) {
-        loadedState.bind(onNext: completion)
-    }
-    
 }

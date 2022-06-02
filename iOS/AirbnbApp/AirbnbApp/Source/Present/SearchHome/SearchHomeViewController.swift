@@ -70,33 +70,24 @@ final class SearchHomeViewController: UIViewController {
                 self?.navigationController?.pushViewController(SearchViewController(viewModel: CityViewModel()), animated: true)
             }
         
-        viewModel.bindHeroBanner { [weak self] cellViewModels in
-            self?.collectionViewDataSource
-                .configure(sectionType: .banner, with: cellViewModels)
-            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.banner.indexSet)
+        SearchHomeCollectionViewSection.allCases.forEach { section in
+            viewModel.bind(sectionType: section) { [weak self] cellViewModels in
+                self?.collectionViewDataSource
+                    .configure(sectionType: section, with: cellViewModels)
+                self?.collectionView.reloadSections(section.indexSet)
+            }
         }
         
-        viewModel.bindCities { [weak self] cellViewModels in
-            self?.collectionViewDataSource
-                .configure(sectionType: .nearCity, with: cellViewModels)
-            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.nearCity.indexSet)
+        SearchHomeCollectionViewSection.allCases.forEach { section in
+            viewModel.accept(sectionType: section, value: ())
         }
-        
-        viewModel.bindTheme { [weak self] cellViewModels in
-            self?.collectionViewDataSource
-                .configure(sectionType: .theme, with: cellViewModels)
-            self?.collectionView.reloadSections(SearchHomeCollectionViewSection.theme.indexSet)
-        }
-        
-        viewModel.acceptHeroBanner(value: ())
-        viewModel.acceptNearCity(value: ())
-        viewModel.acceptTheme(value: ())
     }
 }
 
 // MARK: - View Layout
 
 private extension SearchHomeViewController {
+    
     func configureNavigationItem() {
         self.navigationItem.backButtonTitle = "뒤로"
     }
@@ -117,10 +108,6 @@ private extension SearchHomeViewController {
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }
-    }
-    
-    func appendCities() {
-        
     }
     
 }
