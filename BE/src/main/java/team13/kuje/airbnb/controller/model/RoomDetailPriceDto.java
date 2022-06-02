@@ -26,12 +26,11 @@ public class RoomDetailPriceDto {
 	private final Long fixedDailyPrice;
 	private final Long fixedTotalPrice;
 
-	public RoomDetailPriceDto(Room room,
-		long headCount) {
+	public RoomDetailPriceDto(Room room) {
 		this.checkIn = room.getRoomPrice().getReservationPeriod().getCheckIn();
 		this.checkOut = room.getRoomPrice().getReservationPeriod().getCheckOut();
 		this.dayCount = room.getRoomPrice().getReservationPeriod().getDayCount();
-		this.headCount = headCount;
+		this.headCount = room.getRoomPrice().getReservationGuest().getHeadCount();
 		this.dailyOriginalPrice = room.getRoomPriceInfo().getDailyPrice();
 		this.totalOriginalPrice = room.getRoomPrice().getTotalOriginalPrice();
 		this.saleRatio = room.getRoomPriceInfo().getSaleRatio();

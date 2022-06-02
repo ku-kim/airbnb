@@ -11,8 +11,11 @@ public class RoomPrice {
 	private long lodgingTax;
 	private long fixedTotalPrice;
 	private long fixedDailyPrice;
+	private ReservationGuest reservationGuest;
 
-	public static RoomPrice of(ReservationPeriod reservationPeriod, RoomPriceInfo roomPriceInfo) {
+
+	public static RoomPrice of(ReservationPeriod reservationPeriod,
+		ReservationGuest reservationGuest, RoomPriceInfo roomPriceInfo) {
 		RoomPrice roomPrice = new RoomPrice();
 		roomPrice.reservationPeriod = reservationPeriod;
 		roomPrice.totalOriginalPrice = roomPriceInfo.getDailyPrice() * reservationPeriod.getDayCount();
@@ -21,6 +24,7 @@ public class RoomPrice {
 		roomPrice.fixedTotalPrice = roomPrice.totalOriginalPrice - roomPrice.savedPrice +
 			roomPriceInfo.getCleaningFee() + roomPriceInfo.getServiceFee() + roomPrice.lodgingTax;
 		roomPrice.fixedDailyPrice = roomPrice.fixedTotalPrice / reservationPeriod.getDayCount();
+		roomPrice.reservationGuest = reservationGuest;
 		return roomPrice;
 	}
 

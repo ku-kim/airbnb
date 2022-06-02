@@ -28,8 +28,10 @@ class RoomPriceTest {
 					LocalDateTime.of(2022, 6, 1, 0, 0),
 					LocalDateTime.of(2022, 6, 3, 0, 0));
 				RoomPriceInfo roomPriceInfo = RoomPriceInfo.of(50000, 5000, 3000, 10, 10);
+				ReservationGuest reservationGuest = new ReservationGuest(2, 1, 1);
 
-				RoomPrice roomPrice = RoomPrice.of(reservationPeriod, roomPriceInfo);
+				RoomPrice roomPrice = RoomPrice.of(reservationPeriod, reservationGuest,
+					roomPriceInfo);
 
 				SoftAssertions softAssertions = new SoftAssertions();
 				softAssertions.assertThat(roomPrice.getTotalOriginalPrice()).isEqualTo(100000L);
@@ -48,8 +50,9 @@ class RoomPriceTest {
 				LocalDateTime.of(2022, 6, 1, 0, 0),
 				LocalDateTime.of(2022, 6, 4, 0, 0));
 			RoomPriceInfo roomPriceInfo = RoomPriceInfo.of(123456, 2000, 1000, 13, 12);
+			ReservationGuest reservationGuest = new ReservationGuest(2, 1, 1);
 
-			RoomPrice roomPrice = RoomPrice.of(reservationPeriod, roomPriceInfo);
+			RoomPrice roomPrice = RoomPrice.of(reservationPeriod, reservationGuest, roomPriceInfo);
 
 			SoftAssertions softAssertions = new SoftAssertions();
 			softAssertions.assertThat(roomPrice.getTotalOriginalPrice()).isEqualTo(370368L);

@@ -88,7 +88,8 @@ public class Room {
 		host.getRooms().add(this);
 	}
 
-	public void calculatePrice(ReservationPeriod reservationPeriod) {
-		roomPrice = RoomPrice.of(reservationPeriod, roomPriceInfo);
+	public void calculatePrice(ReservationPeriod reservationPeriod,
+		ReservationGuest reservationGuest) {
+		roomPrice = RoomPrice.of(reservationPeriod, reservationGuest, roomPriceInfo);
 	}
 }

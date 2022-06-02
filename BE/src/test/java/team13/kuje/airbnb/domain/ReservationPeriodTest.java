@@ -35,7 +35,7 @@ class ReservationPeriodTest {
 		class Context_with_checkIn_equal_to_checkOut {
 			@Test
 			@DisplayName("예외를 반환한다.")
-			void It_return_object() {
+			void It_throw_exception() {
 
 				assertThatThrownBy(() -> new ReservationPeriod(
 					LocalDateTime.of(2022, 6, 1, 0, 0),
