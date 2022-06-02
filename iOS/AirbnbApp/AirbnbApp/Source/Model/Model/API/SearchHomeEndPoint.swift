@@ -9,24 +9,24 @@ import Foundation
 import Alamofire
 
 enum SearchHomeEndPoint: Requestable {
-    case nearDestination(coordinate: Coordinate)
-    case heroBanner
-    case themeJourney
+    case city(coordinate: Coordinate)
+    case banner
+    case theme
 }
 
 extension SearchHomeEndPoint {
     var baseUrl: URL? {
         switch self {
-        case .nearDestination, .heroBanner, .themeJourney:
+        case .city, .banner, .theme:
             return URL(string: "http://3.34.196.158/api")
         }
     }
     
     var path: String? {
         switch self {
-        case .nearDestination:
+        case .city:
             return "/place"
-        case .heroBanner, .themeJourney:
+        case .banner, .theme:
             return "/events"
         }
     }
@@ -37,20 +37,20 @@ extension SearchHomeEndPoint {
     
     var parameter: [String: Any]? {
         switch self {
-        case .nearDestination(let coordinate):
+        case .city(let coordinate):
             return ["category_tag": "map",
                     "lat": "\(coordinate.lat)",
                     "lng": "\(coordinate.lng)"]
-        case .heroBanner:
+        case .banner:
             return ["category_tag": "main"]
-        case .themeJourney:
+        case .theme:
             return ["category_tag": "list"]
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .nearDestination, .heroBanner, .themeJourney:
+        case .city, .banner, .theme:
             return .get
         }
     }

@@ -10,7 +10,7 @@ import MapKit
 
 final class SearchViewController: UIViewController {
     
-    private let viewModel: NearCityViewModel
+    private let viewModel: CityViewModel
     
     private var searchedLocations = PublishRelay<[MKLocalSearchCompletion]>()
     
@@ -24,7 +24,7 @@ final class SearchViewController: UIViewController {
         return searchController
     }()
     
-    init(viewModel: NearCityViewModel) {
+    init(viewModel: CityViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -40,7 +40,7 @@ final class SearchViewController: UIViewController {
     private lazy var searchCollectionViewDelegate = SearchCollectionViewDelegate()
     
     private lazy var popularCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout(isHeaderExist: true))
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCitiesLayout(isHeaderExist: true))
         collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
         collectionView.register(PopularHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -50,7 +50,7 @@ final class SearchViewController: UIViewController {
     }()
     
     private lazy var searchResultCollectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createPopularDestinationLayout(isHeaderExist: false))
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCitiesLayout(isHeaderExist: false))
         collectionView.register(SearchResultViewCell.self, forCellWithReuseIdentifier: SearchResultViewCell.identifier)
         collectionView.dataSource = searchCollectionViewDataSource
         collectionView.delegate = searchCollectionViewDelegate
@@ -71,7 +71,7 @@ final class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
-        layoutDestinationCollectionView()
+        layoutNearCityCollectionView()
         layoutSearchResultCollectionView()
         bind()
     }
@@ -88,7 +88,7 @@ private extension SearchViewController {
     
     func bind() {
         searchedLocations.bind { [weak self] locations in
-            self?.searchCollectionViewDataSource.set(locations: locations)
+            self?.searchCollectionViewDataSource.configure(with: locations)
             self?.searchResultCollectionView.reloadData()
         }
         
@@ -103,8 +103,8 @@ private extension SearchViewController {
             self?.popularCollectionView.isHidden = false
         }
         
-        viewModel.bind { [weak self] cities in
-            self?.popularCollectionViewDataSource.set(nearCities: cities)
+        viewModel.bind { [weak self] cityCellViewModels in
+            self?.popularCollectionViewDataSource.configure(with: cityCellViewModels)
             self?.popularCollectionView.reloadData()
         }
         
@@ -129,7 +129,7 @@ private extension SearchViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
-    func layoutDestinationCollectionView() {
+    func layoutNearCityCollectionView() {
         view.addSubview(popularCollectionView)
         
         popularCollectionView.snp.makeConstraints { make in

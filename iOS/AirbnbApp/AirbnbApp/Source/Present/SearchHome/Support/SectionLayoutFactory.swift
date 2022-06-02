@@ -8,7 +8,7 @@
 import UIKit
 
 enum SectionLayoutFactory {
-    static func createPopularDestinationLayout(isHeaderExist: Bool) -> UICollectionViewCompositionalLayout {
+    static func createCitiesLayout(isHeaderExist: Bool) -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalWidth(0.23)
@@ -49,11 +49,11 @@ enum SectionLayoutFactory {
             let section: NSCollectionLayoutSection
             
             switch sectionKind {
-            case .heroBanner:
+            case .banner:
                 section = heroImageLayoutSection()
             case .nearCity:
-                section = nearDestinationLayoutSection()
-            case .themeJourney:
+                section = nearCityLayoutSection()
+            case .theme:
                 section = themeLayoutSection()
             }
             
@@ -100,7 +100,7 @@ enum SectionLayoutFactory {
         return section
     }
     
-    static func nearDestinationLayoutSection() -> NSCollectionLayoutSection {
+    static func nearCityLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.7),
             heightDimension: .fractionalHeight(0.2)

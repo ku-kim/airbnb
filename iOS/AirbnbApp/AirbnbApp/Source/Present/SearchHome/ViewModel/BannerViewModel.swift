@@ -1,5 +1,5 @@
 //
-//  ThemeJourneyViewModel.swift
+//  BannerViewModel.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/30.
@@ -7,12 +7,11 @@
 
 import Foundation
 
-final class ThemeJourneyViewModel: ViewModelBindable {
-    
+final class BannerViewModel: ViewModelBindable {
     typealias actionType = Void
-    typealias stateType = [SearchHomeEntity.Theme]
+    typealias stateType = [CellViewModelable]
     
-    private(set) var loadAction = PublishRelay<actionType>()
+    let loadAction = PublishRelay<actionType>()
     private(set) var loadedState = PublishRelay<stateType>()
     
     @NetworkInject(keypath: \.searchHomeRepositoryImplement)
@@ -20,12 +19,15 @@ final class ThemeJourneyViewModel: ViewModelBindable {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-            self?.repository.requestTheme { result in
+            self?.repository.requestHeroBanner { result in
                 switch result {
-                case .success(let themeJourney) :
-                    self?.loadedState.accept(themeJourney.themes)
+                case .success(let heroBanner):
+                    let viewModels = heroBanner
+                        .banners
+                        .map { BannerCellViewModel(banner: $0) }
+                    self?.loadedState.accept(viewModels)
                 case .failure(let error):
-                    print(error) // TODO: error
+                    print(error.localizedDescription) // TODO: Error 처리
                 }
             }
         })
@@ -34,7 +36,8 @@ final class ThemeJourneyViewModel: ViewModelBindable {
 
 // MARK: - Providing Function
 
-extension ThemeJourneyViewModel {
+extension BannerViewModel {
+    
     func accept(_ value: actionType) {
         loadAction.accept(value)
     }
@@ -42,4 +45,5 @@ extension ThemeJourneyViewModel {
     func bind(_ completion: @escaping (stateType) -> Void) {
         loadedState.bind(onNext: completion)
     }
+    
 }

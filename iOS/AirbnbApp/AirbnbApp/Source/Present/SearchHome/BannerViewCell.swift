@@ -1,5 +1,5 @@
 //
-//  HeroBannerViewCell.swift
+//  BannerViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,7 +8,36 @@
 import UIKit
 import SnapKit
 
-final class HeroBannerViewCell: UICollectionViewCell {
+final class BannerViewCell: UICollectionViewCell, ViewCellBindable {
+    
+    private var viewModel: CellViewModelable?
+    
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
+    
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? BannerCellViewModel else { return }
+        
+        viewModel.loadedBannerTitle.bind { [ weak self ] title in
+            self?.titleLabel.text = title
+        }
+        
+        viewModel.loadedBannerImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadedDescription.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadBannerData.accept(())
+    }
     
     static var identifier: String {
         return "\(self)"
@@ -68,7 +97,7 @@ final class HeroBannerViewCell: UICollectionViewCell {
 
 // MARK: - View Layout
 
-private extension HeroBannerViewCell {
+private extension BannerViewCell {
     
     func layoutHeroImageView() {
         addSubview(imageView)
@@ -99,21 +128,4 @@ private extension HeroBannerViewCell {
         }
     }
     
-}
-
-// MARK: - Providing Function
-
-extension HeroBannerViewCell {
-    
-    func setHeroImageView(image: UIImage) {
-        imageView.image = image
-    }
-    
-    func setTitleLabel(text: String) {
-        titleLabel.text = text
-    }
-    
-    func setDescriptionLabel(text: String) {
-        descriptionLabel.text = text
-    }
 }

@@ -9,9 +9,9 @@ import UIKit
 
 final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private var nearCities: [SearchHomeEntity.City] = []
-    private var banners: [SearchHomeEntity.Banner] = []
-    private var themeJourney: [SearchHomeEntity.Theme] = []
+    private var sectionViewModelMap: [SearchHomeCollectionViewSection: SectionViewModelable] = [.nearCity: CitySectionViewModel(),
+                                                                                                .banner: BannerSectionViewModel(),
+                                                                                                .theme: ThemeSectionViewModel()]
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
@@ -21,109 +21,50 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section) else { return 0 }
-        
-        switch sectionKind {
-        case .heroBanner:
-            return banners.count
-        case .nearCity:
-            return nearCities.count
-        case .themeJourney:
-            return themeJourney.count
-        }
+        guard let count = sectionViewModelMap[sectionKind]?.count else { return 0 }
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
         
-        switch sectionKind {
-        case .heroBanner:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeroBannerViewCell.identifier, for: indexPath) as? HeroBannerViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            let item = banners[indexPath.item]
-            
-            let imageUrl = URL(string: item.imageUrl)
-            imageManager.fetchImage(from: imageUrl) { image in
-                DispatchQueue.main.async {
-                    cell.setHeroImageView(image: image ?? UIImage())
-                }
-            }
-            cell.setTitleLabel(text: item.title)
-            cell.setDescriptionLabel(text: item.description)
-            return cell
-            
-        case .nearCity:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CityViewCell.identifier, for: indexPath) as? CityViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            let item = nearCities[indexPath.item]
-            
-            let imageUrl = URL(string: item.imageUrl)
-            imageManager.fetchImage(from: imageUrl) { image in
-                DispatchQueue.main.async {
-                    cell.setCityImageView(image: image ?? UIImage())
-                    // TODO: image가 nil일 경우 handling하는 에러 구현하기
-                }
-            }
-            
-            cell.setCityTitleLabel(text: item.cityName)
-            cell.setDistanceLabel(text: item.time.convertIntoTime())
-            return cell
-            
-        case .themeJourney:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThemeJourneyViewCell.identifier, for: indexPath) as? ThemeJourneyViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            let item = themeJourney[indexPath.item]
-            let imageUrl = URL(string: item.imageUrl)
-            imageManager.fetchImage(from: imageUrl) { image in
-                DispatchQueue.main.async {
-                    cell.setImageView(image: image ?? UIImage())
-                    // TODO: image가 nil일 경우 handling하는 에러 구현하기
-                }
-            }
-            
-            cell.setDescriptionLabel(text: item.title)
-            return cell
+        guard let sectionViewModel = sectionViewModelMap[sectionKind],
+              let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sectionViewModel.identifier,
+                                                            for: indexPath) as? ViewCellBindable else {
+            return UICollectionViewCell()
         }
+        
+        let cellViewModel = sectionViewModel.getCellViewModel(at: indexPath.item)
+        cell.configure(with: cellViewModel)
+        
+        return cell
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return SearchHomeCollectionViewSection.allCases.count
+        return sectionViewModelMap.count
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(
+        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        guard kind == UICollectionView.elementKindSectionHeader,
+              let sectionViewModel = sectionViewModelMap[sectionKind],
+              let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
                 withReuseIdentifier: SearchHomeHeaderView.identifier,
                 for: indexPath
-            ) as? SearchHomeHeaderView else { return UICollectionReusableView() }
-            
-            headerView.setHeaderLabel(text: SearchHomeCollectionViewSection.allCases[indexPath.section].header)
-            return headerView
-        }
+              ) as? SearchHomeHeaderView else { return UICollectionReusableView() }
         
-        return UICollectionReusableView()
+        let header = sectionViewModel.header
+        headerView.setHeaderLabel(text: header)
+        
+        return headerView
     }
 }
 
 // MARK: - Providing Function
 
 extension SearchHomeCollectionViewDataSource {
-    func set(banners: [SearchHomeEntity.Banner]) {
-        self.banners = banners
-    }
-    
-    func set(nearCities: [SearchHomeEntity.City]) {
-        self.nearCities = nearCities
-    }
-    
-    func set(themeJourney: [SearchHomeEntity.Theme]) {
-        self.themeJourney = themeJourney
+    func configure(sectionType: SearchHomeCollectionViewSection, with viewModels: [CellViewModelable]) {
+        sectionViewModelMap[sectionType]?.configure(with: viewModels)
     }
 }

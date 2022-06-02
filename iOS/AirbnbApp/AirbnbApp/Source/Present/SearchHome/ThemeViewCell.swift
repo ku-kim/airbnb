@@ -1,5 +1,5 @@
 //
-//  ThemeJourneyViewCell.swift
+//  ThemeViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,8 +8,32 @@
 import UIKit
 import SnapKit
 
-final class ThemeJourneyViewCell: UICollectionViewCell {
+final class ThemeViewCell: UICollectionViewCell, ViewCellBindable {
     
+    private var viewModel: CellViewModelable?
+    
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
+    
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? ThemeCellViewModel else { return }
+        
+        viewModel.loadedThemeName.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadedThemeImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadThemeData.accept(())
+    }
     static var identifier: String {
         return "\(self)"
     }
@@ -41,7 +65,7 @@ final class ThemeJourneyViewCell: UICollectionViewCell {
 
 // MARK: - View Layout
 
-private extension ThemeJourneyViewCell {
+private extension ThemeViewCell {
     
     func layoutImageView() {
         addSubview(imageView)
@@ -61,17 +85,4 @@ private extension ThemeJourneyViewCell {
         }
     }
     
-}
-
-// MARK: - Providing Function
-
-extension ThemeJourneyViewCell {
-    
-    func setImageView(image: UIImage) {
-        imageView.image = image
-    }
-    
-    func setDescriptionLabel(text: String) {
-        descriptionLabel.text = text
-    }
 }
