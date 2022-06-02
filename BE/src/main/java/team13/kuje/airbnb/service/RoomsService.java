@@ -23,16 +23,11 @@ public class RoomsService {
 		ReservationGuest reservationGuest = new ReservationGuest(adults, children, infants);
 
 		Optional<Room> findRoom = roomsRepository.findById(id);
-
 		Room room = findRoom.orElseThrow(
 			() -> new IllegalArgumentException("조회한 Room ID는 존재하지 않습니다."));
 
 		room.calculatePrice(reservationPeriod, reservationGuest);
-
-		// dto 변환
-		RoomDetailPriceDto roomDetailPriceDto = new RoomDetailPriceDto(room);
-
-		return new RoomDetailDto(room, roomDetailPriceDto); // TODO 수정해야함
+		return new RoomDetailDto(room, new RoomDetailPriceDto(room));
 	}
 
 }

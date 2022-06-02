@@ -6,11 +6,11 @@ import lombok.Getter;
 public class RoomPrice {
 
 	private ReservationPeriod reservationPeriod;
-	private long totalOriginalPrice;
-	private long savedPrice;
-	private long lodgingTax;
-	private long fixedTotalPrice;
-	private long fixedDailyPrice;
+	private Long totalOriginalPrice;
+	private Long savedPrice;
+	private Long lodgingTax;
+	private Long fixedTotalPrice;
+	private Long fixedDailyPrice;
 	private ReservationGuest reservationGuest;
 
 

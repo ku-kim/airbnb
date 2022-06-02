@@ -11,22 +11,26 @@ import team13.kuje.airbnb.domain.Room;
 @Setter
 public class RoomDetailPriceDto {
 
-	private final LocalDateTime checkIn;
-	private final LocalDateTime checkOut;
-	private final Long dayCount;
-	private final Long headCount;
-	private final Long totalOriginalPrice;
-	private final Long dailyOriginalPrice;
-	private final Long saleRatio;
-	private final Long savedPrice;
-	private final Long cleanigFee;
-	private final Long serviceFee;
-	private final Long lodgingTaxRatio;
-	private final Long lodgingTax;
-	private final Long fixedDailyPrice;
-	private final Long fixedTotalPrice;
+	private LocalDateTime checkIn;
+	private LocalDateTime checkOut;
+	private Long dayCount;
+	private Long headCount;
+	private Long totalOriginalPrice;
+	private Long dailyOriginalPrice;
+	private Long saleRatio;
+	private Long savedPrice;
+	private Long cleanigFee;
+	private Long serviceFee;
+	private Long lodgingTaxRatio;
+	private Long lodgingTax;
+	private Long fixedDailyPrice;
+	private Long fixedTotalPrice;
 
 	public RoomDetailPriceDto(Room room) {
+		if (room.getRoomPrice() == null) {
+			return;
+		}
+
 		this.checkIn = room.getRoomPrice().getReservationPeriod().getCheckIn();
 		this.checkOut = room.getRoomPrice().getReservationPeriod().getCheckOut();
 		this.dayCount = room.getRoomPrice().getReservationPeriod().getDayCount();

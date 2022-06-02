@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,10 +21,11 @@ import lombok.Setter;
 public class RoomImage {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ROOM_IMAGE_ID")
 	private Long id;
 
+	@Column(length = 1000)
 	private String imageUrl;
 
 	@ManyToOne(fetch = FetchType.LAZY)

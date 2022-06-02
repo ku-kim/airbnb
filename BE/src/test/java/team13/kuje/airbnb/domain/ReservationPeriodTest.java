@@ -33,6 +33,7 @@ class ReservationPeriodTest {
 		@Nested
 		@DisplayName("만약 동일한 날짜(day)의 체크인, 체크아웃 날짜가 주어졌을 때")
 		class Context_with_checkIn_equal_to_checkOut {
+
 			@Test
 			@DisplayName("예외를 반환한다.")
 			void It_throw_exception() {
@@ -49,30 +50,29 @@ class ReservationPeriodTest {
 		class Context_with_null_checkIn_or_checkOut {
 
 			@Test
-			@DisplayName("예외를 반환한다.")
-			void It_throw_exception1() {
-				assertThatThrownBy(() -> new ReservationPeriod(
-					null,
-					LocalDateTime.of(2022, 6, 1, 0, 0)))
-					.isInstanceOf(IllegalArgumentException.class);
+			@DisplayName("isEmpty flag가 true인 객체를 반환한다.")
+			void It_return_object1() {
+				ReservationPeriod result = new ReservationPeriod(null,
+					LocalDateTime.of(2022, 6, 1, 0, 0));
+
+				assertThat(result.isEmpty()).isTrue();
 			}
 
 			@Test
-			@DisplayName("예외를 반환한다.")
-			void It_throw_exception2() {
-				assertThatThrownBy(() -> new ReservationPeriod(
-					LocalDateTime.of(2022, 6, 1, 0, 0),
-					null))
-					.isInstanceOf(IllegalArgumentException.class);
+			@DisplayName("isEmpty flag가 true인 객체를 반환한다.")
+			void It_return_object2() {
+				ReservationPeriod result = new ReservationPeriod(LocalDateTime.of(2022, 6, 1, 0, 0),
+					null);
+
+				assertThat(result.isEmpty()).isTrue();
 			}
 
 			@Test
-			@DisplayName("예외를 반환한다.")
-			void It_throw_exception3() {
-				assertThatThrownBy(() -> new ReservationPeriod(
-					null,
-					null))
-					.isInstanceOf(IllegalArgumentException.class);
+			@DisplayName("isEmpty flag가 true인 객체를 반환한다.")
+			void It_return_object3() {
+				ReservationPeriod result = new ReservationPeriod(null, null);
+
+				assertThat(result.isEmpty()).isTrue();
 			}
 		}
 

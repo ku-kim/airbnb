@@ -6,20 +6,23 @@ import lombok.Getter;
 public class ReservationGuest {
 
 	private final Integer adults;
-	private final Integer children;
-	private final Integer infants;
-	private final Long headCount;
+	private Integer children;
+	private Integer infants;
+	private Long headCount;
+	private boolean isEmptyAdults;
 
 	public ReservationGuest(Integer adults, Integer children, Integer infants) {
 		this.adults = initAdults(adults);
+		if (isEmptyAdults) {
+			return;
+		}
 		this.children = initKids(children);
 		this.infants = initKids(infants);
-		this.headCount = Long.valueOf(this.adults + this.children);
+		this.headCount = (long) (this.adults + this.children);
 	}
 
 	private int initAdults(Integer adults) {
-		validateAdults(adults);
-		return adults;
+		return validateAdults(adults);
 	}
 
 	private int initKids(Integer kids) {
@@ -28,10 +31,17 @@ public class ReservationGuest {
 		return numberOfKids;
 	}
 
-	private void validateAdults(Integer adults) {
-		if (adults == null || adults < 1) {
+	private int validateAdults(Integer adults) {
+		if (adults == null) {
+			this.isEmptyAdults = true;
+			return 0;
+		}
+
+		if (adults < 1) {
 			throw new IllegalArgumentException("adults가 유효하지 않습니다.");
 		}
+		this.isEmptyAdults = false;
+		return adults;
 	}
 
 	private int validateKids(Integer kids) {

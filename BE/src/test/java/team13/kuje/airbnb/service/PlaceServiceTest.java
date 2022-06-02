@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.transaction.annotation.Transactional;
 import team13.kuje.airbnb.controller.model.PlaceDto;
 import team13.kuje.airbnb.domain.Place;
@@ -19,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @DisplayName("PlaceService 클래스")
 @SpringBootTest
 @Transactional
-@Sql({"/testdb/schema.sql", "/testdb/data.sql"})
 class PlaceServiceTest {
 
 	@Autowired

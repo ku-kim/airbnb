@@ -6,7 +6,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -25,7 +27,7 @@ import lombok.Setter;
 public class Room {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ROOM_ID")
 	private Long id;
 
@@ -48,7 +50,7 @@ public class Room {
 	@OneToMany(mappedBy = "room")
 	private List<RoomImage> images = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "HOST_ID")
 	private Host host;
 
@@ -90,6 +92,9 @@ public class Room {
 
 	public void calculatePrice(ReservationPeriod reservationPeriod,
 		ReservationGuest reservationGuest) {
+		if (reservationPeriod.isEmpty() || reservationGuest.isEmptyAdults()) {
+			return;
+		}
 		roomPrice = RoomPrice.of(reservationPeriod, reservationGuest, roomPriceInfo);
 	}
 }

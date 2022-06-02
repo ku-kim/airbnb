@@ -1,6 +1,5 @@
 package team13.kuje.airbnb.domain;
 
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -69,6 +68,20 @@ class ReservationGuestTest {
 			void It_throw_exception() {
 				assertThatThrownBy(() -> new ReservationGuest(0, 2, 2))
 					.isInstanceOf(IllegalArgumentException.class);
+			}
+		}
+
+		@Nested
+		@DisplayName("만약 성인:null, 아이:2, 신생아:2 주어진 경우")
+		class Context_with_empty_adults_and_two_children_two_infant {
+
+			@Test
+			@DisplayName("예외를 반환한다.")
+			void it_return_object() {
+				ReservationGuest result = new ReservationGuest(null, 2, 2);
+
+				assertThat(result.isEmptyAdults()).isTrue();
+
 			}
 		}
 	}

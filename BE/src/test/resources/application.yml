@@ -11,8 +11,8 @@ spring:
 
   sql:
     init:
-#      data-locations:
-#        - classpath:testdb/data.sql
+      data-locations:
+        - classpath:testdb/data.sql
 #      schema-locations:
 #        - classpath:testdb/schema.sql
       mode: always

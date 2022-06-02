@@ -13,6 +13,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 
 
 /**
@@ -29,7 +30,6 @@ import org.springframework.test.context.jdbc.Sql;
  */
 @DisplayName("Rooms API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-//@Sql({"/testdb/schema.sql", "/testdb/data.sql"})
 class RoomsAcceptanceTest {
 
 	@LocalServerPort
@@ -41,7 +41,7 @@ class RoomsAcceptanceTest {
 	}
 
 	@Test
-	void 만약_특정_id_주어진_경우_해당_숙소의_디테일_정보가_조회된다() {
+	void 만약_특정_id_주어진_경우_해당_숙소의_가격정보를_제외한_디테일_정보가_조회된다() {
 		given()
 			.accept(MediaType.APPLICATION_JSON_VALUE)
 
@@ -52,9 +52,29 @@ class RoomsAcceptanceTest {
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
 			.body("data.id", equalTo(1))
-			.body("data.title", equalTo("숙소A"))
-			.body("data.host", equalTo("쿠킴"))
-			.body("data.review_count", equalTo(30));
+			.body("data.title", equalTo("제리네 집"))
+			.body("data.hostName", equalTo("제리"))
+			.body("data.reviewCount", equalTo(30))
+			.body("data.roomDetailPriceDto.headCount", equalTo(null));
+	}
+
+	@Test
+	void 만약_모든_정보가_주어진_경우_해당_숙소의_모든_디테일_정보가_조회된다() {
+		given()
+			.accept(MediaType.APPLICATION_JSON_VALUE)
+
+			.when()
+			.get("/api/rooms/2?check_in=2000-10-31T01:30:00.000-05:00&check_out=2000-11-01T01:30:00.000-05:00&adults=2&children=1&infants=1")
+
+			.then()
+			.statusCode(HttpStatus.OK.value())
+			.assertThat()
+			.body("data.id", equalTo(2))
+			.body("data.title", equalTo("쿠킴네 집"))
+			.body("data.hostName", equalTo("쿠킴"))
+			.body("data.reviewCount", equalTo(30))
+			.body("data.detailPrice.headCount", equalTo(3));
+
 	}
 
 }

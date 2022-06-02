@@ -8,12 +8,16 @@ import lombok.Getter;
 @Getter
 public class ReservationPeriod {
 
-	private final LocalDateTime checkIn;
-	private final LocalDateTime checkOut;
-	private final long dayCount;
+	private LocalDateTime checkIn;
+	private LocalDateTime checkOut;
+	private long dayCount;
+	private boolean isEmpty;
 
 	public ReservationPeriod(LocalDateTime checkIn, LocalDateTime checkOut) {
 		validateNull(checkIn, checkOut);
+		if (isEmpty) {
+			return;
+		}
 		validateCheckInAndCheckOut(checkIn, checkOut);
 
 		this.checkIn = checkIn;
@@ -23,8 +27,10 @@ public class ReservationPeriod {
 
 	private void validateNull(LocalDateTime checkIn, LocalDateTime checkOut) {
 		if (checkIn == null || checkOut == null) {
-			throw new IllegalArgumentException("checkIn & checkOut이 유효하지 않은 입니다.");
+			this.isEmpty = true;
+			return;
 		}
+		this.isEmpty = false;
 	}
 
 	private void validateCheckInAndCheckOut(LocalDateTime checkIn, LocalDateTime checkOut) {

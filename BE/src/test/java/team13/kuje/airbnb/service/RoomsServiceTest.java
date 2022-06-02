@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.transaction.annotation.Transactional;
 import team13.kuje.airbnb.controller.model.RoomDetailDto;
 import team13.kuje.airbnb.domain.Host;
@@ -18,7 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("EventService 클래스")
 @SpringBootTest
 @Transactional
-//@Sql({"/testdb/schema.sql", "/testdb/data.sql"})
 class RoomsServiceTest {
 
 	@Autowired
