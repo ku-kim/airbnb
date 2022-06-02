@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.jdbc.Sql;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -23,6 +24,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 @DisplayName("Event API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@Sql({"/testdb/schema.sql", "/testdb/data.sql"})
 class EventAcceptanceTest {
 
 	@LocalServerPort
@@ -44,7 +46,7 @@ class EventAcceptanceTest {
 		.then()
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
-			.body("data[0].title", equalTo("슬기로운 자연생활"));
+			.body("data[0].title", equalTo("슬기로운\\n자연생활"));
 
 
 	}
@@ -60,7 +62,7 @@ class EventAcceptanceTest {
 		.then()
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
-			.body("data[0].title", equalTo("슬기로운 자연생활2"));
+			.body("data[0].title", equalTo("자연생활을 만끽할 수\\n있는 숙소"));
 	}
 
 }
