@@ -13,8 +13,8 @@ public class EventDto {
 	private String imageUrl;
 
 	public EventDto(Event event) {
-		title = event.getTitle();
-		description = event.getDescription();
+		title = event.getTitle().replace("\\n", "\n");
+		description = event.getDescription().replace("\\n", "\n");
 		imageUrl = event.getImageUrl();
 	}
 }
