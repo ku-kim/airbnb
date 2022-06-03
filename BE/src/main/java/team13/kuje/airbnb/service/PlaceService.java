@@ -14,7 +14,7 @@ import team13.kuje.airbnb.repository.PlaceRepository;
 @RequiredArgsConstructor
 public class PlaceService {
 
-	public static final int ANGLE_OF_SEARCH_RANGE = 2;
+	private static final int ANGLE_OF_SEARCH_RANGE = 2;
 	private final PlaceRepository placeRepository;
 
 	/**
@@ -27,10 +27,7 @@ public class PlaceService {
 
 		Position inputPosition = new Position(lat, lng);
 
-		Position northEastPosition = new Position(inputPosition.getLat() + ANGLE_OF_SEARCH_RANGE, inputPosition.getLng() + ANGLE_OF_SEARCH_RANGE);
-		Position southWestPosition = new Position(inputPosition.getLat() - ANGLE_OF_SEARCH_RANGE, inputPosition.getLng() - ANGLE_OF_SEARCH_RANGE);
-
-		List<Place> places = placeRepository.findByPosition(southWestPosition, northEastPosition);
+		List<Place> places = placeRepository.findByPosition(inputPosition, ANGLE_OF_SEARCH_RANGE);
 
 		return places.stream()
 			.map(p -> new PlaceDto(p, inputPosition))

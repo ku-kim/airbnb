@@ -14,7 +14,10 @@ public class PlaceRepository {
 
 	private final EntityManager entityManager;
 
-	public List<Place> findByPosition(Position southWestPosition, Position northEastPosition) {
+	public List<Place> findByPosition(Position inputPosition, int angleOfSearchRange) {
+		Position northEastPosition = new Position(inputPosition.getLat() + angleOfSearchRange, inputPosition.getLng() + angleOfSearchRange);
+		Position southWestPosition = new Position(inputPosition.getLat() - angleOfSearchRange, inputPosition.getLng() - angleOfSearchRange);
+
 		return entityManager.createQuery(
 				"select p from Place p "
 					+ "where p.position.lat between :minLat and :maxLat "
