@@ -12,8 +12,8 @@ final class ThemeViewModel: ViewModelBindable {
     let loadAction = PublishRelay<Void>()
     let loadedState = PublishRelay<[CellViewModelable]>()
     
-    @NetworkInject(keypath: \.searchHomeRepositoryImplement)
-    private var repository: SearchHomeRepositoryImpl
+    @NetworkInject(keypath: \.searchHomeRepository)
+    private var repository: SearchHomeRepository
     
     init() {
         loadAction.bind(onNext: { [weak self] in
