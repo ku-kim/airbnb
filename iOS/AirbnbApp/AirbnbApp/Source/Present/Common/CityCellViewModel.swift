@@ -22,4 +22,10 @@ class CityCellViewModel: CellViewModelable {
         }
     }
     
+    func disposeBind() {
+        loadedCityName.clearBinds()
+        loadedCityImage.clearBinds()
+        loadedCityImage.clearBinds()
+    }
+    
 }

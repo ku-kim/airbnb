@@ -8,6 +8,7 @@
 import Foundation
 
 class BannerCellViewModel: CellViewModelable {
+    
     let loadBannerData = PublishRelay<Void>()
     let loadedBannerImage = PublishRelay<String>()
     let loadedBannerTitle = PublishRelay<String>()
@@ -20,4 +21,11 @@ class BannerCellViewModel: CellViewModelable {
             self?.loadedDescription.accept(banner.description)
         }
     }
+    
+    func disposeBind() {
+        loadedBannerImage.clearBinds()
+        loadedBannerTitle.clearBinds()
+        loadedDescription.clearBinds()
+    }
+    
 }

@@ -7,4 +7,8 @@
 
 import Foundation
 
-protocol CellViewModelable { }
+protocol CellViewModelable {
+    
+    func disposeBind()
+    
+}

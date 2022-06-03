@@ -21,6 +21,10 @@ final class PublishRelay<T> {
             $0(value)
         }
     }
+    
+    func clearBinds() {
+        binders.removeAll()
+    }
 }
 
 final class BehaviorRelay<T> {

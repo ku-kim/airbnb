@@ -20,4 +20,10 @@ class ThemeCellViewModel: CellViewModelable {
         }
     }
     
+    func disposeBind() {
+        loadThemeData.clearBinds()
+        loadedThemeName.clearBinds()
+        loadedThemeImage.clearBinds()
+    }
+    
 }

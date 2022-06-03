@@ -91,6 +91,7 @@ extension ThemeViewCell {
         }
         
         viewModel.loadThemeData.accept(())
+        viewModel.disposeBind()
     }
     
 }

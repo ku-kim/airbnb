@@ -57,6 +57,10 @@ final class CityViewCell: UICollectionViewCell, ViewCellBindable {
         layoutInformationStackView()
     }
     
+    private func disposeBinding() {
+        viewModel?.disposeBind()
+    }
+
 }
 
 // MARK: - View Layout
@@ -111,6 +115,7 @@ extension CityViewCell {
         }
         
         viewModel.loadCityData.accept(())
+        disposeBinding()
     }
     
 }

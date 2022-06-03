@@ -133,6 +133,7 @@ extension BannerViewCell {
         }
         
         viewModel.loadBannerData.accept(())
+        viewModel.disposeBind()
     }
     
 }
