@@ -13,11 +13,6 @@ public class RoomsRepository {
 	private final EntityManager entityManager;
 
 	public Optional<Room> findById(Long id) {
-//		try {
 		return Optional.ofNullable(entityManager.find(Room.class, id));
-//		} catch (IllegalArgumentException e) {
-//			return Optional.empty();
-//		}
-//	}
 	}
 }
