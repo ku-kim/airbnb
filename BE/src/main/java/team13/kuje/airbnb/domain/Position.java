@@ -32,9 +32,42 @@ public class Position {
 	}
 
 	private void validateRangeOfPosition(Double lat, Double lng) {
-		if (lat == null || lng == null || lat < MIN_LAT || lat > MAX_LAT || lng < MIN_LNG || lng > MAX_LNG) {
+		if (lat == null || lng == null || lat < MIN_LAT || lat > MAX_LAT || lng < MIN_LNG
+			|| lng > MAX_LNG) {
 			throw new IllegalArgumentException("lat, lng 데이터가 잘못되었습니다.");
 		}
 	}
+
+	/**
+	 * 두 점의 위경도에 사이의 거리 (단위, km)
+	 */
+	// reference http://www.geodatasource.com/developers/
+	public double calculateDistance(Position toPosition) {
+		Double toLng = toPosition.getLng();
+		Double toLat = toPosition.getLat();
+
+		double theta = this.lng - toLng;
+		double dist =
+			Math.sin(deg2rad(lat)) * Math.sin(deg2rad(toLat)) + Math.cos(deg2rad(lat)) * Math.cos(
+				deg2rad(toLat)) * Math.cos(deg2rad(theta));
+
+		dist = Math.acos(dist);
+		dist = rad2deg(dist);
+		dist = dist * 60 * 1.1515;
+		dist = dist * 1.609344;
+
+		return (dist);
+	}
+
+	// This function converts decimal degrees to radians
+	private static double deg2rad(double deg) {
+		return (deg * Math.PI / 180.0);
+	}
+
+	// This function converts radians to decimal degrees
+	private static double rad2deg(double rad) {
+		return (rad * 180 / Math.PI);
+	}
+
 
 }
