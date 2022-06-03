@@ -4,6 +4,15 @@ spring:
 #    url: jdbc:mysql://localhost:3306/airbnb
 #    username: star
 #    password: 5210
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testDB;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password:
+#
+#  h2:
+#    console:
+#      enabled: true
 
   jpa:
     hibernate:
@@ -18,8 +27,6 @@ spring:
     init:
       data-locations:
         - classpath:db/data.sql
-      schema-locations:
-        - classpath:db/schema.sql
       mode: always
       encoding: UTF-8
 
