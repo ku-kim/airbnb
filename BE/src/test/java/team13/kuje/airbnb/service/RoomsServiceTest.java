@@ -16,8 +16,9 @@ import team13.kuje.airbnb.domain.Room;
 import team13.kuje.airbnb.domain.RoomImage;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("EventService 클래스")
+@DisplayName("RoomsService 클래스")
 @SpringBootTest
 @Transactional
 class RoomsServiceTest {
@@ -25,39 +26,21 @@ class RoomsServiceTest {
 	@Autowired
 	RoomsService roomsService;
 
-	@Autowired
-	EntityManager em;
-
 	@Test
-	void 유효한_숙소ID로_숙소를_조회하면_숙소_디테일_조회_DTO를_반환한다() {
-		Room saveRoom = initSaveRoom();
-
-		RoomDetailDto result = roomsService.findById(saveRoom.getId(),
+	void 만약_유효한_숙소ID로_숙소를_조회하면_숙소_디테일_조회_DTO를_반환한다() {
+		RoomDetailDto result = roomsService.findById(1L,
 			LocalDateTime.of(2022, 6, 1, 0, 0),
 			LocalDateTime.of(2022, 6, 3, 0, 0),
 			3, 1, 0);
 
-		assertThat(result.getId()).isEqualTo(saveRoom.getId());
+		assertThat(result.getId()).isEqualTo(1L);
 	}
 
-	private Room initSaveRoom() {
-
-		RoomImage roomImage1 = RoomImage.createBy("http://test1.com");
-		RoomImage roomImage2 = RoomImage.createBy("http://test2.com");
-		Host host = Host.of("쿠킴", "http://test.com");
-		Room room = Room.of("숙소A", "설명A", "서울시 송파구 xx-xx", 3, 3, 3, 3, 10000, 5000, 3000,
-			10, 10, 10, 4.5f);
-
-		room.updateHost(host);
-		em.persist(roomImage1);
-		em.persist(roomImage2);
-
-		room.updateImages(roomImage1, roomImage2);
-		em.persist(room);
-
-		em.flush();
-		em.clear();
-
-		return room;
+	@Test
+	void 만약_존재하지않은_ID로_숙소를_조회하면_예외를발생한다() {
+		assertThatThrownBy(() -> roomsService.findById(-99999L,
+			LocalDateTime.of(2022, 6, 1, 0, 0),
+			LocalDateTime.of(2022, 6, 3, 0, 0),
+			3, 1, 0)).isInstanceOf(IllegalArgumentException.class);
 	}
 }
