@@ -60,10 +60,6 @@ final class SearchHomeViewController: UIViewController {
         configureNavigationItem()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
     private func bind() {
         searchBarDelegate.tapTextField
             .bind { [weak self] in
@@ -82,15 +78,20 @@ final class SearchHomeViewController: UIViewController {
             viewModel.accept(sectionType: section, value: ())
         }
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    private func configureNavigationItem() {
+        self.navigationItem.backButtonTitle = "뒤로"
+    }
+    
 }
 
 // MARK: - View Layout
 
 private extension SearchHomeViewController {
-    
-    func configureNavigationItem() {
-        self.navigationItem.backButtonTitle = "뒤로"
-    }
     
     func layoutSearchBar() {
         view.addSubview(searchBar)

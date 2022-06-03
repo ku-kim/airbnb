@@ -8,6 +8,7 @@
 import UIKit
 
 enum SectionLayoutFactory {
+    
     static func createCitiesLayout(isHeaderExist: Bool) -> UICollectionViewCompositionalLayout {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
@@ -178,4 +179,5 @@ enum SectionLayoutFactory {
         
         return section
     }
+    
 }

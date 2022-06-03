@@ -15,6 +15,7 @@ enum SearchHomeEndPoint: Requestable {
 }
 
 extension SearchHomeEndPoint {
+    
     var baseUrl: URL? {
         switch self {
         case .city, .banner, .theme:
@@ -54,4 +55,5 @@ extension SearchHomeEndPoint {
             return .get
         }
     }
+    
 }

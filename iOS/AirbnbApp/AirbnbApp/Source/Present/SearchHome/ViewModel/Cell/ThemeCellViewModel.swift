@@ -8,6 +8,7 @@
 import Foundation
 
 class ThemeCellViewModel: CellViewModelable {
+    
     let loadThemeData = PublishRelay<Void>()
     let loadedThemeName = PublishRelay<String>()
     let loadedThemeImage = PublishRelay<String>()
@@ -18,4 +19,5 @@ class ThemeCellViewModel: CellViewModelable {
             self?.loadedThemeImage.accept(theme.imageUrl)
         }
     }
+    
 }

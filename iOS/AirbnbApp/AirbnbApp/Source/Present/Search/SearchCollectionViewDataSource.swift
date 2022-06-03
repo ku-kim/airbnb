@@ -41,7 +41,9 @@ final class SearchCollectionViewDataSource: NSObject, UICollectionViewDataSource
 // MARK: - Providing Function
 
 extension SearchCollectionViewDataSource {
+    
     func configure(with locations: [MKLocalSearchCompletion]) {
         self.locations = locations
     }
+    
 }

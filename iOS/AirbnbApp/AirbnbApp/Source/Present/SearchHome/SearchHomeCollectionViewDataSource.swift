@@ -13,12 +13,6 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
                                                                                                 .banner: BannerSectionViewModel(),
                                                                                                 .theme: ThemeSectionViewModel()]
     
-    @NetworkInject(keypath: \.imageManager)
-    private var imageManager: ImageManager
-    
-    @NetworkInject(keypath: \.searchHomeRepositoryImplement)
-    private var repository: SearchHomeRepositoryImpl
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section) else { return 0 }
         guard let count = sectionViewModelMap[sectionKind]?.count else { return 0 }
@@ -44,7 +38,9 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
         return sectionViewModelMap.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
         guard kind == UICollectionView.elementKindSectionHeader,
               let sectionViewModel = sectionViewModelMap[sectionKind],
@@ -59,12 +55,15 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
         
         return headerView
     }
+    
 }
 
 // MARK: - Providing Function
 
 extension SearchHomeCollectionViewDataSource {
+    
     func configure(sectionType: SearchHomeCollectionViewSection, with viewModels: [CellViewModelable]) {
         sectionViewModelMap[sectionType]?.configure(with: viewModels)
     }
+    
 }

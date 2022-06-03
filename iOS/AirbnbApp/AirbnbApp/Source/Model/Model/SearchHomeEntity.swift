@@ -10,6 +10,7 @@ import Foundation
 struct SearchHomeEntity { }
 
 extension SearchHomeEntity {
+    
     struct NearCity: Decodable {
         let cities: [City]
         
@@ -32,6 +33,7 @@ extension SearchHomeEntity {
 }
 
 extension SearchHomeEntity {
+    
     struct HeroBanner: Decodable {
         let banners: [Banner]
         
@@ -54,6 +56,7 @@ extension SearchHomeEntity {
 }
 
 extension SearchHomeEntity {
+    
     struct ThemeJourney: Decodable {
         let themes: [Theme]
         

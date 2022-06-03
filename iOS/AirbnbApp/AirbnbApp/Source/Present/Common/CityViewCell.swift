@@ -10,38 +10,14 @@ import SnapKit
 
 final class CityViewCell: UICollectionViewCell, ViewCellBindable {
     
+    static var identifier: String {
+        return "\(self)"
+    }
+    
     private var viewModel: CellViewModelable?
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
-    
-    func configure(with viewModel: CellViewModelable) {
-        self.viewModel = viewModel
-        guard let viewModel = self.viewModel as? CityCellViewModel else { return }
-        
-        viewModel.loadedCityName.bind { [ weak self ] title in
-            self?.titleLabel.text = title
-        }
-        
-        viewModel.loadedCityImage.bind { [ weak self ] imageUrl in
-            let imageUrl = URL(string: imageUrl)
-            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            }
-        }
-        
-        viewModel.loadedTime.bind { [ weak self ] time in
-            self?.distanceLabel.text = "차로 \(time.convertIntoTime()) 거리"
-        }
-        
-        viewModel.loadCityData.accept(())
-    }
-    
-    static var identifier: String {
-        return "\(self)"
-    }
     
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -80,6 +56,7 @@ final class CityViewCell: UICollectionViewCell, ViewCellBindable {
         layoutCityImageView()
         layoutInformationStackView()
     }
+    
 }
 
 // MARK: - View Layout
@@ -104,6 +81,36 @@ private extension CityViewCell {
             make.trailing.equalToSuperview()
             make.centerY.equalTo(imageView.snp.centerY)
         }
+    }
+    
+}
+
+// MARK: - Providing Function
+
+extension CityViewCell {
+    
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? CityCellViewModel else { return }
+        
+        viewModel.loadedCityName.bind { [ weak self ] title in
+            self?.titleLabel.text = title
+        }
+        
+        viewModel.loadedCityImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadedTime.bind { [ weak self ] time in
+            self?.distanceLabel.text = "차로 \(time.convertIntoTime()) 거리"
+        }
+        
+        viewModel.loadCityData.accept(())
     }
     
 }

@@ -10,33 +10,14 @@ import SnapKit
 
 final class ThemeViewCell: UICollectionViewCell, ViewCellBindable {
     
+    static var identifier: String {
+        return "\(self)"
+    }
+    
     private var viewModel: CellViewModelable?
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
-    
-    func configure(with viewModel: CellViewModelable) {
-        self.viewModel = viewModel
-        guard let viewModel = self.viewModel as? ThemeCellViewModel else { return }
-        
-        viewModel.loadedThemeName.bind { [ weak self ] description in
-            self?.descriptionLabel.text = description
-        }
-        
-        viewModel.loadedThemeImage.bind { [ weak self ] imageUrl in
-            let imageUrl = URL(string: imageUrl)
-            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            }
-        }
-        
-        viewModel.loadThemeData.accept(())
-    }
-    static var identifier: String {
-        return "\(self)"
-    }
     
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -61,6 +42,7 @@ final class ThemeViewCell: UICollectionViewCell, ViewCellBindable {
         layoutImageView()
         layoutDescriptionLabel()
     }
+    
 }
 
 // MARK: - View Layout
@@ -83,6 +65,32 @@ private extension ThemeViewCell {
             make.top.equalTo(imageView.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview()
         }
+    }
+    
+}
+
+// MARK: - Providing Function
+
+extension ThemeViewCell {
+    
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? ThemeCellViewModel else { return }
+        
+        viewModel.loadedThemeName.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadedThemeImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadThemeData.accept(())
     }
     
 }

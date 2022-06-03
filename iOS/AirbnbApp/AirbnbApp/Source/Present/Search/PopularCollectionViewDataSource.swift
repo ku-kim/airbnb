@@ -11,8 +11,6 @@ final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSourc
     
     private var sectionViewModel: SectionViewModelable = CitySectionViewModel()
     
-    let imageManager = NetworkContainer.shared.imageManager
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return sectionViewModel.count
     }
@@ -46,7 +44,9 @@ final class PopularCollectionViewDataSource: NSObject, UICollectionViewDataSourc
 // MARK: - Providing Function
 
 extension PopularCollectionViewDataSource {
+    
     func configure(with cellViewModels: [CellViewModelable]) {
         self.sectionViewModel.configure(with: cellViewModels)
     }
+    
 }

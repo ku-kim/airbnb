@@ -30,4 +30,5 @@ final class BannerViewModel: ViewModelBindable {
             }
         })
     }
+    
 }

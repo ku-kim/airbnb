@@ -37,4 +37,5 @@ final class CustomSearchBar: UISearchBar {
             make.leading.trailing.bottom.equalToSuperview().inset(16)
         }
     }
+    
 }

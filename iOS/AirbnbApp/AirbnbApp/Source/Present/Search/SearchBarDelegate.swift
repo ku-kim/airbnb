@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 
 class SearchBarDelegate: NSObject, UISearchBarDelegate {
+    
     private var searchCompleter = MKLocalSearchCompleter()
     
     private let editTextField = PublishRelay<[MKLocalSearchCompletion]>()
@@ -47,4 +48,5 @@ extension SearchBarDelegate: MKLocalSearchCompleterDelegate {
     func bindDismissTextField(_ completion: @escaping () -> Void) {
         dismissTextField.bind(onNext: completion)
     }
+    
 }

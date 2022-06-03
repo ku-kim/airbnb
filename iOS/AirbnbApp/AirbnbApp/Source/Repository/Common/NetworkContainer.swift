@@ -8,6 +8,7 @@
 import Foundation
 
 final class NetworkContainer {
+    
     static var shared = NetworkContainer()
     
     private init() { }

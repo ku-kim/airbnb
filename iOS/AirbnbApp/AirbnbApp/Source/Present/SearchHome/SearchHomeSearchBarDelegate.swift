@@ -15,4 +15,5 @@ final class SearchHomeSearchBarDelegate: NSObject, UISearchBarDelegate {
         searchBar.searchTextField.resignFirstResponder()
         tapTextField.accept(())
     }
+    
 }

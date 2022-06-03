@@ -24,21 +24,7 @@ final class SearchViewController: UIViewController {
         return searchController
     }()
     
-    init(viewModel: CityViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private lazy var popularCollectionViewDataSource = PopularCollectionViewDataSource()
-    private lazy var searchCollectionViewDataSource = SearchCollectionViewDataSource()
-    
-    private lazy var searchCollectionViewDelegate = SearchCollectionViewDelegate()
-    
     private lazy var popularCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCitiesLayout(isHeaderExist: true))
         collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
@@ -49,6 +35,8 @@ final class SearchViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var searchCollectionViewDataSource = SearchCollectionViewDataSource()
+    private lazy var searchCollectionViewDelegate = SearchCollectionViewDelegate()
     private lazy var searchResultCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCitiesLayout(isHeaderExist: false))
         collectionView.register(SearchResultViewCell.self, forCellWithReuseIdentifier: SearchResultViewCell.identifier)
@@ -57,6 +45,16 @@ final class SearchViewController: UIViewController {
         collectionView.isHidden = true
         return collectionView
     }()
+    
+    init(viewModel: CityViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -75,16 +73,6 @@ final class SearchViewController: UIViewController {
         layoutSearchResultCollectionView()
         bind()
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-}
-
-// MARK: - View Layout
-
-private extension SearchViewController {
     
     func bind() {
         searchedLocations.bind { [weak self] locations in
@@ -129,6 +117,16 @@ private extension SearchViewController {
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+}
+
+// MARK: - View Layout
+
+private extension SearchViewController {
+    
     func layoutNearCityCollectionView() {
         view.addSubview(popularCollectionView)
         
@@ -136,6 +134,7 @@ private extension SearchViewController {
             make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
     func layoutSearchResultCollectionView() {
         view.addSubview(searchResultCollectionView)
         

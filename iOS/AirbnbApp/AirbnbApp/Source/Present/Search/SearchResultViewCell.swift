@@ -57,6 +57,7 @@ class SearchResultViewCell: UICollectionViewCell {
         layoutImageContainerView()
         layoutInformationStackView()
     }
+    
 }
 
 // MARK: - View Layout
@@ -97,4 +98,5 @@ extension SearchResultViewCell {
     func setDescription(text: String) {
         descriptionLabel.text = text
     }
+    
 }

@@ -8,7 +8,6 @@
 import Foundation
 
 protocol SearchHomeRepository {
-    
     func requestNearCity(at coordinate: Coordinate,
                          completion: @escaping (Result<SearchHomeEntity.NearCity, NetworkError>) -> Void)
     

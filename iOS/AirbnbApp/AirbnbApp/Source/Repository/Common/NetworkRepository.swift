@@ -8,6 +8,7 @@
 import Foundation
 
 class NetworkRepository<Target: Requestable> {
+    
     let networkManager = NetworkManager<Target>()
     
     static func decode<T: Decodable>(_ type: T.Type, decodeTarget data: Data?) -> T? {
@@ -17,4 +18,5 @@ class NetworkRepository<Target: Requestable> {
         }
         return decodedData
     }
+    
 }

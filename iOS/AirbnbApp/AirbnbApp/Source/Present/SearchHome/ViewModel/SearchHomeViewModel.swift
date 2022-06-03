@@ -8,6 +8,7 @@
 import Foundation
 
 final class SearchHomeViewModel {
+    
     private var sectionViewModelMap: [SearchHomeCollectionViewSection: ViewModelBindable] = [.nearCity: CityViewModel(),
                                                                                                 .banner: BannerViewModel(),
                                                                                                 .theme: ThemeViewModel()]

@@ -39,6 +39,7 @@ private extension PopularHeaderView {
             make.edges.equalToSuperview()
         }
     }
+    
 }
 
 // MARK: - Providing Function
@@ -48,4 +49,5 @@ extension PopularHeaderView {
     func setHeaderLabel(text: String) {
         headerLabel.text = text
     }
+    
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 class CityCellViewModel: CellViewModelable {
+    
     let loadCityData = PublishRelay<Void>()
     let loadedCityName = PublishRelay<String>()
     let loadedCityImage = PublishRelay<String>()
@@ -20,4 +21,5 @@ class CityCellViewModel: CellViewModelable {
             self?.loadedTime.accept(city.time)
         }
     }
+    
 }

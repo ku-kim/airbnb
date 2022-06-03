@@ -10,38 +10,14 @@ import SnapKit
 
 final class BannerViewCell: UICollectionViewCell, ViewCellBindable {
     
+    static var identifier: String {
+        return "\(self)"
+    }
+    
     private var viewModel: CellViewModelable?
     
     @NetworkInject(keypath: \.imageManager)
     private var imageManager: ImageManager
-    
-    func configure(with viewModel: CellViewModelable) {
-        self.viewModel = viewModel
-        guard let viewModel = self.viewModel as? BannerCellViewModel else { return }
-        
-        viewModel.loadedBannerTitle.bind { [ weak self ] title in
-            self?.titleLabel.text = title
-        }
-        
-        viewModel.loadedBannerImage.bind { [ weak self ] imageUrl in
-            let imageUrl = URL(string: imageUrl)
-            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
-                DispatchQueue.main.async {
-                    self?.imageView.image = image
-                }
-            }
-        }
-        
-        viewModel.loadedDescription.bind { [ weak self ] description in
-            self?.descriptionLabel.text = description
-        }
-        
-        viewModel.loadBannerData.accept(())
-    }
-    
-    static var identifier: String {
-        return "\(self)"
-    }
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
@@ -93,6 +69,7 @@ final class BannerViewCell: UICollectionViewCell, ViewCellBindable {
         layoutContainerStackView()
         layoutReceiveIdeaButton()
     }
+    
 }
 
 // MARK: - View Layout
@@ -126,6 +103,36 @@ private extension BannerViewCell {
             make.leading.equalToSuperview().offset(16)
             make.height.equalTo(38)
         }
+    }
+    
+}
+
+// MARK: - Providing Function
+
+extension BannerViewCell {
+    
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? BannerCellViewModel else { return }
+        
+        viewModel.loadedBannerTitle.bind { [ weak self ] title in
+            self?.titleLabel.text = title
+        }
+        
+        viewModel.loadedBannerImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadedDescription.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadBannerData.accept(())
     }
     
 }

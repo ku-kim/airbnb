@@ -52,7 +52,7 @@ class SearchHomeRepositoryImpl: NetworkRepository<SearchHomeEndPoint>, SearchHom
             case .failure(let error):
                 completion(.failure(error))
             }
-            
         }
     }
+    
 }

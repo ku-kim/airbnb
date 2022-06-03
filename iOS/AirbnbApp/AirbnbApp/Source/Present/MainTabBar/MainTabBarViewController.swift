@@ -39,4 +39,5 @@ final class MainTabBarController: UITabBarController {
             searchHomeViewController, wishListViewController, reservationViewController
         ]
     }
+    
 }

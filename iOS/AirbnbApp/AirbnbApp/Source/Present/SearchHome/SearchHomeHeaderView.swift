@@ -26,6 +26,7 @@ final class SearchHomeHeaderView: UICollectionReusableView {
         super.init(coder: coder)
         layoutHeaderLabel()
     }
+    
 }
 
 // MARK: - View Layout
@@ -39,6 +40,7 @@ private extension SearchHomeHeaderView {
             make.edges.equalToSuperview()
         }
     }
+    
 }
 
 // MARK: - Providing Function
@@ -48,4 +50,5 @@ extension SearchHomeHeaderView {
     func setHeaderLabel(text: String) {
         headerLabel.text = text
     }
+    
 }

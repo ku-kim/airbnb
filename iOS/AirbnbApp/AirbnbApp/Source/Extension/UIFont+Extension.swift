@@ -21,4 +21,5 @@ extension UIFont {
         }
         static let semiBold = UIFont(name: "SFProDisplay-Semibold", size: 17)
     }
+    
 }
