@@ -1,5 +1,5 @@
 //
-//  DestinationSearchBarDelegate.swift
+//  SearchHomeSearchBarDelegate.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DestinationSearchBarDelegate: NSObject, UISearchBarDelegate {
+final class SearchHomeSearchBarDelegate: NSObject, UISearchBarDelegate {
     
     let tapTextField = PublishRelay<Void>()
     
@@ -15,4 +15,5 @@ final class DestinationSearchBarDelegate: NSObject, UISearchBarDelegate {
         searchBar.searchTextField.resignFirstResponder()
         tapTextField.accept(())
     }
+    
 }

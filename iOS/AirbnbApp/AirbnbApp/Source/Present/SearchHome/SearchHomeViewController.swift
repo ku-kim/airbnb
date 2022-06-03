@@ -12,30 +12,29 @@ final class SearchHomeViewController: UIViewController {
     
     private let viewModel: SearchHomeViewModel
     
-    private lazy var searchBarDelegate = DestinationSearchBarDelegate()
-    private lazy var searchBar: DestinationSearchBar = {
-        let searchBar = DestinationSearchBar()
+    private lazy var searchBarDelegate = SearchHomeSearchBarDelegate()
+    private lazy var searchBar: CustomSearchBar = {
+        let searchBar = CustomSearchBar()
         searchBar.delegate = searchBarDelegate
         return searchBar
     }()
     
-    private lazy var destinationCollectionViewDataSource = DestinationCollecionViewDataSource()
-    private lazy var destinationCollectionView: UICollectionView = {
+    private lazy var collectionViewDataSource = SearchHomeCollectionViewDataSource()
+    private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: SectionLayoutFactory.createCompositionalLayout())
-        collectionView.register(HeroImageViewCell.self, forCellWithReuseIdentifier: HeroImageViewCell.identifier)
-        collectionView.register(NearDestinationViewCell.self, forCellWithReuseIdentifier: NearDestinationViewCell.identifier)
-        collectionView.register(TravelThemeViewCell.self, forCellWithReuseIdentifier: TravelThemeViewCell.identifier)
-        collectionView.register(DestinationHeaderView.self,
+        collectionView.register(BannerViewCell.self, forCellWithReuseIdentifier: BannerViewCell.identifier)
+        collectionView.register(CityViewCell.self, forCellWithReuseIdentifier: CityViewCell.identifier)
+        collectionView.register(ThemeViewCell.self, forCellWithReuseIdentifier: ThemeViewCell.identifier)
+        collectionView.register(SearchHomeHeaderView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: DestinationHeaderView.identifier)
-        collectionView.dataSource = self.destinationCollectionViewDataSource
+                                withReuseIdentifier: SearchHomeHeaderView.identifier)
+        collectionView.dataSource = self.collectionViewDataSource
         return collectionView
     }()
     
     init(viewModel: SearchHomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        bind()
     }
     
     @available(*, unavailable)
@@ -55,47 +54,39 @@ final class SearchHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         layoutSearchBar()
-        layoutDestinationCollecionView()
-        let endPoint = EndPoint.requestNearDestination(latitude: 35.1, longtitude: 123.1)
-        Provider.foo(endPoint: endPoint)
+        layoutNearCityCollectionView()
+        configureNavigationItem()
+    }
+    
+    private func bind() {
+        searchBarDelegate.tapTextField
+            .bind { [weak self] in
+                self?.navigationController?.pushViewController(SearchViewController(viewModel: CityViewModel()), animated: true)
+            }
+        
+        SearchHomeCollectionViewSection.allCases.forEach { section in
+            viewModel.bind(sectionType: section) { [weak self] cellViewModels in
+                self?.collectionViewDataSource
+                    .configure(sectionType: section, with: cellViewModels)
+                self?.collectionView.reloadSections(section.indexSet)
+            }
+        }
+        
+        SearchHomeCollectionViewSection.allCases.forEach { section in
+            viewModel.accept(sectionType: section, value: ())
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
     
-    private func bind() {
-        searchBarDelegate.tapTextField
-            .bind { [weak self] in
-                self?.navigationController?.pushViewController(UIViewController(), animated: true)
-            }
-        
-        viewModel.bindHeader { [weak self] headers in
-            self?.destinationCollectionViewDataSource.mockHeader = headers
-            self?.destinationCollectionView.reloadData()
-        }
-        
-        viewModel.bindImage { [weak self] imageName in
-            self?.destinationCollectionViewDataSource.mockImage.append( UIImage(named: imageName) ?? UIImage())
-            self?.destinationCollectionView.reloadData()
-        }
-        
-        viewModel.bindTheme { [weak self] themes in
-            self?.destinationCollectionViewDataSource.mockTheme = themes
-            self?.destinationCollectionView.reloadData()
-        }
-        
-        viewModel.bindCityName { [weak self] cityNames in
-            self?.destinationCollectionViewDataSource.mockCity = cityNames
-            self?.destinationCollectionView.reloadData()
-        }
-        
-        viewModel.acceptHeader(value: ())
-        viewModel.acceptImage(value: ())
-        viewModel.acceptCityName(value: ())
-        viewModel.acceptTheme(value: ())
+    private func configureNavigationItem() {
+        self.navigationItem.backButtonTitle = "뒤로"
     }
+    
 }
 
 // MARK: - View Layout
@@ -111,10 +102,10 @@ private extension SearchHomeViewController {
         }
     }
     
-    func layoutDestinationCollecionView() {
-        view.addSubview(destinationCollectionView)
+    func layoutNearCityCollectionView() {
+        view.addSubview(collectionView)
         
-        destinationCollectionView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(searchBar.snp.bottom)
             make.leading.trailing.bottom.equalToSuperview()
         }

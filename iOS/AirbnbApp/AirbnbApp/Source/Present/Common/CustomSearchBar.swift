@@ -1,5 +1,5 @@
 //
-//  DestinationSearchBar.swift
+//  CustomSearchBar.swift
 //  AirbnbApp
 //
 //  Created by 김상혁 on 2022/05/24.
@@ -8,20 +8,19 @@
 import UIKit
 import SnapKit
 
-final class DestinationSearchBar: UISearchBar {
+final class CustomSearchBar: UISearchBar {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        
-        searchTextField.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview().inset(16)
-        }
+        layoutSearchTextField()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        configure()
+        layoutSearchTextField()
     }
     
     private func configure() {
@@ -32,4 +31,11 @@ final class DestinationSearchBar: UISearchBar {
             attributes: [.foregroundColor: UIColor.Custom.gray3]
         )
     }
+    
+    private func layoutSearchTextField() {
+        searchTextField.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview().inset(16)
+        }
+    }
+    
 }

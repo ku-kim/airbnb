@@ -1,5 +1,5 @@
 //
-//  TravelThemeViewCell.swift
+//  ThemeViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
-final class TravelThemeViewCell: UICollectionViewCell {
+final class ThemeViewCell: UICollectionViewCell, ViewCellBindable {
     
     static var identifier: String {
         return "\(self)"
     }
+    
+    private var viewModel: CellViewModelable?
+    
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
     
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
@@ -33,19 +38,23 @@ final class TravelThemeViewCell: UICollectionViewCell {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+        super.init(coder: coder)
+        layoutImageView()
+        layoutDescriptionLabel()
     }
+    
 }
 
 // MARK: - View Layout
 
-private extension TravelThemeViewCell {
+private extension ThemeViewCell {
     
     func layoutImageView() {
         addSubview(imageView)
         
         imageView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
+            make.height.equalToSuperview().multipliedBy(0.82)
         }
     }
     
@@ -54,8 +63,7 @@ private extension TravelThemeViewCell {
         
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(16)
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(44)
+            make.leading.trailing.equalToSuperview()
         }
     }
     
@@ -63,13 +71,27 @@ private extension TravelThemeViewCell {
 
 // MARK: - Providing Function
 
-extension TravelThemeViewCell {
+extension ThemeViewCell {
     
-    func setImageView(image: UIImage) {
-        imageView.image = image
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? ThemeCellViewModel else { return }
+        
+        viewModel.loadedThemeName.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadedThemeImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadThemeData.accept(())
+        viewModel.disposeBind()
     }
     
-    func setDescriptionLabel(text: String) {
-        descriptionLabel.text = text
-    }
 }

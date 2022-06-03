@@ -9,16 +9,51 @@ import UIKit
 
 enum SectionLayoutFactory {
     
+    static func createCitiesLayout(isHeaderExist: Bool) -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(0.23)
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(
+            top: 0,
+            leading: 0,
+            bottom: 16,
+            trailing: 0
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitem: item, count: 1)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets.leading = 15
+        section.contentInsets.trailing = 15
+        
+        guard isHeaderExist else {
+            return UICollectionViewCompositionalLayout(section: section)
+        }
+        
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(56)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .topLeading)
+        ]
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+    
     static func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (sectionNumber, _) -> NSCollectionLayoutSection? in
-            guard let sectionKind = DestinationCollectionViewSection(rawValue: sectionNumber) else { return nil }
+            guard let sectionKind = SearchHomeCollectionViewSection(rawValue: sectionNumber) else { return nil }
             let section: NSCollectionLayoutSection
             
             switch sectionKind {
-            case .image:
+            case .banner:
                 section = heroImageLayoutSection()
-            case .nearby:
-                section = nearDestinationLayoutSection()
+            case .nearCity:
+                section = nearCityLayoutSection()
             case .theme:
                 section = themeLayoutSection()
             }
@@ -66,7 +101,7 @@ enum SectionLayoutFactory {
         return section
     }
     
-    static func nearDestinationLayoutSection() -> NSCollectionLayoutSection {
+    static func nearCityLayoutSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.7),
             heightDimension: .fractionalHeight(0.2)
@@ -115,7 +150,7 @@ enum SectionLayoutFactory {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(0.8),
-            heightDimension: .fractionalWidth(0.8)
+            heightDimension: .fractionalWidth(1.0)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
@@ -144,4 +179,5 @@ enum SectionLayoutFactory {
         
         return section
     }
+    
 }

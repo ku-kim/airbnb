@@ -1,20 +1,19 @@
 //
-//  DestinationHeaderCollectionReusableView.swift
+//  PopularHeaderView.swift
 //  AirbnbApp
 //
-//  Created by 김상혁 on 2022/05/24.
+//  Created by dale on 2022/05/29.
 //
 
 import UIKit
-import SnapKit
 
-final class DestinationHeaderView: UICollectionReusableView {
+final class PopularHeaderView: UICollectionReusableView {
     
     static var identifier: String {
         return "\(self)"
     }
     
-    private let headerLabel = CustomLabel(font: .SFProDisplay.regular(22),
+    private let headerLabel = CustomLabel(font: .SFProDisplay.semiBold,
                                           fontColor: .Custom.black)
     
     override init(frame: CGRect) {
@@ -22,14 +21,16 @@ final class DestinationHeaderView: UICollectionReusableView {
         layoutHeaderLabel()
     }
     
-    @available(*, unavailable) required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layoutHeaderLabel()
     }
 }
 
 // MARK: - View Layout
 
-private extension DestinationHeaderView {
+private extension PopularHeaderView {
     
     func layoutHeaderLabel() {
         addSubview(headerLabel)
@@ -38,13 +39,15 @@ private extension DestinationHeaderView {
             make.edges.equalToSuperview()
         }
     }
+    
 }
 
 // MARK: - Providing Function
 
-extension DestinationHeaderView {
+extension PopularHeaderView {
     
     func setHeaderLabel(text: String) {
         headerLabel.text = text
     }
+    
 }

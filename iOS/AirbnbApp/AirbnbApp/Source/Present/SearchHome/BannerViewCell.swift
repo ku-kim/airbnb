@@ -1,5 +1,5 @@
 //
-//  HeroImageViewCell.swift
+//  BannerViewCell.swift
 //  AirbnbApp
 //
 //  Created by dale on 2022/05/24.
@@ -8,24 +8,29 @@
 import UIKit
 import SnapKit
 
-final class HeroImageViewCell: UICollectionViewCell {
+final class BannerViewCell: UICollectionViewCell, ViewCellBindable {
     
     static var identifier: String {
         return "\(self)"
     }
     
-    private lazy var heroImageView: UIImageView = {
+    private var viewModel: CellViewModelable?
+    
+    @NetworkInject(keypath: \.imageManager)
+    private var imageManager: ImageManager
+    
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
     
-    private lazy var titleLabel = CustomLabel(text: "슬기로운\n자연생활",
-                                                       font: .SFProDisplay.medium,
-                                                       fontColor: .Custom.black)
+    private lazy var titleLabel = CustomLabel(text: "",
+                                              font: .SFProDisplay.medium,
+                                              fontColor: .Custom.black)
     
-    private lazy var descriptionLabel = CustomLabel(text: "에어비앤비가 엄선한\n위시리스트를 만나보세요",
-                                                             font: .SFProDisplay.regular(17),
-                                                             fontColor: .Custom.gray1)
+    private lazy var descriptionLabel = CustomLabel(text: "",
+                                                    font: .SFProDisplay.regular(17),
+                                                    fontColor: .Custom.gray1)
     
     private lazy var containerStackView: UIStackView = {
         let stackView = UIStackView()
@@ -59,35 +64,39 @@ final class HeroImageViewCell: UICollectionViewCell {
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init with coder is unavailable")
+        super.init(coder: coder)
+        layoutHeroImageView()
+        layoutContainerStackView()
+        layoutReceiveIdeaButton()
     }
+    
 }
 
 // MARK: - View Layout
 
-private extension HeroImageViewCell {
+private extension BannerViewCell {
     
     func layoutHeroImageView() {
-        addSubview(heroImageView)
+        addSubview(imageView)
         
-        heroImageView.snp.makeConstraints { make in
+        imageView.snp.makeConstraints { make in
             make.top.leading.bottom.trailing.equalToSuperview()
             make.height.width.equalToSuperview()
         }
     }
     
     func layoutContainerStackView() {
-        heroImageView.addSubview(containerStackView)
+        imageView.addSubview(containerStackView)
         
         containerStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
             make.leading.equalToSuperview().offset(16)
-            make.trailing.equalToSuperview().offset(105)
+            make.trailing.equalToSuperview().offset(-105)
         }
     }
     
     func layoutReceiveIdeaButton() {
-        heroImageView.addSubview(receiveIdeaButton)
+        imageView.addSubview(receiveIdeaButton)
         
         receiveIdeaButton.snp.makeConstraints { make in
             make.top.equalTo(containerStackView.snp.bottom).offset(16)
@@ -100,9 +109,31 @@ private extension HeroImageViewCell {
 
 // MARK: - Providing Function
 
-extension HeroImageViewCell {
+extension BannerViewCell {
     
-    func setHeroImageView(image: UIImage) {
-        heroImageView.image = image
+    func configure(with viewModel: CellViewModelable) {
+        self.viewModel = viewModel
+        guard let viewModel = self.viewModel as? BannerCellViewModel else { return }
+        
+        viewModel.loadedBannerTitle.bind { [ weak self ] title in
+            self?.titleLabel.text = title
+        }
+        
+        viewModel.loadedBannerImage.bind { [ weak self ] imageUrl in
+            let imageUrl = URL(string: imageUrl)
+            self?.imageManager.fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.imageView.image = image
+                }
+            }
+        }
+        
+        viewModel.loadedDescription.bind { [ weak self ] description in
+            self?.descriptionLabel.text = description
+        }
+        
+        viewModel.loadBannerData.accept(())
+        viewModel.disposeBind()
     }
+    
 }

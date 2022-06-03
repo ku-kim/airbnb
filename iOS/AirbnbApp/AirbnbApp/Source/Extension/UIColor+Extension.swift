@@ -8,7 +8,6 @@
 import UIKit.UIColor
 
 extension UIColor {
-    
     enum Custom {
         static let white = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         static let gray1 = UIColor(red: 51 / 255, green: 51 / 255, blue: 51 / 255, alpha: 1.0)
