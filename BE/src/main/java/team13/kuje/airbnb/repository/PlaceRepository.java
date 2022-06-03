@@ -14,6 +14,10 @@ public class PlaceRepository {
 
 	private final EntityManager entityManager;
 
+	/**
+	 * northEastPosition : inputPosition 기준 ANGLE_OF_SEARCH_RANGE 를 더한 오른쪽 위 대각선 위치
+	 * southWestPosition : inputPosition 기준 ANGLE_OF_SEARCH_RANGE 를 뺀 왼쪽 아래 대각선 위치
+	 */
 	public List<Place> findByPosition(Position inputPosition, int angleOfSearchRange) {
 		Position northEastPosition = new Position(inputPosition.getLat() + angleOfSearchRange, inputPosition.getLng() + angleOfSearchRange);
 		Position southWestPosition = new Position(inputPosition.getLat() - angleOfSearchRange, inputPosition.getLng() - angleOfSearchRange);

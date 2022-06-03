@@ -12,22 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
 
-
-/**
- * 특정 id의 숙소에 대한 디테일 정보를 조회할 수 있게 해주세요
- * GET /rooms/{id}
- *
- * case 1 : 성공
- * 200 OK
- * JSON 타입
- * - 숙소 디테일 정보
- *
- * case 2 : 실패 - id가 유효하지 않은 경우
- * 400 BAD REQUEST
- */
 @DisplayName("Rooms API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class RoomsAcceptanceTest {

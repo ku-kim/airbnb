@@ -17,10 +17,6 @@ public class PlaceService {
 	private static final int ANGLE_OF_SEARCH_RANGE = 2;
 	private final PlaceRepository placeRepository;
 
-	/**
-	 * northEastPosition : inputPosition 기준 ANGLE_OF_SEARCH_RANGE 를 더한 오른쪽 위 대각선 위치
-	 * southWestPosition : inputPosition 기준 ANGLE_OF_SEARCH_RANGE 를 뺀 왼쪽 아래 대각선 위치
-	 */
 	@Transactional(readOnly = true)
 	public List<PlaceDto> findByPosition(String tag, Double lat, Double lng) {
 		validateTag(tag);

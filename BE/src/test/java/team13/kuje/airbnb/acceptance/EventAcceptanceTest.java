@@ -13,14 +13,6 @@ import org.springframework.http.MediaType;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-/**
- *todo
- * 홈페이지 접속 시 메인 배너 정보를 조회할 수 있게 해주세요
- * GET /events?category_tag=main
- * 홈페이지 접속 시 이벤트 정보들을 조회할 수 있게 해주세요
- * GET /events?category_tag=list
- */
-
 @DisplayName("Event API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class EventAcceptanceTest {
