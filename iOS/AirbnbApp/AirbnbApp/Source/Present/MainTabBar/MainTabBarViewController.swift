@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MapKit
 
 final class MainTabBarController: UITabBarController {
     
@@ -23,7 +24,8 @@ final class MainTabBarController: UITabBarController {
     }
     
     private func setUpTabBar() {
-        let searchHomeViewController = UINavigationController(rootViewController: SearchHomeViewController(viewModel: SearchHomeViewModel()))
+//        let searchHomeViewController = UINavigationController(rootViewController: SearchHomeViewController(viewModel: SearchHomeViewModel()))
+        let searchHomeViewController = UINavigationController(rootViewController: FilteringViewController(location: MKLocalSearchCompletion()))
         searchHomeViewController.tabBarItem.title = "검색"
         searchHomeViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         

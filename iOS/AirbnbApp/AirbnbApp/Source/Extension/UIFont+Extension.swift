@@ -20,6 +20,10 @@ extension UIFont {
             UIFont(name: "SFProDisplay-Regular", size: size)
         }
         static let semiBold = UIFont(name: "SFProDisplay-Semibold", size: 17)
+        static let bold: (CGFloat) -> UIFont? = { (size) -> UIFont? in
+            UIFont(name: "SFProDisplay-Bold", size: size)
+        }
+        
     }
     
 }

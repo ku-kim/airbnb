@@ -9,6 +9,7 @@
 		<string>NotoSansKR-Medium.otf</string>
 		<string>NotoSansKR-Regular.otf</string>
 		<string>SF-Pro-Display-Semibold.otf</string>
+		<string>SF-Pro-Display-Bold.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
