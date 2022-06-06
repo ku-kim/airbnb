@@ -41,13 +41,13 @@ FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host_plus.csv');
 
 
 insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
-                  bedroom_count, header_count_capacity, cleaning_fee, daily_price,
+                  bedroom_count, headcount_capacity, cleaning_fee, daily_price,
                   lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
 SELECT *
 FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms.csv');
 
 insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
-                  bedroom_count, header_count_capacity, cleaning_fee, daily_price,
+                  bedroom_count, headcount_capacity, cleaning_fee, daily_price,
                   lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
 SELECT *
 FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms_plus.csv');

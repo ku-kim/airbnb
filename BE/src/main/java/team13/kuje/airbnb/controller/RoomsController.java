@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team13.kuje.airbnb.controller.model.RoomDetailDto;
+import team13.kuje.airbnb.controller.model.RoomHistogramDto;
 import team13.kuje.airbnb.controller.model.WrapperDto;
 import team13.kuje.airbnb.service.RoomsService;
 
@@ -31,6 +32,17 @@ public class RoomsController {
 		RoomDetailDto roomsDetailDto = roomsService.findById(id, checkIn, checkOut, adults,
 			children, infants);
 		return new WrapperDto<>(roomsDetailDto);
+	}
+
+	@GetMapping
+	public WrapperDto<RoomHistogramDto> findPriceHistogramByPosition(
+		@RequestParam(value = "category_tag") String tag,
+		@RequestParam(required = false) Double lat,
+		@RequestParam(required = false) Double lng
+	) {
+		RoomHistogramDto roomHistogramDto = roomsService.findPriceHistogramByPosition(tag, lat, lng);
+
+		return new WrapperDto<>(roomHistogramDto);
 	}
 
 }

@@ -59,3 +59,34 @@ VALUES (1,
         'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80'),
        (2,
         'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80');
+
+insert into host (host_name, host_image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host.csv');
+
+insert into host (host_name, host_image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host_plus.csv');
+
+
+insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
+                  bedroom_count, headcount_capacity, cleaning_fee, daily_price,
+                  lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms.csv');
+
+insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
+                  bedroom_count, headcount_capacity, cleaning_fee, daily_price,
+                  lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms_plus.csv');
+
+
+insert into room_image(room_id,image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_room_images.csv');
+
+
+insert into room_image(room_id,image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_room_images_plus.csv');
