@@ -9,22 +9,12 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-/**
- *todo
- * 홈페이지 접속 시 메인 배너 정보를 조회할 수 있게 해주세요
- * GET /events?category_tag=main
- * 홈페이지 접속 시 이벤트 정보들을 조회할 수 있게 해주세요
- * GET /events?category_tag=list
- */
-
 @DisplayName("Event API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@Sql({"/testdb/schema.sql", "/testdb/data.sql"})
 class EventAcceptanceTest {
 
 	@LocalServerPort
@@ -46,7 +36,7 @@ class EventAcceptanceTest {
 		.then()
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
-			.body("data[0].title", equalTo("슬기로운\\n자연생활"));
+			.body("data[0].title", equalTo("슬기로운\n자연생활"));
 
 
 	}
@@ -62,7 +52,7 @@ class EventAcceptanceTest {
 		.then()
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
-			.body("data[0].title", equalTo("자연생활을 만끽할 수\\n있는 숙소"));
+			.body("data[0].title", equalTo("자연생활을 만끽할 수\n있는 숙소"));
 	}
 
 }
