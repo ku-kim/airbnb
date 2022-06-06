@@ -41,7 +41,7 @@ public class RoomDetailDto {
 		this.address = room.getAddress();
 		this.hostName = room.getHost().getHostName();
 		this.hostImageUrl = room.getHost().getHostImageUrl();
-		this.headCountCapacity = room.getHeaderCountCapacity();
+		this.headCountCapacity = room.getHeadcountCapacity();
 		this.bedCount = room.getBedCount();
 		this.bedroomCount = room.getBedroomCount();
 		this.bathroomCount = room.getBathroomCount();

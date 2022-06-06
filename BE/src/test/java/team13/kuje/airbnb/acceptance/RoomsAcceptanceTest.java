@@ -48,10 +48,10 @@ class RoomsAcceptanceTest {
 		given()
 			.accept(MediaType.APPLICATION_JSON_VALUE)
 
-			.when()
+		.when()
 			.get("/api/rooms/2?check_in=2000-10-31T01:30:00.000-05:00&check_out=2000-11-01T01:30:00.000-05:00&adults=2&children=1&infants=1")
 
-			.then()
+		.then()
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
 			.body("data.id", equalTo(2))
@@ -59,7 +59,20 @@ class RoomsAcceptanceTest {
 			.body("data.hostName", equalTo("쿠킴"))
 			.body("data.reviewCount", equalTo(30))
 			.body("data.detailPrice.headCount", equalTo(3));
+	}
 
+	@Test
+	void 만약_category_tag가_histogram이고_특정_위경도가_주어진_경우_근처의_가격정보를_조회한다() {
+		given()
+			.accept(MediaType.APPLICATION_JSON_VALUE)
+
+		.when()
+			.get("/api/rooms?category_tag=histogram&lat=37.1234&lng=127.1234")
+
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.assertThat()
+			.body("data.histogramBins[0].min", equalTo(0));
 	}
 
 }
