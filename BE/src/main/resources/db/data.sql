@@ -33,14 +33,31 @@ values ('서울', 37.5662952, 126.9779451,
 
 insert into host (host_name, host_image_url)
 SELECT *
-FROM CSVREAD('./src/main/resources/db/dummy_host.csv');
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host.csv');
+
+insert into host (host_name, host_image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host_plus.csv');
+
 
 insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
                   bedroom_count, header_count_capacity, cleaning_fee, daily_price,
                   lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
 SELECT *
-FROM CSVREAD('./src/main/resources/db/dummy_rooms.csv');
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms.csv');
+
+insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
+                  bedroom_count, header_count_capacity, cleaning_fee, daily_price,
+                  lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms_plus.csv');
+
 
 insert into room_image(room_id,image_url)
 SELECT *
-FROM CSVREAD('./src/main/resources/db/dummy_room_images.csv');
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_room_images.csv');
+
+
+insert into room_image(room_id,image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_room_images_plus.csv');
