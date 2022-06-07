@@ -77,19 +77,6 @@ public class Room {
 		return room;
 	}
 
-	public void updateImages(RoomImage... roomImages) {
-		this.images = List.of(roomImages);
-
-		for (RoomImage roomImage : roomImages) {
-			roomImage.updateRoom(this);
-		}
-	}
-
-	public void updateHost(Host host) {
-		this.host = host;
-		host.getRooms().add(this);
-	}
-
 	public void calculatePrice(ReservationPeriod reservationPeriod,
 		ReservationGuest reservationGuest) {
 		if (reservationPeriod.isEmpty() || reservationGuest.isEmptyAdults()) {
