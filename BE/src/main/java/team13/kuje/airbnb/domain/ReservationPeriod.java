@@ -41,8 +41,4 @@ public class ReservationPeriod {
 			throw new IllegalArgumentException("checkIn & checkOut이 유효하지 않은 입니다.");
 		}
 	}
-
-	public long getDayCount() {
-		return dayCount;
-	}
 }

@@ -32,8 +32,7 @@ public class RoomsService {
 		Room room = findRoom.orElseThrow(
 			() -> new IllegalArgumentException("조회한 Room ID는 존재하지 않습니다."));
 
-		room.calculatePrice(reservationPeriod, reservationGuest);
-		return new RoomDetailDto(room, new RoomDetailPriceDto(room));
+		return new RoomDetailDto(room, new RoomDetailPriceDto(room, reservationPeriod, reservationGuest));
 	}
 
 	public RoomHistogramDto findPriceHistogramByPosition(String tag, Double lat, Double lng) {

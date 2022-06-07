@@ -44,13 +44,10 @@ public class Room {
 	@Embedded
 	private RoomPriceInfo roomPriceInfo;
 
-	@Transient
-	private RoomPrice roomPrice;
-
 	@OneToMany(mappedBy = "room")
 	private List<RoomImage> images = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "HOST_ID")
 	private Host host;
 
@@ -75,26 +72,5 @@ public class Room {
 		room.setReviewCount(reviewCount);
 		room.setRatingStarScore(ratingStarScore);
 		return room;
-	}
-
-	public void updateImages(RoomImage... roomImages) {
-		this.images = List.of(roomImages);
-
-		for (RoomImage roomImage : roomImages) {
-			roomImage.updateRoom(this);
-		}
-	}
-
-	public void updateHost(Host host) {
-		this.host = host;
-		host.getRooms().add(this);
-	}
-
-	public void calculatePrice(ReservationPeriod reservationPeriod,
-		ReservationGuest reservationGuest) {
-		if (reservationPeriod.isEmpty() || reservationGuest.isEmptyAdults()) {
-			return;
-		}
-		roomPrice = RoomPrice.of(reservationPeriod, reservationGuest, roomPriceInfo);
 	}
 }
