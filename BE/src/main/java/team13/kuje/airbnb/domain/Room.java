@@ -44,9 +44,6 @@ public class Room {
 	@Embedded
 	private RoomPriceInfo roomPriceInfo;
 
-	@Transient
-	private RoomPrice roomPrice;
-
 	@OneToMany(mappedBy = "room")
 	private List<RoomImage> images = new ArrayList<>();
 
@@ -75,13 +72,5 @@ public class Room {
 		room.setReviewCount(reviewCount);
 		room.setRatingStarScore(ratingStarScore);
 		return room;
-	}
-
-	public void calculatePrice(ReservationPeriod reservationPeriod,
-		ReservationGuest reservationGuest) {
-		if (reservationPeriod.isEmpty() || reservationGuest.isEmptyAdults()) {
-			return;
-		}
-		roomPrice = RoomPrice.of(reservationPeriod, reservationGuest, roomPriceInfo);
 	}
 }
