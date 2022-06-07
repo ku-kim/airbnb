@@ -70,8 +70,7 @@ private extension CalendarViewController {
         view.addSubview(calendarCollectionView)
         calendarCollectionView.snp.makeConstraints { make in
             make.top.equalTo(weekDayStackView.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(weekDayStackView.snp.width)
+            make.leading.trailing.bottom.equalToSuperview().inset(16)
         }
     }
 }

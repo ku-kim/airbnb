@@ -49,7 +49,7 @@ private extension NextStepView {
         addSubview(buttonStackView)
 
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(14)
+            make.top.equalToSuperview().offset(8)
             make.leading.trailing.equalToSuperview().inset(16)
         }
     }

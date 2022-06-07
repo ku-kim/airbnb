@@ -38,8 +38,9 @@ class FilteringViewController: UIViewController {
         tableView.dataSource = tableViewDataSource
         tableView.delegate = tableViewDelegate
         tableView.register(FilteringTableViewCell.self, forCellReuseIdentifier: FilteringTableViewCell.identifier)
-        tableView.rowHeight = 44 // TODO: Cell Height Constant로 변경
+        tableView.contentMode = .scaleAspectFit
         tableView.tableHeaderView = tableHeaderView
+        tableView.isScrollEnabled = false
         return tableView
     }()
     
@@ -52,22 +53,22 @@ class FilteringViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configure()
         layoutNextStepView()
         layoutTableView()
+        layoutChildViewController()
     }
     
     init(viewModel: FilteringViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        configure()
         bind()
     }
     
     @available (*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        layoutNextStepView()
-        layoutTableView()
+        bind()
     }
     
     private func configure() {
@@ -121,7 +122,7 @@ private extension FilteringViewController {
         
         nextStepView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(83)
+            make.height.equalTo(view.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
     }
     
@@ -129,9 +130,20 @@ private extension FilteringViewController {
         view.addSubview(tableView)
         
         tableView.snp.makeConstraints { make in
-            make.height.equalTo(44 * 4)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(nextStepView.snp.top)
+            make.height.equalTo(tableView.contentSize)
+        }
+        
+    }
+    
+    func layoutChildViewController() {
+        children.forEach { childViewController in
+            view.addSubview(childViewController.view)
+            childViewController.view.snp.makeConstraints { make in
+                make.leading.trailing.top.equalToSuperview()
+                make.bottom.equalTo(tableView.snp.top)
+            }
         }
     }
     
