@@ -11,6 +11,22 @@
 		1E71CBDC283BB93600F6D2D0 /* SearchHomeSearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E71CBDB283BB93600F6D2D0 /* SearchHomeSearchBarDelegate.swift */; };
 		1EAB24E22845B68100AAA121 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E12845B68100AAA121 /* Int+Extension.swift */; };
 		1EAB24E42847427000AAA121 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E32847427000AAA121 /* Coordinate.swift */; };
+		1EAB24E6284894FD00AAA121 /* PriceRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */; };
+		1EAB24E828489F3F00AAA121 /* PriceRangeRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E728489F3F00AAA121 /* PriceRangeRepositoryImpl.swift */; };
+		1EAB24EA28489F7E00AAA121 /* PriceRangeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E928489F7E00AAA121 /* PriceRangeRepository.swift */; };
+		1EAB24EE2848A1E300AAA121 /* PriceRangeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24ED2848A1E300AAA121 /* PriceRangeEntity.swift */; };
+		1EAB24F02848A60200AAA121 /* PriceRangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24EF2848A60200AAA121 /* PriceRangeViewModel.swift */; };
+		1EAB24F92848ACA200AAA121 /* PriceRangeMockAPI.json in Resources */ = {isa = PBXBuildFile; fileRef = 1EAB24F82848ACA200AAA121 /* PriceRangeMockAPI.json */; };
+		1EAB251F284B521C00AAA121 /* FilteringTableVIewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB251E284B521C00AAA121 /* FilteringTableVIewDataSource.swift */; };
+		1EAB2521284B534700AAA121 /* FilteringTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB2520284B534700AAA121 /* FilteringTableViewCell.swift */; };
+		1EAB2523284B5BBD00AAA121 /* HeadCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB2522284B5BBD00AAA121 /* HeadCountView.swift */; };
+		1EAB2529284B689000AAA121 /* NextStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB2528284B689000AAA121 /* NextStepView.swift */; };
+		1EAB252B284C805200AAA121 /* HeadCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB252A284C805200AAA121 /* HeadCountViewController.swift */; };
+		1EAB252F284CD99900AAA121 /* AgeCountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB252E284CD99900AAA121 /* AgeCountStackView.swift */; };
+		1EAB2535284F18A500AAA121 /* FilteringViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB2534284F18A500AAA121 /* FilteringViewModel.swift */; };
+		1EAB2537284F18DA00AAA121 /* FilteringCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB2536284F18DA00AAA121 /* FilteringCondition.swift */; };
+		1EAB2539284F38FB00AAA121 /* HeadCountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB2538284F38FB00AAA121 /* HeadCountButton.swift */; };
+		1EAB253B284F390700AAA121 /* Age.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB253A284F390700AAA121 /* Age.swift */; };
 		1ED648A1283BD40E00AA5380 /* SearchHomeCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648A0283BD40E00AA5380 /* SearchHomeCollectionViewDataSource.swift */; };
 		1ED648A5283BD48500AA5380 /* CityViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648A4283BD48500AA5380 /* CityViewCell.swift */; };
 		1ED648A7283BDCBA00AA5380 /* SearchHomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED648A6283BDCBA00AA5380 /* SearchHomeHeaderView.swift */; };
@@ -78,6 +94,22 @@
 		1E71CBDB283BB93600F6D2D0 /* SearchHomeSearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeSearchBarDelegate.swift; sourceTree = "<group>"; };
 		1EAB24E12845B68100AAA121 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		1EAB24E32847427000AAA121 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeViewController.swift; sourceTree = "<group>"; };
+		1EAB24E728489F3F00AAA121 /* PriceRangeRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeRepositoryImpl.swift; sourceTree = "<group>"; };
+		1EAB24E928489F7E00AAA121 /* PriceRangeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeRepository.swift; sourceTree = "<group>"; };
+		1EAB24ED2848A1E300AAA121 /* PriceRangeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeEntity.swift; sourceTree = "<group>"; };
+		1EAB24EF2848A60200AAA121 /* PriceRangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeViewModel.swift; sourceTree = "<group>"; };
+		1EAB24F82848ACA200AAA121 /* PriceRangeMockAPI.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PriceRangeMockAPI.json; sourceTree = "<group>"; };
+		1EAB251E284B521C00AAA121 /* FilteringTableVIewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTableVIewDataSource.swift; sourceTree = "<group>"; };
+		1EAB2520284B534700AAA121 /* FilteringTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTableViewCell.swift; sourceTree = "<group>"; };
+		1EAB2522284B5BBD00AAA121 /* HeadCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCountView.swift; sourceTree = "<group>"; };
+		1EAB2528284B689000AAA121 /* NextStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextStepView.swift; sourceTree = "<group>"; };
+		1EAB252A284C805200AAA121 /* HeadCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCountViewController.swift; sourceTree = "<group>"; };
+		1EAB252E284CD99900AAA121 /* AgeCountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeCountStackView.swift; sourceTree = "<group>"; };
+		1EAB2534284F18A500AAA121 /* FilteringViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringViewModel.swift; sourceTree = "<group>"; };
+		1EAB2536284F18DA00AAA121 /* FilteringCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringCondition.swift; sourceTree = "<group>"; };
+		1EAB2538284F38FB00AAA121 /* HeadCountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCountButton.swift; sourceTree = "<group>"; };
+		1EAB253A284F390700AAA121 /* Age.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Age.swift; sourceTree = "<group>"; };
 		1ED648A0283BD40E00AA5380 /* SearchHomeCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		1ED648A4283BD48500AA5380 /* CityViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewCell.swift; sourceTree = "<group>"; };
 		1ED648A6283BDCBA00AA5380 /* SearchHomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeHeaderView.swift; sourceTree = "<group>"; };
@@ -156,6 +188,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EAB24F52848AA9800AAA121 /* MockAPI */ = {
+			isa = PBXGroup;
+			children = (
+				1EAB24F82848ACA200AAA121 /* PriceRangeMockAPI.json */,
+			);
+			path = MockAPI;
+			sourceTree = "<group>";
+		};
+		1EAB2526284B680100AAA121 /* HeadCount */ = {
+			isa = PBXGroup;
+			children = (
+				1EAB252A284C805200AAA121 /* HeadCountViewController.swift */,
+				1EAB2522284B5BBD00AAA121 /* HeadCountView.swift */,
+				1EAB253A284F390700AAA121 /* Age.swift */,
+				1EAB2538284F38FB00AAA121 /* HeadCountButton.swift */,
+				1EAB252E284CD99900AAA121 /* AgeCountStackView.swift */,
+			);
+			path = HeadCount;
+			sourceTree = "<group>";
+		};
+		1EAB2527284B682000AAA121 /* PriceRange */ = {
+			isa = PBXGroup;
+			children = (
+				1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */,
+				1EAB24EF2848A60200AAA121 /* PriceRangeViewModel.swift */,
+			);
+			path = PriceRange;
+			sourceTree = "<group>";
+		};
 		1ED648AC283C868D00AA5380 /* Source */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,7 +248,9 @@
 			children = (
 				1ED6491D2843BE9F00AA5380 /* Common */,
 				1ED649172842788300AA5380 /* SearchHomeRepository.swift */,
+				1EAB24E928489F7E00AAA121 /* PriceRangeRepository.swift */,
 				1ED64919284278FC00AA5380 /* SearchHomeRepositoryImpl.swift */,
+				1EAB24E728489F3F00AAA121 /* PriceRangeRepositoryImpl.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -299,6 +362,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED64906283FA77D00AA5380 /* SearchHomeEntity.swift */,
+				1EAB24ED2848A1E300AAA121 /* PriceRangeEntity.swift */,
 				1ED64905283FA74E00AA5380 /* API */,
 			);
 			name = Model;
@@ -308,6 +372,7 @@
 		1ED64905283FA74E00AA5380 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				1EAB24F52848AA9800AAA121 /* MockAPI */,
 				1ED64908283FA78B00AA5380 /* SearchHomeEndPoint.swift */,
 				1ED6490A283FA78F00AA5380 /* EndPoint */,
 			);
@@ -379,6 +444,13 @@
 			isa = PBXGroup;
 			children = (
 				6C55B5F92845E87A0087AD94 /* FilteringViewController.swift */,
+				1EAB2534284F18A500AAA121 /* FilteringViewModel.swift */,
+				1EAB2536284F18DA00AAA121 /* FilteringCondition.swift */,
+				1EAB2528284B689000AAA121 /* NextStepView.swift */,
+				1EAB251E284B521C00AAA121 /* FilteringTableVIewDataSource.swift */,
+				1EAB2520284B534700AAA121 /* FilteringTableViewCell.swift */,
+				1EAB2527284B682000AAA121 /* PriceRange */,
+				1EAB2526284B680100AAA121 /* HeadCount */,
 			);
 			path = Filtering;
 			sourceTree = "<group>";
@@ -386,8 +458,8 @@
 		6C5E87CA284861F0003550CD /* Section */ = {
 			isa = PBXGroup;
 			children = (
-				6C5E87D22848661B003550CD /* CitySectionViewModel.swift */,
 				6C5E87D428486632003550CD /* BannerSectionViewModel.swift */,
+				6C5E87D22848661B003550CD /* CitySectionViewModel.swift */,
 				6C5E87D62848665C003550CD /* ThemeSectionViewModel.swift */,
 				6C5E87D82848669A003550CD /* SectionViewModelable.swift */,
 			);
@@ -483,6 +555,7 @@
 			files = (
 				6C2E85D2283DA5A700A33517 /* NotoSansKR-Medium.otf in Resources */,
 				6C2E85CE283DA51000A33517 /* SF-Pro-Display-Medium.otf in Resources */,
+				1EAB24F92848ACA200AAA121 /* PriceRangeMockAPI.json in Resources */,
 				6C1AB738283B911100A0314F /* LaunchScreen.storyboard in Resources */,
 				6C2E85D4283DD7DE00A33517 /* SF-Pro-Display-Semibold.otf in Resources */,
 				6C2E85CC283DA47300A33517 /* SF-Pro-Display-Regular.otf in Resources */,
@@ -522,10 +595,13 @@
 				1ED64914283FA7B900AA5380 /* NetworkError.swift in Sources */,
 				6CB1D8D02843924A0051EF2F /* SearchBarDelegate.swift in Sources */,
 				6C5E87D528486632003550CD /* BannerSectionViewModel.swift in Sources */,
+				1EAB2523284B5BBD00AAA121 /* HeadCountView.swift in Sources */,
 				1ED648D8283D1E6B00AA5380 /* MainTabBarViewController.swift in Sources */,
+				1EAB2535284F18A500AAA121 /* FilteringViewModel.swift in Sources */,
 				6CB1D8C6284357A80051EF2F /* SearchViewController.swift in Sources */,
 				1ED64910283FA7A900AA5380 /* Requestable.swift in Sources */,
 				6C2E85DA283F247E00A33517 /* CustomLabel.swift in Sources */,
+				1EAB2521284B534700AAA121 /* FilteringTableViewCell.swift in Sources */,
 				1ED649182842788300AA5380 /* SearchHomeRepository.swift in Sources */,
 				6C5E87DD28486772003550CD /* ViewCellBindable.swift in Sources */,
 				6C5E87D128486300003550CD /* CityCellViewModel.swift in Sources */,
@@ -548,6 +624,8 @@
 				6C2E85D8283DE37C00A33517 /* SectionLayoutFactory.swift in Sources */,
 				6C6647BB283D0904009DE03F /* SearchHomeCollectionViewSection.swift in Sources */,
 				6C1AB745283C9C7900A0314F /* UIFont+Extension.swift in Sources */,
+				1EAB253B284F390700AAA121 /* Age.swift in Sources */,
+				1EAB2539284F38FB00AAA121 /* HeadCountButton.swift in Sources */,
 				6C5E87CD2848627E003550CD /* BannerCellViewModel.swift in Sources */,
 				1ED649162842771500AA5380 /* NetworkRepository.swift in Sources */,
 				1ED648FD283F9FFA00AA5380 /* ViewModelBindable.swift in Sources */,
@@ -559,17 +637,27 @@
 				1ED648A7283BDCBA00AA5380 /* SearchHomeHeaderView.swift in Sources */,
 				6C60EAE3284475DA00EF82F9 /* ThemeViewModel.swift in Sources */,
 				6C55B5FC2845ECF70087AD94 /* NetworkContainer.swift in Sources */,
+				1EAB24EE2848A1E300AAA121 /* PriceRangeEntity.swift in Sources */,
 				6C60EADF284475C400EF82F9 /* BannerViewModel.swift in Sources */,
 				6C60EAE52844836E00EF82F9 /* SearchHomeViewModel.swift in Sources */,
+				1EAB24F02848A60200AAA121 /* PriceRangeViewModel.swift in Sources */,
 				6C55B5FE2845F1BD0087AD94 /* NetworkInject.swift in Sources */,
 				6C60EAE1284475CF00EF82F9 /* CityViewModel.swift in Sources */,
+				1EAB252F284CD99900AAA121 /* AgeCountStackView.swift in Sources */,
 				6CB1D8D2284394B80051EF2F /* SearchResultViewCell.swift in Sources */,
 				6C5E87DB28486702003550CD /* CellViewModelable.swift in Sources */,
 				6C55B5F72845DEBE0087AD94 /* SearchCollectionViewDelegate.swift in Sources */,
+				1EAB2537284F18DA00AAA121 /* FilteringCondition.swift in Sources */,
+				1EAB24E6284894FD00AAA121 /* PriceRangeViewController.swift in Sources */,
 				6C55B5FA2845E87A0087AD94 /* FilteringViewController.swift in Sources */,
+				1EAB2529284B689000AAA121 /* NextStepView.swift in Sources */,
+				1EAB252B284C805200AAA121 /* HeadCountViewController.swift in Sources */,
 				1ED6491A284278FC00AA5380 /* SearchHomeRepositoryImpl.swift in Sources */,
+				1EAB24EA28489F7E00AAA121 /* PriceRangeRepository.swift in Sources */,
+				1EAB251F284B521C00AAA121 /* FilteringTableVIewDataSource.swift in Sources */,
 				1ED648FF283F9FFF00AA5380 /* ViewModelState.swift in Sources */,
 				1ED64912283FA7B300AA5380 /* NetworkManager.swift in Sources */,
+				1EAB24E828489F3F00AAA121 /* PriceRangeRepositoryImpl.swift in Sources */,
 				1ED64909283FA78B00AA5380 /* SearchHomeEndPoint.swift in Sources */,
 				1ED648A1283BD40E00AA5380 /* SearchHomeCollectionViewDataSource.swift in Sources */,
 				6C1AB72E283B911000A0314F /* SceneDelegate.swift in Sources */,
