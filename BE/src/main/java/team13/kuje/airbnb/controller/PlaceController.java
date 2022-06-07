@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team13.kuje.airbnb.controller.model.PlaceDto;
-import team13.kuje.airbnb.controller.model.WrapperDto;
+import team13.kuje.airbnb.controller.model.WrapperDtoList;
 import team13.kuje.airbnb.service.PlaceService;
 
 @RestController
@@ -18,14 +18,14 @@ public class PlaceController {
 	private final PlaceService placeService;
 
 	@GetMapping
-	public WrapperDto<PlaceDto> findByPosition(
+	public WrapperDtoList<PlaceDto> findByPosition(
 		@RequestParam(value = "category_tag") String tag,
 		@RequestParam(required = false) Double lat,
 		@RequestParam(required = false) Double lng
 		) {
 
 		List<PlaceDto> placeDtos = placeService.findByPosition(tag, lat, lng);
-		return new WrapperDto<>(placeDtos);
+		return new WrapperDtoList<>(placeDtos);
 	}
 
 }

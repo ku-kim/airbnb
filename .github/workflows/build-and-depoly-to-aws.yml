@@ -2,7 +2,7 @@ name: Build and Depoly in AWS ec2
 
 on:
   push:
-    branches: [ depoly ]
+    branches: [ deploy ]
 
 # https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/
 permissions:
@@ -48,7 +48,7 @@ jobs:
           push: true
           tags: jeremy0405/airbnb:latest
 
-  depoly:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
 
