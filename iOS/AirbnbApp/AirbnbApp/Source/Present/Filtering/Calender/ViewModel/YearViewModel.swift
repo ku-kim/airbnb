@@ -11,7 +11,7 @@ final class YearViewModel {
     
     let loadCalendar = PublishRelay<Void>()
     let loadedCalendar = PublishRelay<YearViewModel>()
-    let loadedRange = PublishRelay<[FilteringCalendarEntity.Date]>()
+    let loadedRange = PublishRelay<String>()
     
     private var monthViewModels: [MonthViewModel] = []
     private var selectedRange: [IndexPath] = []
@@ -115,17 +115,24 @@ extension YearViewModel {
         }
         toggleRange()
         
+        var checkInRange = ""
+        
         if selectedRange.isEmpty || selectedRange[0] > indexPath {
             selectedRange = [indexPath]
         } else if selectedRange[0] == indexPath {
             selectedRange = []
         } else {
             selectedRange = [selectedRange[0], indexPath]
-            let firsttDate = FilteringCalendarEntity.Date(month: selectedRange[0].section, day: selectedRange[0].item)
-            let lastDate = FilteringCalendarEntity.Date(month: indexPath.section, day: indexPath.item)
-            loadedRange.accept([firsttDate, lastDate])
         }
         
+        selectedRange.enumerated().forEach {            
+            let date = $0.element
+            if $0.offset == 1 { checkInRange += " - "}
+            let monthViewModel = monthViewModels[date.section]
+            let dayViewModel = monthViewModel.getCellViewModel(at: date.item)
+            checkInRange += "\(monthViewModel.getMonth())월 \(dayViewModel.getDay())일"
+        }
+        loadedRange.accept(checkInRange)
         toggleRange()
     }
     

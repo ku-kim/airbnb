@@ -473,14 +473,13 @@
 		6C55B5F82845E8350087AD94 /* Filtering */ = {
 			isa = PBXGroup;
 			children = (
-				6C8B778A2848C31100C2CDEB /* ViewModel */,
-				6C8B777D284894F800C2CDEB /* Calender */,
 				6C55B5F92845E87A0087AD94 /* FilteringViewController.swift */,
 				1EAB2534284F18A500AAA121 /* FilteringViewModel.swift */,
 				1EAB2536284F18DA00AAA121 /* FilteringCondition.swift */,
 				1EAB2528284B689000AAA121 /* NextStepView.swift */,
 				1EAB251E284B521C00AAA121 /* FilteringTableVIewDataSource.swift */,
 				1EAB2520284B534700AAA121 /* FilteringTableViewCell.swift */,
+				6C8B777D284894F800C2CDEB /* Calender */,
 				1EAB2527284B682000AAA121 /* PriceRange */,
 				1EAB2526284B680100AAA121 /* HeadCount */,
 			);
@@ -511,6 +510,7 @@
 		6C8B777D284894F800C2CDEB /* Calender */ = {
 			isa = PBXGroup;
 			children = (
+				6C8B778A2848C31100C2CDEB /* ViewModel */,
 				6C8B777E2848953A00C2CDEB /* CalendarViewCell.swift */,
 				6C8B77822848978C00C2CDEB /* CalendarCollectionViewDataSource.swift */,
 				6C8B7784284897C500C2CDEB /* CalendarCollectionViewDelegate.swift */,
