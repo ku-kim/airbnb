@@ -50,7 +50,7 @@ public class Room {
 	@OneToMany(mappedBy = "room")
 	private List<RoomImage> images = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "HOST_ID")
 	private Host host;
 
