@@ -9,8 +9,21 @@ import UIKit
 
 final class FilteringTableVIewDataSource: NSObject, UITableViewDataSource {
     
+    let selectedCellIndex = PublishRelay<Int>()
+    let selectedCondition = PublishRelay<FilteringCondition>()
+    
     var conditionMap = FilteringCondition.allCases.reduce(into: [FilteringCondition: String]()) {
         $0[$1] = ""
+    }
+    
+    override init() {
+        super.init()
+        
+        selectedCellIndex.bind { [ weak self ] index in
+            let condition = FilteringCondition.allCases[index]
+            self?.selectedCondition.accept(condition)
+        }
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,4 +43,15 @@ final class FilteringTableVIewDataSource: NSObject, UITableViewDataSource {
         return cell
     }
     
+}
+
+extension FilteringTableVIewDataSource {
+    
+    func accept(_ value: Int) {
+        selectedCellIndex.accept(value)
+    }
+    
+    func bind(_ value: @escaping (FilteringCondition) -> Void) {
+        selectedCondition.bind(onNext: value)
+    }
 }

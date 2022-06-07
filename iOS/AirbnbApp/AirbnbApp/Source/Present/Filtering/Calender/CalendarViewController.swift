@@ -8,6 +8,9 @@
 import UIKit
 
 final class CalendarViewController: UIViewController {
+    
+    let loadedRange = PublishRelay<String>()
+    
     private let viewModel = YearViewModel()
     
     private lazy var weekDayStackView = WeekDaysStackView()
@@ -40,7 +43,7 @@ private extension CalendarViewController {
         }
         
         viewModel.loadedRange.bind { [ weak self ] dates in
-            // TODO: - [시작일, 마지막일] 데이터 넘기기
+            self?.loadedRange.accept(dates)
         }
         
         calendarCollectionViewDataSource.bindSelectedCellAction { [ weak self ] in

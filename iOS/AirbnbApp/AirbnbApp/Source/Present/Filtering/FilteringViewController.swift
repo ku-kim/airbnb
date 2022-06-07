@@ -14,7 +14,16 @@ class FilteringViewController: UIViewController {
     
     private let priceRangeView = PriceRangeViewController(viewModel: PriceRangeViewModel())
     
-    private let headCountView = HeadCountView()
+    private var childViewControllerMap: [FilteringCondition: UIViewController] = [.checkInAndOut: CalendarViewController(), .headCount: HeadCountViewController()]
+    
+    private var targetViewController: UIViewController = UIViewController() {
+        didSet(previousViewController) {
+            previousViewController.view.isHidden = true
+        }
+        willSet(presentViewController) {
+            presentViewController.view.isHidden = false
+        }
+    }
     
     private lazy var tableHeaderView: UIView = {
         let view = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 0.0, height: 0.5)))
@@ -23,9 +32,11 @@ class FilteringViewController: UIViewController {
     }()
     
     private lazy var tableViewDataSource = FilteringTableVIewDataSource()
+    private lazy var tableViewDelegate = FilteringTableViewDelegate()
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = tableViewDataSource
+        tableView.delegate = tableViewDelegate
         tableView.register(FilteringTableViewCell.self, forCellReuseIdentifier: FilteringTableViewCell.identifier)
         tableView.rowHeight = 44 // TODO: Cell Height Constant로 변경
         tableView.tableHeaderView = tableHeaderView
@@ -62,12 +73,38 @@ class FilteringViewController: UIViewController {
     private func configure() {
         title = "숙소 찾기"
         view.backgroundColor = .systemBackground
+        
+        childViewControllerMap.forEach {
+            let childViewController = $0.value
+            childViewController.view.isHidden = true
+            addChild(childViewController)
+        }
+        
+        guard let initialViewController = childViewControllerMap[.checkInAndOut] else { return }
+        targetViewController = initialViewController
     }
     
     private func bind() {
+        guard let vc = childViewControllerMap[.checkInAndOut] as? CalendarViewController else { return }
+        vc.loadedRange.bind { [ weak self ] dates in
+            
+            self?.tableViewDataSource.conditionMap[.checkInAndOut] = dates
+            self?.tableView.reloadData()
+        }
+        
         viewModel?.loadedLocationName.bind { [weak self] locationName in
             self?.tableViewDataSource.conditionMap[.location] = locationName
             self?.tableView.reloadData()
+        }
+        
+        tableViewDelegate.bind { [ weak self ] index in
+            self?.tableViewDataSource.accept(index)
+        }
+        
+        tableViewDataSource.bind { [ weak self ] condition in
+            guard let targetVC = self?.childViewControllerMap[condition] else { return }
+            if self?.targetViewController == targetVC { return }
+            self?.targetViewController = targetVC
         }
         
         viewModel?.loadLoacationName.accept(())
