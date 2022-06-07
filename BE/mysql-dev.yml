@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: airbnb-mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./src/main/resources/db/dummy_csv/dummy_room_images.csv:/var/lib/mysql-files/dummy_room_images.csv
+      - ./src/main/resources/db/dummy_csv/dummy_room_images_plus.csv:/var/lib/mysql-files/dummy_room_images_plus.csv
+      - ./src/main/resources/db/dummy_csv/dummy_rooms.csv:/var/lib/mysql-files/dummy_rooms.csv
+      - ./src/main/resources/db/dummy_csv/dummy_rooms_plus.csv:/var/lib/mysql-files/dummy_rooms_plus.csv
+      - ./src/main/resources/db/dummy_csv/dummy_host.csv:/var/lib/mysql-files/dummy_host.csv
+      - ./src/main/resources/db/dummy_csv/dummy_host_plus.csv:/var/lib/mysql-files/dummy_host_plus.csv
