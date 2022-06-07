@@ -75,4 +75,18 @@ class RoomsAcceptanceTest {
 			.body("data.histogramBins[0].min", equalTo(0));
 	}
 
+	@Test
+	void 만약_category_tag가_list이고_특정_위경도와_offset과_limit이_주어진_경우_근처의_숙소리스트를_limit만큼_조회한다() {
+		given()
+			.accept(MediaType.APPLICATION_JSON_VALUE)
+
+		.when()
+			.get("/api/rooms?category_tag=list&lat=37.1234&lng=127.1234&offset=1&limit=10")
+
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.assertThat()
+			.body("data.pageable.pageSize", equalTo(10));
+	}
+
 }
