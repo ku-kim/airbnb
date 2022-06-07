@@ -32,4 +32,3 @@ class CitySectionViewModel: SectionViewModelable {
     }
     
 }
-

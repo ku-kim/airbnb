@@ -30,17 +30,14 @@ class TotalCountViewModel {
         }
         
         loadToddlerCount.bind { [weak self] count in
-            print("유아 \(count)명")
         }
         
         totalGuestCount.bind { [weak self] count in
             guard let totalCount = self?.totalGuestCount.value else { return }
-            print("게스트 \(totalCount)명")
         }
     }
     
 }
-
 
 class CountViewModel {
     

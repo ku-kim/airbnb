@@ -65,7 +65,6 @@ class PriceRangeViewController: UIViewController {
     
     private func bind() {
         viewModel.loadedState.bind { priceRange in
-            //            print(priceRange)
         }
         
         viewModel.loadAction.accept(())

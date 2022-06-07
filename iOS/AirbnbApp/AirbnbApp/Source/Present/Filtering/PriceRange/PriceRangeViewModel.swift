@@ -17,7 +17,6 @@ class PriceRangeViewModel {
     
     init() {
         loadAction.bind(onNext: { [weak self] in
-            //TODO: (가능하다면) Coordinate를 사용자의 현재 위경도로 사용하기
             self?.repository.requestPriceRange(at: Coordinate(lat: 37.5, lng: 127.1)) { result in
                 switch result {
                 case .success(let priceRangeEntity):
