@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/06/07.
 //
 
-import Foundation
+import UIKit.UIColor
 
 enum HeadCountButton {
     case plus
