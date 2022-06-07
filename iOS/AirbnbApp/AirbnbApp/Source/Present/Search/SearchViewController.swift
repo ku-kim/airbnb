@@ -104,7 +104,9 @@ final class SearchViewController: UIViewController {
         searchCollectionViewDataSource.selectedLocation
             .bind { [weak self] location in
                 self?.navigationItem.backButtonTitle = "뒤로"
-                self?.navigationController?.pushViewController(FilteringViewController(location: location), animated: true)
+                let filteringViewController = FilteringViewController(viewModel: FilteringViewModel(location: location))
+                self?.navigationController?.pushViewController(filteringViewController, animated: true)
+                
         }
         
         viewModel.accept(())
