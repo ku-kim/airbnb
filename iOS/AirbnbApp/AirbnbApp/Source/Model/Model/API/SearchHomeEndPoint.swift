@@ -20,7 +20,7 @@ extension SearchHomeEndPoint {
     var baseUrl: URL? {
         switch self {
         case .city, .banner, .theme, .priceRange:
-            return URL(string: "http://3.34.196.158/api")
+            return URL(string: "http://52.78.229.26/api")
         }
     }
     
