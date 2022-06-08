@@ -1,8 +1,5 @@
 package team13.kuje.airbnb.acceptance;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.core.IsEqual.equalTo;
-
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 @DisplayName("Rooms API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -73,6 +73,20 @@ class RoomsAcceptanceTest {
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
 			.body("data.histogramBins[0].min", equalTo(0));
+	}
+
+	@Test
+	void 만약_category_tag가_list이고_특정_위경도와_offset과_limit이_주어진_경우_근처의_숙소리스트를_limit만큼_조회한다() {
+		given()
+			.accept(MediaType.APPLICATION_JSON_VALUE)
+
+		.when()
+			.get("/api/rooms?category_tag=list&lat=37.1234&lng=127.1234&page=1&limit=10")
+
+		.then()
+			.statusCode(HttpStatus.OK.value())
+			.assertThat()
+			.body("data.pageable.pageSize", equalTo(10));
 	}
 
 }

@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import team13.kuje.airbnb.controller.model.RoomDetailDto;
 import team13.kuje.airbnb.controller.model.RoomDetailPriceDto;
+import team13.kuje.airbnb.controller.model.RoomDto;
 import team13.kuje.airbnb.controller.model.RoomHistogramDto;
 import team13.kuje.airbnb.domain.Position;
 import team13.kuje.airbnb.domain.ReservationGuest;
@@ -36,8 +39,6 @@ public class RoomsService {
 	}
 
 	public RoomHistogramDto findPriceHistogramByPosition(String tag, Double lat, Double lng) {
-		validateTag(tag);
-
 		Position inputPosition = new Position(lat, lng);
 
 		List<Room> rooms = roomsRepository.findPriceHistogramByPosition(inputPosition, ANGLE_OF_SEARCH_RANGE);
@@ -45,10 +46,21 @@ public class RoomsService {
 		return new RoomHistogramDto(RoomsHistogram.from(rooms));
 	}
 
-	private void validateTag(String tag) {
-		if (tag.equals("histogram")) {
-			return;
+	public Page<RoomDto> findRoomsBy(Double lat, Double lng, LocalDateTime checkIn, LocalDateTime checkOut, Integer adults, Integer children, Integer infants, Long minDailyPrice,
+		Long maxDailyPrice, Integer page, Integer limit, Integer cachedCount) {
+
+		validatePageAndLimit(page, limit);
+		Position inputPosition = new Position(lat, lng);
+		ReservationPeriod inputReservationPeriod = new ReservationPeriod(checkIn, checkOut);
+		ReservationGuest inputReservationGuest = new ReservationGuest(adults, children, infants);
+		PageRequest pageable = PageRequest.of(page, limit);
+
+		return roomsRepository.findRoomsBy(inputPosition, inputReservationPeriod, inputReservationGuest, minDailyPrice, maxDailyPrice, pageable, cachedCount);
+	}
+
+	private void validatePageAndLimit(Integer page, Integer limit) {
+		if (page == null || limit == null) {
+			throw new IllegalArgumentException("page, limit은 필수로 입력해야 합니다.");
 		}
-		throw new IllegalArgumentException("유효하지 않은 category_tag 입니다.");
 	}
 }

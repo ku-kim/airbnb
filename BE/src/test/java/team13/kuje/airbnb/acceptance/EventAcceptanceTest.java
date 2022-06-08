@@ -37,8 +37,6 @@ class EventAcceptanceTest {
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
 			.body("data[0].title", equalTo("슬기로운\n자연생활"));
-
-
 	}
 
 	@Test

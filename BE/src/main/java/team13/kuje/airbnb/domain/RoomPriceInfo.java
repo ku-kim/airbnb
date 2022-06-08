@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Embeddable
-@NoArgsConstructor
 @Getter
 @Setter(value = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RoomPriceInfo {
 
 	private long dailyPrice;
