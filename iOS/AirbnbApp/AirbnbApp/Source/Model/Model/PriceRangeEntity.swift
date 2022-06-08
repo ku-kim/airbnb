@@ -25,7 +25,11 @@ struct PriceRange: Decodable {
     }
 }
 
-struct Histogram: Decodable {
+struct Histogram: Decodable, Comparable {
+    static func < (lhs: Histogram, rhs: Histogram) -> Bool {
+        return lhs.count < rhs.count
+    }
+    
     let min: Int
     let max: Int?
     let count: Int
