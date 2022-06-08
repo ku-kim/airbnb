@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Position {
 
+	public static final Integer ONE_DEGREE = 1;
+	public static final Integer TWO_DEGREE = 2;
+	
 	private static final Double SEOUL_CITY_HALL_LAT = 37.5666805;
 	private static final Double SEOUL_CITY_HALL_LNG = 126.9784147;
 	private static final Double MAX_LAT = 90.;

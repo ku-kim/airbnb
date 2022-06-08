@@ -1,5 +1,6 @@
 package team13.kuje.airbnb.repository;
 
+import static team13.kuje.airbnb.domain.Position.ONE_DEGREE;
 import static team13.kuje.airbnb.domain.QRoom.room;
 import static team13.kuje.airbnb.domain.QRoomImage.roomImage;
 
@@ -56,10 +57,10 @@ public class RoomsRepository {
 		Long minDailyPrice, Long maxDailyPrice, Pageable pageable,
 		Integer cachedCount) {
 
-		double maxLat = inputPosition.getLat() + 1;
-		double minLat = inputPosition.getLat() - 1;
-		double maxLng = inputPosition.getLng() + 1;
-		double minLng = inputPosition.getLng() - 1;
+		double maxLat = inputPosition.getLat() + ONE_DEGREE;
+		double minLat = inputPosition.getLat() - ONE_DEGREE;
+		double maxLng = inputPosition.getLng() + ONE_DEGREE;
+		double minLng = inputPosition.getLng() - ONE_DEGREE;
 
 		List<Room> rooms = queryFactory.selectDistinct(room)
 			.from(room)
@@ -85,10 +86,10 @@ public class RoomsRepository {
 
 	private long countOf(Position inputPosition,
 		ReservationGuest inputReservationGuest, Long minDailyPrice, Long maxDailyPrice) {
-		double maxLat = inputPosition.getLat() + 1;
-		double minLat = inputPosition.getLat() - 1;
-		double maxLng = inputPosition.getLng() + 1;
-		double minLng = inputPosition.getLng() - 1;
+		double maxLat = inputPosition.getLat() + ONE_DEGREE;
+		double minLat = inputPosition.getLat() - ONE_DEGREE;
+		double maxLng = inputPosition.getLng() + ONE_DEGREE;
+		double minLng = inputPosition.getLng() - ONE_DEGREE;
 
 		return queryFactory.select(room.count())
 			.from(room)
