@@ -23,7 +23,6 @@ public class PlaceController {
 		@RequestParam(required = false) Double lat,
 		@RequestParam(required = false) Double lng
 		) {
-
 		List<PlaceDto> placeDtos = placeService.findByPosition(tag, lat, lng);
 		return new WrapperDtoList<>(placeDtos);
 	}

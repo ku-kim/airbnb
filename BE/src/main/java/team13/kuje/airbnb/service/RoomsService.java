@@ -56,7 +56,6 @@ public class RoomsService {
 		PageRequest pageable = PageRequest.of(page, limit);
 
 		return roomsRepository.findRoomsBy(inputPosition, inputReservationPeriod, inputReservationGuest, minDailyPrice, maxDailyPrice, pageable, cachedCount);
-
 	}
 
 	private void validatePageAndLimit(Integer page, Integer limit) {

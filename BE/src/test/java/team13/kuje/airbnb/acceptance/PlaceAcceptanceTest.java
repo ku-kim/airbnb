@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlGroup;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -39,7 +37,6 @@ class PlaceAcceptanceTest {
 			.statusCode(HttpStatus.OK.value())
 			.assertThat()
 			.body("data[0].title", equalTo("서울"));
-
 	}
 
 	@Test
@@ -57,7 +54,6 @@ class PlaceAcceptanceTest {
 			.body("data[0].time", equalTo(0))
 			.body("data[1].title", equalTo("광주"))
 			.body("data[1].time", equalTo(21));
-
 	}
 
 }

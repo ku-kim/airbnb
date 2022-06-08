@@ -1,12 +1,13 @@
 package team13.kuje.airbnb.domain;
 
 import javax.persistence.Embeddable;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Position {
 
 	public static final Integer ONE_DEGREE = 1;

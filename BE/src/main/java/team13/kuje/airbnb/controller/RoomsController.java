@@ -24,15 +24,15 @@ public class RoomsController {
 	private final RoomsService roomsService;
 
 	@GetMapping("/{id}")
-	public WrapperDto<RoomDetailDto> findById(@PathVariable Long id,
+	public WrapperDto<RoomDetailDto> findById(
+		@PathVariable Long id,
 		@RequestParam(value = "check_in", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime checkIn,
 		@RequestParam(value = "check_out", required = false) @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime checkOut,
 		@RequestParam(value = "adults", required = false) Integer adults,
 		@RequestParam(value = "children", required = false) Integer children,
 		@RequestParam(value = "infants", required = false) Integer infants
 	) {
-		RoomDetailDto roomsDetailDto = roomsService.findById(id, checkIn, checkOut, adults,
-			children, infants);
+		RoomDetailDto roomsDetailDto = roomsService.findById(id, checkIn, checkOut, adults,	children, infants);
 		return new WrapperDto<>(roomsDetailDto);
 	}
 

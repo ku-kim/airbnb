@@ -1,19 +1,9 @@
 package team13.kuje.airbnb.controller.model;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import lombok.Getter;
-import team13.kuje.airbnb.domain.Host;
-import team13.kuje.airbnb.domain.Position;
 import team13.kuje.airbnb.domain.Room;
 import team13.kuje.airbnb.domain.RoomImage;
-import team13.kuje.airbnb.domain.RoomPriceInfo;
 
 @Getter
 public class RoomDto {

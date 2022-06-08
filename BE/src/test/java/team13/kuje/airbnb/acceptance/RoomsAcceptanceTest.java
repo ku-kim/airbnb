@@ -1,8 +1,5 @@
 package team13.kuje.airbnb.acceptance;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.core.IsEqual.equalTo;
-
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 @DisplayName("Rooms API 테스트")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
