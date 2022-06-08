@@ -48,7 +48,7 @@ public class RoomsController {
 		@RequestParam(value = "infants", required = false) Integer infants,
 		@RequestParam(value = "price_min", required = false) Long minDailyPrice,
 		@RequestParam(value = "price_max", required = false) Long maxDailyPrice,
-		@RequestParam(value = "offset", required = false) Integer offset,
+		@RequestParam(value = "page", required = false) Integer page,
 		@RequestParam(value = "limit", required = false) Integer limit,
 		@RequestParam(value = "total_room", required = false) Integer cachedCount
 	) {
@@ -58,7 +58,8 @@ public class RoomsController {
 		}
 
 		if (tag.equals("list")) {
-			Page<RoomDto> roomDtos = roomsService.findRoomsBy(lat, lng, checkIn, checkOut, adults, children, infants, minDailyPrice, maxDailyPrice, offset, limit, cachedCount);
+			Page<RoomDto> roomDtos = roomsService.findRoomsBy(lat, lng, checkIn, checkOut, adults, children, infants, minDailyPrice, maxDailyPrice,
+				page, limit, cachedCount);
 			return new WrapperDto<>(roomDtos);
 		}
 

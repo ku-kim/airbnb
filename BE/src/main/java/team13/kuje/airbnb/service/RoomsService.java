@@ -58,21 +58,21 @@ public class RoomsService {
 	}
 
 	public Page<RoomDto> findRoomsBy(Double lat, Double lng, LocalDateTime checkIn, LocalDateTime checkOut, Integer adults, Integer children, Integer infants, Long minDailyPrice,
-		Long maxDailyPrice, Integer offset, Integer limit, Integer cachedCount) {
+		Long maxDailyPrice, Integer page, Integer limit, Integer cachedCount) {
 
-		validateOffsetAndLimt(offset, limit);
+		validatePageAndLimit(page, limit);
 		Position inputPosition = new Position(lat, lng);
 		ReservationPeriod inputReservationPeriod = new ReservationPeriod(checkIn, checkOut);
 		ReservationGuest inputReservationGuest = new ReservationGuest(adults, children, infants);
-		PageRequest pageable = PageRequest.of(offset, limit);
+		PageRequest pageable = PageRequest.of(page, limit);
 
 		return roomsRepository.findRoomsBy(inputPosition, inputReservationPeriod, inputReservationGuest, minDailyPrice, maxDailyPrice, pageable, cachedCount);
 
 	}
 
-	private void validateOffsetAndLimt(Integer offset, Integer limit) {
-		if (offset == null || limit == null) {
-			throw new IllegalArgumentException("offset, limit은 필수로 입력해야 합니다.");
+	private void validatePageAndLimit(Integer page, Integer limit) {
+		if (page == null || limit == null) {
+			throw new IllegalArgumentException("page, limit은 필수로 입력해야 합니다.");
 		}
 	}
 }

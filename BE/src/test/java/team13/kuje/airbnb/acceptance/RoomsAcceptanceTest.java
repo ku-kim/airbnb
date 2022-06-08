@@ -81,7 +81,7 @@ class RoomsAcceptanceTest {
 			.accept(MediaType.APPLICATION_JSON_VALUE)
 
 		.when()
-			.get("/api/rooms?category_tag=list&lat=37.1234&lng=127.1234&offset=1&limit=10")
+			.get("/api/rooms?category_tag=list&lat=37.1234&lng=127.1234&page=1&limit=10")
 
 		.then()
 			.statusCode(HttpStatus.OK.value())

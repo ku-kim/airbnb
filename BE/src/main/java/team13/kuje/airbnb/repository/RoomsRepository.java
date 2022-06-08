@@ -74,7 +74,8 @@ public class RoomsRepository {
 			.limit(pageable.getPageSize())
 			.fetch();
 
-		List<RoomDto> contents = rooms.stream().map(room -> new RoomDto(room))
+		List<RoomDto> contents = rooms.stream()
+			.map(RoomDto::new)
 			.collect(Collectors.toList());
 
 		long totalCount = cachedCount != null ? cachedCount : countOf(inputPosition, inputReservationGuest, minDailyPrice, maxDailyPrice);
