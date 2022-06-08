@@ -39,22 +39,11 @@ public class RoomsService {
 	}
 
 	public RoomHistogramDto findPriceHistogramByPosition(String tag, Double lat, Double lng) {
-		validateTag(tag);
-
 		Position inputPosition = new Position(lat, lng);
 
 		List<Room> rooms = roomsRepository.findPriceHistogramByPosition(inputPosition, ANGLE_OF_SEARCH_RANGE);
 
 		return new RoomHistogramDto(RoomsHistogram.from(rooms));
-	}
-
-	//todo 현재 이 메서드는 역할이 없음
-	// controller에서 처리중임
-	private void validateTag(String tag) {
-		if (tag.equals("histogram")) {
-			return;
-		}
-		throw new IllegalArgumentException("유효하지 않은 category_tag 입니다.");
 	}
 
 	public Page<RoomDto> findRoomsBy(Double lat, Double lng, LocalDateTime checkIn, LocalDateTime checkOut, Integer adults, Integer children, Integer infants, Long minDailyPrice,
