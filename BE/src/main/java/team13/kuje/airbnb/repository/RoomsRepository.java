@@ -1,5 +1,9 @@
 package team13.kuje.airbnb.repository;
 
+import static team13.kuje.airbnb.domain.Position.SEARCH_RANGE_DEGREE;
+import static team13.kuje.airbnb.domain.QRoom.room;
+import static team13.kuje.airbnb.domain.QRoomImage.roomImage;
+
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
@@ -15,10 +19,6 @@ import team13.kuje.airbnb.domain.Position;
 import team13.kuje.airbnb.domain.ReservationGuest;
 import team13.kuje.airbnb.domain.ReservationPeriod;
 import team13.kuje.airbnb.domain.Room;
-
-import static team13.kuje.airbnb.domain.Position.ONE_DEGREE;
-import static team13.kuje.airbnb.domain.QRoom.room;
-import static team13.kuje.airbnb.domain.QRoomImage.roomImage;
 
 @Repository
 public class RoomsRepository {
@@ -56,10 +56,10 @@ public class RoomsRepository {
 		ReservationPeriod inputReservationPeriod, ReservationGuest inputReservationGuest,
 		Long minDailyPrice, Long maxDailyPrice, Pageable pageable,
 		Integer cachedCount) {
-		double maxLat = inputPosition.getLat() + ONE_DEGREE;
-		double minLat = inputPosition.getLat() - ONE_DEGREE;
-		double maxLng = inputPosition.getLng() + ONE_DEGREE;
-		double minLng = inputPosition.getLng() - ONE_DEGREE;
+		double maxLat = inputPosition.getLat() + SEARCH_RANGE_DEGREE;
+		double minLat = inputPosition.getLat() - SEARCH_RANGE_DEGREE;
+		double maxLng = inputPosition.getLng() + SEARCH_RANGE_DEGREE;
+		double minLng = inputPosition.getLng() - SEARCH_RANGE_DEGREE;
 
 		List<Room> rooms = queryFactory.selectDistinct(room)
 			.from(room)
@@ -78,17 +78,18 @@ public class RoomsRepository {
 			.map(RoomDto::new)
 			.collect(Collectors.toList());
 
-		long totalCount = cachedCount != null ? cachedCount : countOf(inputPosition, inputReservationGuest, minDailyPrice, maxDailyPrice);
+		long totalCount = cachedCount != null ? cachedCount
+			: countOf(inputPosition, inputReservationGuest, minDailyPrice, maxDailyPrice);
 
 		return new PageImpl<>(contents, pageable, totalCount);
 	}
 
 	private long countOf(Position inputPosition,
 		ReservationGuest inputReservationGuest, Long minDailyPrice, Long maxDailyPrice) {
-		double maxLat = inputPosition.getLat() + ONE_DEGREE;
-		double minLat = inputPosition.getLat() - ONE_DEGREE;
-		double maxLng = inputPosition.getLng() + ONE_DEGREE;
-		double minLng = inputPosition.getLng() - ONE_DEGREE;
+		double maxLat = inputPosition.getLat() + SEARCH_RANGE_DEGREE;
+		double minLat = inputPosition.getLat() - SEARCH_RANGE_DEGREE;
+		double maxLng = inputPosition.getLng() + SEARCH_RANGE_DEGREE;
+		double minLng = inputPosition.getLng() - SEARCH_RANGE_DEGREE;
 
 		return queryFactory.select(room.count())
 			.from(room)

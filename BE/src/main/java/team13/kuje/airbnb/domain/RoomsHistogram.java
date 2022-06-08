@@ -1,11 +1,5 @@
 package team13.kuje.airbnb.domain;
 
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import lombok.Getter;
-
 import static java.lang.Math.floor;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.groupingBy;
@@ -13,6 +7,12 @@ import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.summingInt;
 import static java.util.stream.Collectors.toMap;
 import static java.util.stream.IntStream.range;
+
+import java.util.DoubleSummaryStatistics;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import lombok.Getter;
 
 /*
 // 참고자료
