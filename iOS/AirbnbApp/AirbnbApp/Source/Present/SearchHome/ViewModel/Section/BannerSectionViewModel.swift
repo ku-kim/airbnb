@@ -30,4 +30,5 @@ class BannerSectionViewModel: SectionViewModelable {
     func configure(with cellViewModels: [CellViewModelable]) {
         self.cellViewModels = cellViewModels
     }
+    
 }

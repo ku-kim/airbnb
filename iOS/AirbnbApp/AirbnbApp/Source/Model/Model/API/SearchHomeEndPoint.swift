@@ -12,13 +12,14 @@ enum SearchHomeEndPoint: Requestable {
     case city(coordinate: Coordinate)
     case banner
     case theme
+    case priceRange(coordinate: Coordinate)
 }
 
 extension SearchHomeEndPoint {
     
     var baseUrl: URL? {
         switch self {
-        case .city, .banner, .theme:
+        case .city, .banner, .theme, .priceRange:
             return URL(string: "http://3.34.196.158/api")
         }
     }
@@ -29,6 +30,8 @@ extension SearchHomeEndPoint {
             return "/place"
         case .banner, .theme:
             return "/events"
+        case .priceRange:
+            return "/rooms"
         }
     }
     
@@ -46,12 +49,16 @@ extension SearchHomeEndPoint {
             return ["category_tag": "main"]
         case .theme:
             return ["category_tag": "list"]
+        case .priceRange(let coordinate):
+            return ["category_tag": "histogram",
+                    "lat": "\(coordinate.lat)",
+                    "lng": "\(coordinate.lng)"]
         }
     }
     
     var method: Alamofire.HTTPMethod {
         switch self {
-        case .city, .banner, .theme:
+        case .city, .banner, .theme, .priceRange:
             return .get
         }
     }

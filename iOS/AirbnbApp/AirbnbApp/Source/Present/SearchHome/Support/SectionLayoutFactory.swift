@@ -180,4 +180,37 @@ enum SectionLayoutFactory {
         return section
     }
     
+    static func createCalendarLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1/7),
+            heightDimension: .fractionalWidth(1/7)
+        )
+        
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(
+            top: 0,
+            leading: 0,
+            bottom: 0,
+            trailing: 0
+        )
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(1/7)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 7)
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .none
+        
+        section.boundarySupplementaryItems = [
+            NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .fractionalWidth(1/7)),
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .topLeading)
+        ]
+        return UICollectionViewCompositionalLayout(section: section)
+    }
 }

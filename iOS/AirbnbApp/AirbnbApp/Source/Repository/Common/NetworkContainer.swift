@@ -14,5 +14,6 @@ final class NetworkContainer {
     private init() { }
     
     lazy var imageManager = ImageManager()
-    lazy var searchHomeRepositoryImplement = SearchHomeRepositoryImpl()
+    lazy var searchHomeRepository: SearchHomeRepository = SearchHomeRepositoryImpl()
+    lazy var priceRangeRepository: PriceRangeRepository = PriceRangeRepositoryImpl()
 }

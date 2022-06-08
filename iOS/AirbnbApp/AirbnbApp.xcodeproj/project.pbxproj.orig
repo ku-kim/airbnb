@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		1E71CBDA283B9D9A00F6D2D0 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 1E71CBD9283B9D9A00F6D2D0 /* Alamofire */; };
 		1E71CBDC283BB93600F6D2D0 /* SearchHomeSearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E71CBDB283BB93600F6D2D0 /* SearchHomeSearchBarDelegate.swift */; };
-		1EA8F81028508A64007DF8A1 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8F80F28508A64007DF8A1 /* Constant.swift */; };
-		1EA8F812285098ED007DF8A1 /* TotalCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8F811285098ED007DF8A1 /* TotalCountViewModel.swift */; };
 		1EAB24E22845B68100AAA121 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E12845B68100AAA121 /* Int+Extension.swift */; };
 		1EAB24E42847427000AAA121 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E32847427000AAA121 /* Coordinate.swift */; };
 		1EAB24E6284894FD00AAA121 /* PriceRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */; };
@@ -64,10 +62,6 @@
 		6C2E85D8283DE37C00A33517 /* SectionLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E85D7283DE37C00A33517 /* SectionLayoutFactory.swift */; };
 		6C2E85DA283F247E00A33517 /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E85D9283F247E00A33517 /* CustomLabel.swift */; };
 		6C405F4A284F26EE00BEDC57 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C405F49284F26EE00BEDC57 /* UIView+Extension.swift */; };
-		6C405F4C284F405500BEDC57 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C405F4B284F405500BEDC57 /* CalendarViewController.swift */; };
-		6C405F4E284F47CD00BEDC57 /* FilteringTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C405F4D284F47CD00BEDC57 /* FilteringTableViewDelegate.swift */; };
-		6C405F50284F904E00BEDC57 /* PriceSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C405F4F284F904E00BEDC57 /* PriceSlider.swift */; };
-		6C405F52284F94E100BEDC57 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C405F51284F94E100BEDC57 /* Histogram.swift */; };
 		6C55B5F72845DEBE0087AD94 /* SearchCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55B5F62845DEBE0087AD94 /* SearchCollectionViewDelegate.swift */; };
 		6C55B5FA2845E87A0087AD94 /* FilteringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55B5F92845E87A0087AD94 /* FilteringViewController.swift */; };
 		6C55B5FC2845ECF70087AD94 /* NetworkContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C55B5FB2845ECF70087AD94 /* NetworkContainer.swift */; };
@@ -110,8 +104,6 @@
 
 /* Begin PBXFileReference section */
 		1E71CBDB283BB93600F6D2D0 /* SearchHomeSearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHomeSearchBarDelegate.swift; sourceTree = "<group>"; };
-		1EA8F80F28508A64007DF8A1 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		1EA8F811285098ED007DF8A1 /* TotalCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalCountViewModel.swift; sourceTree = "<group>"; };
 		1EAB24E12845B68100AAA121 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		1EAB24E32847427000AAA121 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeViewController.swift; sourceTree = "<group>"; };
@@ -166,10 +158,6 @@
 		6C2E85D7283DE37C00A33517 /* SectionLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionLayoutFactory.swift; sourceTree = "<group>"; };
 		6C2E85D9283F247E00A33517 /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		6C405F49284F26EE00BEDC57 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
-		6C405F4B284F405500BEDC57 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		6C405F4D284F47CD00BEDC57 /* FilteringTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringTableViewDelegate.swift; sourceTree = "<group>"; };
-		6C405F4F284F904E00BEDC57 /* PriceSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceSlider.swift; sourceTree = "<group>"; };
-		6C405F51284F94E100BEDC57 /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		6C55B5F62845DEBE0087AD94 /* SearchCollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		6C55B5F92845E87A0087AD94 /* FilteringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringViewController.swift; sourceTree = "<group>"; };
 		6C55B5FB2845ECF70087AD94 /* NetworkContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContainer.swift; sourceTree = "<group>"; };
@@ -236,11 +224,10 @@
 			isa = PBXGroup;
 			children = (
 				1EAB252A284C805200AAA121 /* HeadCountViewController.swift */,
-				1EA8F811285098ED007DF8A1 /* TotalCountViewModel.swift */,
 				1EAB2522284B5BBD00AAA121 /* HeadCountView.swift */,
-				1EAB252E284CD99900AAA121 /* AgeCountStackView.swift */,
 				1EAB253A284F390700AAA121 /* Age.swift */,
 				1EAB2538284F38FB00AAA121 /* HeadCountButton.swift */,
+				1EAB252E284CD99900AAA121 /* AgeCountStackView.swift */,
 			);
 			path = HeadCount;
 			sourceTree = "<group>";
@@ -250,8 +237,6 @@
 			children = (
 				1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */,
 				1EAB24EF2848A60200AAA121 /* PriceRangeViewModel.swift */,
-				6C405F4F284F904E00BEDC57 /* PriceSlider.swift */,
-				6C405F51284F94E100BEDC57 /* Histogram.swift */,
 			);
 			path = PriceRange;
 			sourceTree = "<group>";
@@ -404,8 +389,11 @@
 			isa = PBXGroup;
 			children = (
 				1ED64906283FA77D00AA5380 /* SearchHomeEntity.swift */,
+<<<<<<< Updated upstream
 				1EAB24ED2848A1E300AAA121 /* PriceRangeEntity.swift */,
+=======
 				6C7165EE284B583A0084DB9F /* FilteringCalendarEntity.swift */,
+>>>>>>> Stashed changes
 				1ED64905283FA74E00AA5380 /* API */,
 			);
 			name = Model;
@@ -473,7 +461,6 @@
 		6C55B5F32844B3660087AD94 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				1EA8F80F28508A64007DF8A1 /* Constant.swift */,
 				1ED648D9283D32E200AA5380 /* CustomObservable.swift */,
 				1ED64900283FA00300AA5380 /* ViewModelAction.swift */,
 				1ED648FE283F9FFF00AA5380 /* ViewModelState.swift */,
@@ -487,14 +474,14 @@
 		6C55B5F82845E8350087AD94 /* Filtering */ = {
 			isa = PBXGroup;
 			children = (
+				6C8B778A2848C31100C2CDEB /* ViewModel */,
+				6C8B777D284894F800C2CDEB /* Calender */,
 				6C55B5F92845E87A0087AD94 /* FilteringViewController.swift */,
 				1EAB2534284F18A500AAA121 /* FilteringViewModel.swift */,
 				1EAB2536284F18DA00AAA121 /* FilteringCondition.swift */,
 				1EAB2528284B689000AAA121 /* NextStepView.swift */,
-				6C405F4D284F47CD00BEDC57 /* FilteringTableViewDelegate.swift */,
 				1EAB251E284B521C00AAA121 /* FilteringTableVIewDataSource.swift */,
 				1EAB2520284B534700AAA121 /* FilteringTableViewCell.swift */,
-				6C8B777D284894F800C2CDEB /* Calender */,
 				1EAB2527284B682000AAA121 /* PriceRange */,
 				1EAB2526284B680100AAA121 /* HeadCount */,
 			);
@@ -525,13 +512,11 @@
 		6C8B777D284894F800C2CDEB /* Calender */ = {
 			isa = PBXGroup;
 			children = (
-				6C8B778A2848C31100C2CDEB /* ViewModel */,
 				6C8B777E2848953A00C2CDEB /* CalendarViewCell.swift */,
 				6C8B77822848978C00C2CDEB /* CalendarCollectionViewDataSource.swift */,
 				6C8B7784284897C500C2CDEB /* CalendarCollectionViewDelegate.swift */,
 				6C8B778628489A2100C2CDEB /* CalendarHeaderView.swift */,
 				6C8B77882848AC5200C2CDEB /* WeekDaysStackView.swift */,
-				6C405F4B284F405500BEDC57 /* CalendarViewController.swift */,
 			);
 			path = Calender;
 			sourceTree = "<group>";
@@ -668,7 +653,6 @@
 				6CB1D8D02843924A0051EF2F /* SearchBarDelegate.swift in Sources */,
 				6C8B77832848978C00C2CDEB /* CalendarCollectionViewDataSource.swift in Sources */,
 				6C5E87D528486632003550CD /* BannerSectionViewModel.swift in Sources */,
-				6C405F52284F94E100BEDC57 /* Histogram.swift in Sources */,
 				1EAB2523284B5BBD00AAA121 /* HeadCountView.swift in Sources */,
 				1ED648D8283D1E6B00AA5380 /* MainTabBarViewController.swift in Sources */,
 				1EAB2535284F18A500AAA121 /* FilteringViewModel.swift in Sources */,
@@ -685,7 +669,6 @@
 				6CB1D8CE28435DC00051EF2F /* PopularHeaderView.swift in Sources */,
 				1ED648DA283D32E200AA5380 /* CustomObservable.swift in Sources */,
 				6CC0B93D28486A5F000AD0FE /* PopularSectionViewModel.swift in Sources */,
-				6C405F50284F904E00BEDC57 /* PriceSlider.swift in Sources */,
 				6C5E87D72848665C003550CD /* ThemeSectionViewModel.swift in Sources */,
 				6C6647BD283D0E47009DE03F /* ThemeViewCell.swift in Sources */,
 				6C5E87D32848661B003550CD /* CitySectionViewModel.swift in Sources */,
@@ -702,7 +685,6 @@
 				6C5E87CF284862CC003550CD /* ThemeCellViewModel.swift in Sources */,
 				6C9C7E64283CD08F00FA8EA4 /* BannerViewCell.swift in Sources */,
 				6C2E85D8283DE37C00A33517 /* SectionLayoutFactory.swift in Sources */,
-				6C405F4E284F47CD00BEDC57 /* FilteringTableViewDelegate.swift in Sources */,
 				6C6647BB283D0904009DE03F /* SearchHomeCollectionViewSection.swift in Sources */,
 				6C1AB745283C9C7900A0314F /* UIFont+Extension.swift in Sources */,
 				1EAB253B284F390700AAA121 /* Age.swift in Sources */,
@@ -739,12 +721,9 @@
 				1ED6491A284278FC00AA5380 /* SearchHomeRepositoryImpl.swift in Sources */,
 				1EAB24EA28489F7E00AAA121 /* PriceRangeRepository.swift in Sources */,
 				1EAB251F284B521C00AAA121 /* FilteringTableVIewDataSource.swift in Sources */,
-				1EA8F81028508A64007DF8A1 /* Constant.swift in Sources */,
-				6C405F4C284F405500BEDC57 /* CalendarViewController.swift in Sources */,
 				1ED648FF283F9FFF00AA5380 /* ViewModelState.swift in Sources */,
 				6C8B77912848C9F000C2CDEB /* MonthViewModel.swift in Sources */,
 				1ED64912283FA7B300AA5380 /* NetworkManager.swift in Sources */,
-				1EA8F812285098ED007DF8A1 /* TotalCountViewModel.swift in Sources */,
 				1EAB24E828489F3F00AAA121 /* PriceRangeRepositoryImpl.swift in Sources */,
 				1ED64909283FA78B00AA5380 /* SearchHomeEndPoint.swift in Sources */,
 				1ED648A1283BD40E00AA5380 /* SearchHomeCollectionViewDataSource.swift in Sources */,

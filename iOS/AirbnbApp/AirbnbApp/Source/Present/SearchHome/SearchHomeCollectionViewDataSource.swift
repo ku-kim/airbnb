@@ -14,15 +14,14 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
                                                                                                 .theme: ThemeSectionViewModel()]
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section) else { return 0 }
-        guard let count = sectionViewModelMap[sectionKind]?.count else { return 0 }
+        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: section),
+              let count = sectionViewModelMap[sectionKind]?.count else { return 0 }
         return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
-        
-        guard let sectionViewModel = sectionViewModelMap[sectionKind],
+        guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section),
+              let sectionViewModel = sectionViewModelMap[sectionKind],
               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: sectionViewModel.identifier,
                                                             for: indexPath) as? ViewCellBindable else {
             return UICollectionViewCell()
@@ -42,6 +41,7 @@ final class SearchHomeCollectionViewDataSource: NSObject, UICollectionViewDataSo
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         guard let sectionKind = SearchHomeCollectionViewSection(rawValue: indexPath.section) else { return UICollectionViewCell() }
+        
         guard kind == UICollectionView.elementKindSectionHeader,
               let sectionViewModel = sectionViewModelMap[sectionKind],
               let headerView = collectionView.dequeueReusableSupplementaryView(

@@ -10,16 +10,31 @@ import UIKit.UIFont
 extension UIFont {
     
     enum NotoSans {
-        static let medium = UIFont(name: "NotoSansKR-Medium", size: 17)
-        static let regular = UIFont(name: "NotoSansKR-Regular", size: 17)
+        static let medium = UIFont(name: .Font.NotoSansKRMedium, size: 17)
+        static let regular = UIFont(name: .Font.NotoSansKRRegular, size: 17)
     }
     
     enum SFProDisplay {
-        static let medium = UIFont(name: "SFProDisplay-Medium", size: 34)
+        static let medium = UIFont(name: .Font.SFProDisplayMedium, size: 34)
         static let regular: (CGFloat) -> UIFont? = { (size) -> UIFont? in
-            UIFont(name: "SFProDisplay-Regular", size: size)
+            UIFont(name: .Font.SFProDisplayRegular, size: size)
         }
-        static let semiBold = UIFont(name: "SFProDisplay-Semibold", size: 17)
+        static let semiBold = UIFont(name: .Font.SFProDisplaySemibold, size: 17)
+        static let bold: (CGFloat) -> UIFont? = { (size) -> UIFont? in
+            UIFont(name: .Font.SFProDisplayBold, size: size)
+        }
+        
     }
     
+}
+
+private extension String {
+    enum Font {
+        static let NotoSansKRMedium = "NotoSansKR-Medium"
+        static let NotoSansKRRegular = "NotoSansKR-Regular"
+        static let SFProDisplayMedium = "SFProDisplay-Medium"
+        static let SFProDisplayRegular = "SFProDisplay-Regular"
+        static let SFProDisplaySemibold = "SFProDisplay-Semibold"
+        static let SFProDisplayBold = "SFProDisplay-Bold"
+    }
 }

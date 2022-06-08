@@ -27,7 +27,7 @@ final class CustomSearchBar: UISearchBar {
         backgroundImage = UIImage()
         searchTextField.backgroundColor = .Custom.gray5
         searchTextField.attributedPlaceholder = NSAttributedString(
-            string: "어디로 여행가세요?",
+            string: .CustomSearchBar.placeholder,
             attributes: [.foregroundColor: UIColor.Custom.gray3]
         )
     }

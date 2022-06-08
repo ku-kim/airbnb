@@ -38,6 +38,7 @@ final class BehaviorRelay<T> {
     }
     
     func bind(onNext: @escaping BindElement) {
+        onNext(value)
         binders.append(onNext)
     }
     
@@ -46,5 +47,9 @@ final class BehaviorRelay<T> {
         binders.forEach {
             $0(value)
         }
+    }
+    
+    func clearBinds() {
+        binders.removeAll()
     }
 }

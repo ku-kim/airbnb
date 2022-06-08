@@ -20,7 +20,7 @@ class CitySectionViewModel: SectionViewModelable {
     }
     
     var header: String {
-        return "가까운 여행지 둘러보기"
+        return .SearchHome.SectionHeader.city
     }
     
     func getCellViewModel(at index: Int) -> CellViewModelable {
