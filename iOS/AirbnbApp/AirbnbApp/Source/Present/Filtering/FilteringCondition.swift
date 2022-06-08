@@ -16,13 +16,13 @@ enum FilteringCondition: CaseIterable {
     var title: String {
         switch self {
         case .location:
-            return "위치"
+            return .FilteringCondition.location
         case .checkInAndOut:
-            return "체크인/체크아웃"
+            return .FilteringCondition.checkInAndOut
         case .fee:
-            return "요금"
+            return .FilteringCondition.fee
         case .headCount:
-            return "인원"
+            return .FilteringCondition.headCount
         }
     }
     

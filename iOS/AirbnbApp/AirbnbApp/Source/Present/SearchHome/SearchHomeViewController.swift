@@ -84,7 +84,7 @@ final class SearchHomeViewController: UIViewController {
     }
     
     private func configureNavigationItem() {
-        self.navigationItem.backButtonTitle = "뒤로"
+        self.navigationItem.backButtonTitle = .backButtonTitle
     }
     
 }

@@ -29,7 +29,7 @@ final class WeekDaysStackView: UIStackView {
 
 private extension WeekDaysStackView {
     func configure() {
-        ["일", "월", "화", "수", "목", "금", "토"].forEach { day in
+        Array.weekend.forEach { day in
             let label = weekDayLabel(day)
             label.textAlignment = .center
             label.frame = bounds

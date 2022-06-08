@@ -72,7 +72,7 @@ class FilteringViewController: UIViewController {
     }
     
     private func configure() {
-        title = "숙소 찾기"
+        title = .ViewControllerTitle.findPlace
         view.backgroundColor = .systemBackground
         
         childViewControllerMap.forEach {

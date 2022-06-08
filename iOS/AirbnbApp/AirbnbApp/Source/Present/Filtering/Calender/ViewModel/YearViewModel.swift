@@ -75,7 +75,7 @@ private extension YearViewModel {
     }
     
     func makeCalendar() -> [FilteringCalendarEntity.Month] {
-        let format = "yyyy.MM.dd.e"
+        let format = String.DateFormat.calender
         var date = Date()
         
         var startDate: Date {
@@ -111,30 +111,30 @@ extension YearViewModel {
     
     func selectDay(at indexPath: IndexPath) {
         if !monthViewModels[indexPath.section].getIsSelectable(at: indexPath) {
-            return
+          return
         }
         toggleRange()
-        
-        var checkInRange = ""
-        
+         
+         
         if selectedRange.isEmpty || selectedRange[0] > indexPath {
-            selectedRange = [indexPath]
+          selectedRange = [indexPath]
         } else if selectedRange[0] == indexPath {
-            selectedRange = []
+          selectedRange = []
         } else {
-            selectedRange = [selectedRange[0], indexPath]
+          selectedRange = [selectedRange[0], indexPath]
         }
-        
-        selectedRange.enumerated().forEach {            
-            let date = $0.element
-            if $0.offset == 1 { checkInRange += " - "}
-            let monthViewModel = monthViewModels[date.section]
-            let dayViewModel = monthViewModel.getCellViewModel(at: date.item)
-            checkInRange += "\(monthViewModel.getMonth())월 \(dayViewModel.getDay())일"
+         
+        var checkInRange: [String] = []
+         
+        selectedRange.enumerated().forEach {
+          let date = $0.element
+          let monthViewModel = monthViewModels[date.section]
+          let dayViewModel = monthViewModel.getCellViewModel(at: date.item)
+          checkInRange.append("\(monthViewModel.getMonth())월 \(dayViewModel.getDay())일")
         }
-        loadedRange.accept(checkInRange)
+        loadedRange.accept(checkInRange.joined(separator: .YearViewModel.separater))
         toggleRange()
-    }
+      }
     
     func getMonthViewModel(at index: Int) -> MonthViewModel {
         return monthViewModels[index]

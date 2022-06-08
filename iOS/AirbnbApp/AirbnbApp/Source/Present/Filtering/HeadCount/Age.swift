@@ -15,22 +15,22 @@ enum Age: CaseIterable {
     var title: String {
         switch self {
         case .adult:
-            return "성인"
+            return .Age.Title.adult
         case .kid:
-            return "어린이"
+            return .Age.Title.kid
         case .toddler:
-            return "유아"
+            return .Age.Title.toddler
         }
     }
     
     var description: String {
         switch self {
         case .adult:
-            return "만 13세 이상"
+            return .Age.Description.adult
         case .kid:
-            return "만 2~12세"
+            return .Age.Description.kid
         case .toddler:
-            return "만 2세 미만"
+            return .Age.Description.toddler
         }
     }
 }

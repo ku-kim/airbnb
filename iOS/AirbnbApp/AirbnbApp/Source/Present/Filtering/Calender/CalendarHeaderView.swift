@@ -14,9 +14,8 @@ final class CalendarHeaderView: UICollectionReusableView {
     }
     
     private let headerLabel: CustomLabel = {
-        let customLabel = CustomLabel(text: "2021년 5월",
-        font: .SFProDisplay.bold(16),
-                    fontColor: .Custom.black)
+        let customLabel = CustomLabel(font: .SFProDisplay.bold(16),
+                                      fontColor: .Custom.black)
         return customLabel
     }()
     

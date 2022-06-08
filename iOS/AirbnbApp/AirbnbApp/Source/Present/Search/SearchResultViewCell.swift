@@ -24,7 +24,7 @@ class SearchResultViewCell: UICollectionViewCell {
     
     private lazy var cityImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "mappin.and.ellipse")?
+        imageView.image = UIImage(systemName: .SFImage.mappinAndEllipse)?
             .withAlignmentRectInsets(UIEdgeInsets(top: -21, left: -23, bottom: -21, right: -23))
         imageView.tintColor = .Custom.gray3
         return imageView

@@ -14,9 +14,9 @@ enum HeadCountButton {
     var title: String {
         switch self {
         case .plus:
-            return "+"
+            return .HeadCount.plus
         case .minus:
-            return "-"
+            return .HeadCount.minus
         }
     }
     

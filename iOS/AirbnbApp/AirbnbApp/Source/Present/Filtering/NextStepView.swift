@@ -9,8 +9,8 @@ import UIKit
 
 class NextStepView: UIView {
     
-    private lazy var leftButton = UIButton.make(title: "건너뛰기", color: .Custom.black)
-    private lazy var rightButton = UIButton.make(title: "다음", color: .Custom.gray4)
+    private lazy var leftButton = UIButton.make(title: .NextStep.leftButtonTitle, color: .Custom.black)
+    private lazy var rightButton = UIButton.make(title: .NextStep.rightButtonTitle, color: .Custom.gray4)
     
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()

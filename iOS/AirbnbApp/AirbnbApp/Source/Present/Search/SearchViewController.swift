@@ -103,7 +103,7 @@ final class SearchViewController: UIViewController {
         
         searchCollectionViewDataSource.selectedLocation
             .bind { [weak self] location in
-                self?.navigationItem.backButtonTitle = "뒤로"
+                self?.navigationItem.backButtonTitle = .backButtonTitle
                 let filteringViewController = FilteringViewController(viewModel: FilteringViewModel(location: location))
                 self?.navigationController?.pushViewController(filteringViewController, animated: true)
                 
@@ -115,7 +115,7 @@ final class SearchViewController: UIViewController {
     func configureSearchController() {
         self.navigationController?.navigationBar.backgroundColor = .Custom.gray6
         self.navigationItem.searchController = self.searchController
-        self.navigationItem.title = "숙소 찾기"
+        self.navigationItem.title = .ViewControllerTitle.findPlace
         self.navigationItem.hidesSearchBarWhenScrolling = false
     }
     

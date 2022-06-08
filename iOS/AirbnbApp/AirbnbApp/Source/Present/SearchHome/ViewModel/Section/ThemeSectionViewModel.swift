@@ -20,7 +20,7 @@ class ThemeSectionViewModel: SectionViewModelable {
     }
     
     var header: String {
-        return "어디에서나, 여행은 살아보는거야!"
+        return .SearchHome.SectionHeader.theme
     }
     
     func getCellViewModel(at index: Int) -> CellViewModelable {

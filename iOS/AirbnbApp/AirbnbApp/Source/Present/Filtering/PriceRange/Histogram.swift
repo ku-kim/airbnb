@@ -46,17 +46,4 @@ final class HistogramView: UIView {
         let coordY = rect.height - (rect.height * point.y)
         return CGPoint(x: coordX, y: coordY)
     }
-    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//    }
-//    
-//    @available (*, unavailable)
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    func layout() {
-//        
-//    }
 }

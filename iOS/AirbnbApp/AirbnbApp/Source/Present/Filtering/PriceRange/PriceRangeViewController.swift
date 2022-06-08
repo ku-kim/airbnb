@@ -12,7 +12,7 @@ class PriceRangeViewController: UIViewController {
     
     private let viewModel = PriceRangeViewModel()
     
-    private lazy var priceRangeLabel = CustomLabel(text: "가격 범위",
+    private lazy var priceRangeLabel = CustomLabel(text: .PriceRange.priceRangeLabel,
                                                    font: .SFProDisplay.semiBold,
                                                    fontColor: .Custom.gray1)
     
@@ -20,7 +20,7 @@ class PriceRangeViewController: UIViewController {
                                                  font: .SFProDisplay.semiBold,
                                                  fontColor: .Custom.gray1)
     
-    private lazy var separaterLabel = CustomLabel(text: "-",
+    private lazy var separaterLabel = CustomLabel(text: .PriceRange.separaterLabel,
                                                   font: .SFProDisplay.semiBold,
                                                   fontColor: .Custom.gray1)
     

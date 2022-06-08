@@ -30,9 +30,11 @@ class TotalCountViewModel {
         }
         
         loadToddlerCount.bind { [weak self] count in
+            // TODO: count를 이용해서 로직 완성
         }
         
         totalGuestCount.bind { [weak self] count in
+            // TODO: count를 이용해서 로직 완성
             guard let totalCount = self?.totalGuestCount.value else { return }
         }
     }

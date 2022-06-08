@@ -24,16 +24,16 @@ final class MainTabBarController: UITabBarController {
     
     private func setUpTabBar() {
         let searchHomeViewController = UINavigationController(rootViewController: SearchHomeViewController(viewModel: SearchHomeViewModel()))
-        searchHomeViewController.tabBarItem.title = "검색"
-        searchHomeViewController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
+        searchHomeViewController.tabBarItem.title = .MainTabBar.search
+        searchHomeViewController.tabBarItem.image = UIImage(systemName: .SFImage.magnifyingglass)
         
         let wishListViewController = UIViewController()
-        wishListViewController.tabBarItem.title = "위시리스트"
-        wishListViewController.tabBarItem.image = UIImage(systemName: "heart")
+        wishListViewController.tabBarItem.title = .MainTabBar.wishList
+        wishListViewController.tabBarItem.image = UIImage(systemName: .SFImage.heart)
         
         let reservationViewController = UIViewController()
-        reservationViewController.tabBarItem.title = "내 예약"
-        reservationViewController.tabBarItem.image = UIImage(systemName: "person")
+        reservationViewController.tabBarItem.title = .MainTabBar.reservation
+        reservationViewController.tabBarItem.image = UIImage(systemName: .SFImage.person)
         
         viewControllers = [
             searchHomeViewController, wishListViewController, reservationViewController
