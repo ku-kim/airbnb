@@ -10,6 +10,8 @@ import Foundation
 class PriceRangeViewModel {
     
     let loadAction = PublishRelay<Void>()
+    
+    
     let loadedState = PublishRelay<PriceRange>()
     
     @NetworkInject(keypath: \.priceRangeRepository)

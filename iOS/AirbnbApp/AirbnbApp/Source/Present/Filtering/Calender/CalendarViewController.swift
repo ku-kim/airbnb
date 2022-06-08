@@ -61,16 +61,16 @@ private extension CalendarViewController {
         view.addSubview(weekDayStackView)
         
         weekDayStackView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.leading.trailing.equalToSuperview()
         }
     }
     
     func layoutCalendarCollectionView() {
         view.addSubview(calendarCollectionView)
+        
         calendarCollectionView.snp.makeConstraints { make in
             make.top.equalTo(weekDayStackView.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview().inset(16)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }

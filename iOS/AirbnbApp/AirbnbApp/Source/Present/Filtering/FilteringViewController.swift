@@ -12,7 +12,9 @@ class FilteringViewController: UIViewController {
     
     private var viewModel: FilteringViewModel?
     
-    private var childViewControllerMap: [FilteringCondition: UIViewController] = [.checkInAndOut: CalendarViewController(), .headCount: HeadCountViewController(), .fee: PriceRangeViewController()]
+    private var childViewControllerMap: [FilteringCondition: UIViewController] = [.checkInAndOut: CalendarViewController(),
+                                                                                  .headCount: HeadCountViewController(),
+                                                                                  .fee: PriceRangeViewController()]
     
     private var targetViewController: UIViewController = UIViewController() {
         didSet(previousViewController) {
@@ -132,14 +134,14 @@ private extension FilteringViewController {
             make.bottom.equalTo(nextStepView.snp.top)
             make.height.equalTo(tableView.contentSize)
         }
-        
     }
     
     func layoutChildViewController() {
         children.forEach { childViewController in
             view.addSubview(childViewController.view)
             childViewController.view.snp.makeConstraints { make in
-                make.leading.trailing.top.equalToSuperview()
+                make.leading.trailing.equalToSuperview().inset(16)
+                make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
                 make.bottom.equalTo(tableView.snp.top)
             }
         }

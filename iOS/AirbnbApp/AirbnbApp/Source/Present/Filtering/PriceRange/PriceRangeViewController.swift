@@ -40,15 +40,26 @@ class PriceRangeViewController: UIViewController {
         return stackView
     }()
     
-    private let averagePriceLabel = CustomLabel(text: "평균 1박 요금은 ₩165,556 입니다.",
-                                                font: .SFProDisplay.semiBold,
-                                                fontColor: .Custom.gray3)
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    let histogram = HistogramView()
-    let histogramForegroundView = UIView()
-    let histogramBackground = UIView()
+    private lazy var averagePriceLabel = CustomLabel(font: .SFProDisplay.semiBold,
+                                                     fontColor: .Custom.gray3)
+    
+    private lazy var histogram: HistogramView = {
+        let histogram = HistogramView()
+        histogram.backgroundColor = .clear
+        return histogram
+    }()
+    
+    private lazy var histogramBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .Custom.gray4
+        return view
+    }()
+    
+    private lazy var histogramForegroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .Custom.gray3
+        return view
+    }()
     
     private lazy var slider: CustomSlider = {
         let slider = CustomSlider()
@@ -60,52 +71,17 @@ class PriceRangeViewController: UIViewController {
         return slider
     }()
     
-    @objc private func changeValue() {
-        let width = histogram.frame.width
-        histogramForegroundView.snp.updateConstraints { make in
-            make.leading.equalToSuperview().offset(width * slider.lower)
-            make.trailing.equalToSuperview().inset(width * (1 - slider.upper))
-        }
-      }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        histogram.backgroundColor = .clear
-        self.view.addSubview(histogram)
-        layoutPriceRangeLabel()
-        layoutPriceRangeStackView()
-        
-        histogram.addSubview(histogramBackground)
-        histogram.addSubview(histogramForegroundView)
-        layoutAveragePriceLabel()
-        
-        histogramBackground.backgroundColor = .Custom.gray4
-        histogramForegroundView.backgroundColor = .Custom.gray3
-
-        histogram.snp.makeConstraints { make in
-            make.top.equalTo(averagePriceLabel.snp.bottom)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            
-        }
-        
-        histogramForegroundView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.bottom.equalToSuperview()
-        }
-        
-        histogramBackground.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-         
         bind()
         
+        layoutPriceRangeLabel()
+        layoutPriceRangeStackView()
+        layoutAveragePriceLabel()
+        layoutHistogram()
+        layoutHistogramBackgroundView()
+        layoutHistogramForegroundView()
+        layoutSlider()
     }
     
     private func bind() {
@@ -127,6 +103,20 @@ class PriceRangeViewController: UIViewController {
     }
 }
 
+// MARK: - Selector Function
+
+private extension PriceRangeViewController {
+    
+    @objc private func changeValue() {
+        let width = histogram.frame.width
+        histogramForegroundView.snp.updateConstraints { make in
+            make.leading.equalToSuperview().offset(width * slider.lower)
+            make.trailing.equalToSuperview().inset(width * (1 - slider.upper))
+        }
+    }
+    
+}
+
 // MARK: - View Layout
 
 private extension PriceRangeViewController {
@@ -138,11 +128,9 @@ private extension PriceRangeViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
             make.leading.equalToSuperview()
         }
-        
     }
     
     func layoutPriceRangeStackView() {
-        
         view.addSubview(priceRangeStackView)
         
         priceRangeStackView.snp.makeConstraints { make in
@@ -153,18 +141,47 @@ private extension PriceRangeViewController {
     
     func layoutAveragePriceLabel() {
         view.addSubview(averagePriceLabel)
-        view.addSubview(slider)
         
         averagePriceLabel.snp.makeConstraints { make in
             make.top.equalTo(priceRangeStackView.snp.bottom).offset(8)
             make.leading.equalTo(priceRangeLabel)
         }
+    }
+    
+    func layoutHistogram() {
+        view.addSubview(histogram)
+        
+        histogram.snp.makeConstraints { make in
+            make.top.equalTo(averagePriceLabel.snp.bottom).offset(30)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    func layoutHistogramBackgroundView() {
+        histogram.addSubview(histogramBackgroundView)
+        
+        histogramBackgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func layoutHistogramForegroundView() {
+        histogram.addSubview(histogramForegroundView)
+        
+        histogramForegroundView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+        }
+    }
+    
+    func layoutSlider() {
+        view.addSubview(slider)
         
         slider.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(20)
+            make.bottom.equalToSuperview()
             make.centerY.equalTo(histogram.snp.bottom)
-            
         }
     }
     
