@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class HeadCountViewController: UIViewController {
+final class HeadCountViewController: UIViewController {
     
     private let headCountView = HeadCountView()
     

@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class AgeCountStackView: UIStackView {
+final class AgeCountStackView: UIStackView {
     
     private var viewModel: CountViewModel?
     

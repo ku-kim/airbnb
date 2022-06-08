@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class TotalCountViewModel {
+final class TotalCountViewModel {
     
     var totalGuestCount = BehaviorRelay(value: 0)
     
@@ -41,7 +41,7 @@ class TotalCountViewModel {
     
 }
 
-class CountViewModel {
+final class CountViewModel {
     
     var disablePlus = PublishRelay<Void>()
     var enablePlus = PublishRelay<Void>()
