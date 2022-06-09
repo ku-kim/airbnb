@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class PriceRangeViewController: UIViewController {
+class PriceRangeViewController: FilteringConditionViewController {
     
     private let viewModel = PriceRangeViewModel()
     
@@ -16,7 +16,7 @@ class PriceRangeViewController: UIViewController {
                                                    font: .SFProDisplay.semiBold,
                                                    fontColor: .Custom.gray1)
     
-    private lazy var minPriceLabel = CustomLabel(text: "₩100,000",
+    private lazy var minPriceLabel = CustomLabel(text: "₩0",
                                                  font: .SFProDisplay.semiBold,
                                                  fontColor: .Custom.gray1)
     
@@ -24,7 +24,7 @@ class PriceRangeViewController: UIViewController {
                                                   font: .SFProDisplay.semiBold,
                                                   fontColor: .Custom.gray1)
     
-    private lazy var maxPriceLabel = CustomLabel(text: "₩1,000,000+",
+    private lazy var maxPriceLabel = CustomLabel(text: "₩1,000,000+", // TODO: PriceRange의 Max값으로 변경
                                                  font: .SFProDisplay.semiBold,
                                                  fontColor: .Custom.gray1)
     
@@ -43,7 +43,7 @@ class PriceRangeViewController: UIViewController {
     private lazy var averagePriceLabel = CustomLabel(font: .SFProDisplay.semiBold,
                                                      fontColor: .Custom.gray3)
     
-    private lazy var histogram: HistogramView = {
+    private lazy var histogramView: HistogramView = {
         let histogram = HistogramView()
         histogram.backgroundColor = .clear
         return histogram
@@ -87,16 +87,34 @@ class PriceRangeViewController: UIViewController {
     private func bind() {
         viewModel.loadedState.bind { [ weak self ] priceRange in
             self?.averagePriceLabel.text = "평균 1박 요금은 ₩\(priceRange.averagePrice) 입니다."
+            
             guard let max = priceRange.histogram.max() else { return }
             let maxCount: CGFloat = CGFloat(max.count)
             var points: [CGPoint] = []
             let count = priceRange.histogram.count
             
             priceRange.histogram.enumerated().forEach { index, histogram in
-                let point = CGPoint(x: CGFloat(index) / CGFloat(count), y: CGFloat(histogram.count)/maxCount)
+                let point = CGPoint(x: CGFloat(index) / CGFloat(count), y: CGFloat(histogram.count) / maxCount)
                 points.append(point)
             }
-            self?.histogram.setPath(points: points)
+            
+            self?.histogramView.setPath(points: points)
+            self?.histogramView.setNeedsDisplay()
+        }
+        
+        viewModel.loadedMinPrice.bind { [weak self] minPrice in
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let formattedPrice = numberFormatter.string(from: NSNumber(value: minPrice)) ?? ""
+            self?.minPriceLabel.text = "₩\(formattedPrice)"
+            self?.loadedCondition.accept(formattedPrice)
+        }
+        
+        viewModel.loadedMaxPrice.bind { [weak self] maxPrice in
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let formattedPrice = numberFormatter.string(from: NSNumber(value: maxPrice)) ?? ""
+            self?.maxPriceLabel.text = "₩\(formattedPrice)+"
         }
         
         viewModel.loadAction.accept(())
@@ -108,8 +126,10 @@ class PriceRangeViewController: UIViewController {
 private extension PriceRangeViewController {
     
     @objc private func changeValue() {
-        let width = histogram.frame.width
+        let width = histogramView.frame.width
         histogramForegroundView.snp.updateConstraints { make in
+            viewModel.loadMinPrice.accept(slider.lower)
+            viewModel.loadMaxPrice.accept(slider.upper)
             make.leading.equalToSuperview().offset(width * slider.lower)
             make.trailing.equalToSuperview().inset(width * (1 - slider.upper))
         }
@@ -149,16 +169,16 @@ private extension PriceRangeViewController {
     }
     
     func layoutHistogram() {
-        view.addSubview(histogram)
+        view.addSubview(histogramView)
         
-        histogram.snp.makeConstraints { make in
+        histogramView.snp.makeConstraints { make in
             make.top.equalTo(averagePriceLabel.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview()
         }
     }
     
     func layoutHistogramBackgroundView() {
-        histogram.addSubview(histogramBackgroundView)
+        histogramView.addSubview(histogramBackgroundView)
         
         histogramBackgroundView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -166,7 +186,7 @@ private extension PriceRangeViewController {
     }
     
     func layoutHistogramForegroundView() {
-        histogram.addSubview(histogramForegroundView)
+        histogramView.addSubview(histogramForegroundView)
         
         histogramForegroundView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -181,7 +201,7 @@ private extension PriceRangeViewController {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(20)
             make.bottom.equalToSuperview()
-            make.centerY.equalTo(histogram.snp.bottom)
+            make.centerY.equalTo(histogramView.snp.bottom)
         }
     }
     

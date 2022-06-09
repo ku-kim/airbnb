@@ -9,6 +9,9 @@ import Foundation
 
 protocol PriceRangeRepository {
     
+    func requestPriceRange(from resource: String, with extension: String,
+                           completion: @escaping (Result<PriceRangeEntity, NetworkError>) -> Void)
+    
     func requestPriceRange(at coordinate: Coordinate,
                            completion: @escaping (Result<PriceRangeEntity, NetworkError>) -> Void)
 }

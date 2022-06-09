@@ -10,7 +10,13 @@ import Foundation
 class PriceRangeViewModel {
     
     let loadAction = PublishRelay<Void>()
-    let loadedState = PublishRelay<PriceRange>()
+    let loadedState = PublishRelay<PriceRangeEntity.PriceRange>()
+    
+    let loadMinPrice = PublishRelay<Double>()
+    let loadMaxPrice = PublishRelay<Double>()
+
+    let loadedMinPrice = PublishRelay<Int>()
+    let loadedMaxPrice = PublishRelay<Int>()
     
     @NetworkInject(keypath: \.priceRangeRepository)
     private var repository: PriceRangeRepository
@@ -27,6 +33,14 @@ class PriceRangeViewModel {
                 }
             }
         })
+        
+        loadMaxPrice.bind { [weak self] manRatio in
+            self?.loadedMaxPrice.accept(Int(1000000 * manRatio)) // TODO: 상수 -> PriceRange의 Max값으로 변경
+        }
+
+        loadMinPrice.bind { [weak self] minRatio in
+            self?.loadedMinPrice.accept(Int(1000000 * minRatio)) // TODO: 상수 -> PriceRange의 Max값으로 변경
+        }
     }
     
 }
