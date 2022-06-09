@@ -1,5 +1,7 @@
 package team13.kuje.airbnb.service;
 
+import static team13.kuje.airbnb.domain.Position.TWO_DEGREE;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +11,6 @@ import team13.kuje.airbnb.controller.model.PlaceDto;
 import team13.kuje.airbnb.domain.Place;
 import team13.kuje.airbnb.domain.Position;
 import team13.kuje.airbnb.repository.PlaceRepository;
-
-import static team13.kuje.airbnb.domain.Position.TWO_DEGREE;
 
 @Service
 @RequiredArgsConstructor

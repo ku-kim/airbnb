@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Position {
 
+	public static final Double SEARCH_RANGE_DEGREE = 0.25;
 	public static final Integer ONE_DEGREE = 1;
 	public static final Integer TWO_DEGREE = 2;
 	
