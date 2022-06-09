@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 
 final class HistogramView: UIView {
-    private var cgPoint: [CGPoint] = []
     
+    private var cgPoint: [CGPoint] = []
     private let path = UIBezierPath()
     private let bezierLayer = CAShapeLayer()
     
@@ -32,7 +32,7 @@ final class HistogramView: UIView {
         path.close()
         
         bezierLayer.path = path.cgPath
-        bezierLayer.lineWidth = floor(lineWidth/20)*10
+        bezierLayer.lineWidth = floor(lineWidth / 20) * 10
         bezierLayer.strokeColor = UIColor.black.cgColor
         layer.mask = bezierLayer
     }
