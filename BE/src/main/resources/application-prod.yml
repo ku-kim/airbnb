@@ -4,3 +4,4 @@ spring:
       url: jdbc:mysql://${MYSQL_HOST}:3306/airbnb
       username: ${MYSQL_USERNAME}
       password: ${MYSQL_PASSWORD}
+
