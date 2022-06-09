@@ -87,17 +87,23 @@ class FilteringViewController: UIViewController {
     }
     
     private func bind() {
-        guard let vc = childViewControllerMap[.checkInAndOut] as? CalendarViewController else { return }
-        vc.loadedRange.bind { [ weak self ] dates in
-            
-            self?.tableViewDataSource.conditionMap[.checkInAndOut] = dates
-            self?.tableView.reloadData()
-        }
         
         viewModel?.loadedLocationName.bind { [weak self] locationName in
             self?.tableViewDataSource.conditionMap[.location] = locationName
             self?.tableView.reloadData()
         }
+        
+        childViewControllerMap.forEach { conditionKind, viewController in
+            viewController.loadedCondition.bind { [weak self] condition in
+                self?.tableViewDataSource.conditionMap[conditionKind] = condition
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel?.updatedTotalHeadCount.bind(onNext: { [weak self] value in
+            self?.tableViewDataSource.conditionMap[.headCount] = "\(value)"
+            self?.tableView.reloadData()
+        })
         
         tableViewDelegate.bind { [ weak self ] index in
             self?.tableViewDataSource.accept(index)

@@ -7,9 +7,7 @@
 
 import UIKit
 
-final class CalendarViewController: UIViewController {
-    
-    let loadedRange = PublishRelay<String>()
+final class CalendarViewController: FilteringConditionViewController {
     
     private let viewModel = YearViewModel()
     
@@ -32,7 +30,7 @@ final class CalendarViewController: UIViewController {
         layoutCalendarCollectionView()
         bind()
     }
-
+    
 }
 
 private extension CalendarViewController {
@@ -43,7 +41,7 @@ private extension CalendarViewController {
         }
         
         viewModel.loadedRange.bind { [ weak self ] dates in
-            self?.loadedRange.accept(dates)
+            self?.loadedCondition.accept(dates)
         }
         
         calendarCollectionViewDataSource.bindSelectedCellAction { [ weak self ] in
@@ -52,9 +50,9 @@ private extension CalendarViewController {
         calendarCollectionViewDelegate.bindSelectedCell { [ weak self ] indexPath in
             self?.calendarCollectionViewDataSource.selectedCell.accept(indexPath)
         }
-
+        
         viewModel.loadCalendar.accept(())
-
+        
     }
     
     func layoutWeekDatyStackView() {
