@@ -1,7 +1,7 @@
 {
   "data": {
-    "average_price": 400000,
-    "histogram": [
+    "average": 400000,
+    "histogramBins": [
       {
         "min": 0,
         "max": 10,
