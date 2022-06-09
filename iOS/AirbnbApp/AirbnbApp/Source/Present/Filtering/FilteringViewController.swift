@@ -12,9 +12,10 @@ class FilteringViewController: UIViewController {
     
     private var viewModel: FilteringViewModel?
     
-    private var childViewControllerMap: [FilteringCondition: UIViewController] = [.checkInAndOut: CalendarViewController(),
-                                                                                  .headCount: HeadCountViewController(),
-                                                                                  .fee: PriceRangeViewController()]
+    private lazy var childViewControllerMap: [FilteringCondition: FilteringConditionViewController]
+    = [.checkInAndOut: CalendarViewController(),
+       .headCount: HeadCountViewController(viewModel: viewModel?.totalHeadCountViewModel),
+       .fee: PriceRangeViewController()]
     
     private var targetViewController: UIViewController = UIViewController() {
         didSet(previousViewController) {

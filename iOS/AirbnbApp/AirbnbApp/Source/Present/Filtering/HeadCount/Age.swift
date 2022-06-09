@@ -33,4 +33,15 @@ enum Age: CaseIterable {
             return .Age.Description.toddler
         }
     }
+    
+    var index: Int {
+        switch self {
+        case .adult:
+            return 0
+        case .kid:
+            return 1
+        case .toddler:
+            return 2
+        }
+    }
 }
