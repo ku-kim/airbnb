@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-final class HeadCountViewController: FilteringConditionViewController {
+final class HeadCountViewController: UIViewController {
     
     private let itemStackView: UIStackView = {
         let stackView = UIStackView()
@@ -36,7 +36,7 @@ final class HeadCountViewController: FilteringConditionViewController {
     }
     
     private func bind() {
-        viewModel?.loadedItemViewModel.bind { [weak self] itemViewModels in
+        viewModel?.loadedItemViewModels.bind { [weak self] itemViewModels in
             itemViewModels.forEach { itemViewModel in
                 let itemView = HeadCountItemView(viewModel: itemViewModel)
                 self?.itemStackView.addArrangedSubview(itemView)
@@ -51,7 +51,6 @@ final class HeadCountViewController: FilteringConditionViewController {
 // MARK: - View Layout
 
 private extension HeadCountViewController {
-    
     func layoutItemStackView() {
         view.addSubview(itemStackView)
         
@@ -60,5 +59,4 @@ private extension HeadCountViewController {
             make.trailing.equalToSuperview().inset(16)
         }
     }
-    
 }

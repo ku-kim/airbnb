@@ -8,6 +8,7 @@
 import Foundation
 
 class HeadCountItemViewModel {
+    
     let loadContent = PublishRelay<Void>()
     let loadedTitle = PublishRelay<String>()
     let loadedDescription = PublishRelay<String>()
@@ -33,4 +34,5 @@ class HeadCountItemViewModel {
             self?.changeGuestCount.accept((age, value))
         }
     }
+    
 }

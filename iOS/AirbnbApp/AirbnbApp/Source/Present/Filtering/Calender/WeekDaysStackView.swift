@@ -25,9 +25,11 @@ final class WeekDaysStackView: UIStackView {
         super.init(coder: coder)
         configure()
     }
+    
 }
 
 private extension WeekDaysStackView {
+    
     func configure() {
         Array.weekend.forEach { day in
             let label = weekDayLabel(day)
@@ -37,4 +39,5 @@ private extension WeekDaysStackView {
         }
         distribution = .fillEqually
     }
+    
 }
