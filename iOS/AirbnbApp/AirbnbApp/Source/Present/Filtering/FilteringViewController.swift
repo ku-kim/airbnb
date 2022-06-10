@@ -12,10 +12,10 @@ class FilteringViewController: UIViewController {
     
     private var viewModel: FilteringViewModel?
     
-    private lazy var childViewControllerMap: [FilteringCondition: FilteringConditionViewController]
-    = [.checkInAndOut: CalendarViewController(),
-       .headCount: HeadCountViewController(viewModel: viewModel?.totalHeadCountViewModel),
-       .fee: PriceRangeViewController()]
+    private lazy var childViewControllerMap: [FilteringCondition: UIViewController]
+    = [.checkInAndOut: CalendarViewController(viewModel: viewModel?.yearViewModel),
+       .headCount: HeadCountViewController(viewModel: viewModel?.headCountViewModel),
+       .priceRange: PriceRangeViewController(viewModel: viewModel?.priceRangeViewModel)]
     
     private var targetViewController: UIViewController = UIViewController() {
         didSet(previousViewController) {
@@ -88,23 +88,6 @@ class FilteringViewController: UIViewController {
     
     private func bind() {
         
-        viewModel?.loadedLocationName.bind { [weak self] locationName in
-            self?.tableViewDataSource.conditionMap[.location] = locationName
-            self?.tableView.reloadData()
-        }
-        
-        childViewControllerMap.forEach { conditionKind, viewController in
-            viewController.loadedCondition.bind { [weak self] condition in
-                self?.tableViewDataSource.conditionMap[conditionKind] = condition
-                self?.tableView.reloadData()
-            }
-        }
-        
-        viewModel?.updatedTotalHeadCount.bind(onNext: { [weak self] value in
-            self?.tableViewDataSource.conditionMap[.headCount] = "\(value)"
-            self?.tableView.reloadData()
-        })
-        
         tableViewDelegate.bind { [ weak self ] index in
             self?.tableViewDataSource.accept(index)
         }
@@ -114,6 +97,26 @@ class FilteringViewController: UIViewController {
             if self?.targetViewController == targetVC { return }
             self?.targetViewController = targetVC
         }
+        
+        viewModel?.loadedLocationName.bind { [weak self] locationName in
+            self?.tableViewDataSource.conditionMap[.location] = locationName
+            self?.tableView.reloadData()
+        }
+        
+        viewModel?.updatedSchedule.bind(onNext: { [weak self] schedule in
+            self?.tableViewDataSource.conditionMap[.checkInAndOut] = schedule
+            self?.tableView.reloadData()
+        })
+        
+        viewModel?.updatedPriceRange.bind(onNext: { [weak self] priceRange in
+            self?.tableViewDataSource.conditionMap[.priceRange] = priceRange
+            self?.tableView.reloadData()
+        })
+        
+        viewModel?.updatedTotalCount.bind(onNext: { [weak self] headCount in
+            self?.tableViewDataSource.conditionMap[.headCount] = headCount
+            self?.tableView.reloadData()
+        })
         
         viewModel?.loadLoacationName.accept(())
     }
