@@ -1,9 +1,9 @@
 package team13.kuje.airbnb.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Place 클래스")
 class PlaceTest {

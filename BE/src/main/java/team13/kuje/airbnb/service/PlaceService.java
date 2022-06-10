@@ -1,5 +1,7 @@
 package team13.kuje.airbnb.service;
 
+import static team13.kuje.airbnb.domain.Position.TWO_DEGREE;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +16,6 @@ import team13.kuje.airbnb.repository.PlaceRepository;
 @RequiredArgsConstructor
 public class PlaceService {
 
-	private static final int ANGLE_OF_SEARCH_RANGE = 2;
 	private final PlaceRepository placeRepository;
 
 	@Transactional(readOnly = true)
@@ -23,7 +24,7 @@ public class PlaceService {
 
 		Position inputPosition = new Position(lat, lng);
 
-		List<Place> places = placeRepository.findByPosition(inputPosition, ANGLE_OF_SEARCH_RANGE);
+		List<Place> places = placeRepository.findByPosition(inputPosition, TWO_DEGREE);
 
 		return places.stream()
 			.map(p -> new PlaceDto(p, inputPosition))

@@ -62,5 +62,6 @@ jobs:
           script: | 
             sudo docker pull jeremy0405/airbnb:latest
             sudo docker stop airbnb-spring-server && sudo docker rm airbnb-spring-server
-            sudo docker run -d --name airbnb-spring-server -p 8080:8080 jeremy0405/airbnb:latest
-
+            sudo docker run -d --name airbnb-spring-server -e MYSQL_HOST=${{ secrets.MYSQL_HOST }} -e MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} -p 8080:8080 jeremy0405/airbnb:latest
+            sleep 60
+            sudo docker inspect -f {{.State.Pid}} airbnb-spring-server | grep -v '^0'

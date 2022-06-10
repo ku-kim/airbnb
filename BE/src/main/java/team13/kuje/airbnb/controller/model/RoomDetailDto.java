@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import team13.kuje.airbnb.domain.Room;
 import team13.kuje.airbnb.domain.RoomImage;
-import team13.kuje.airbnb.domain.RoomPrice;
 
 @Getter
 public class RoomDetailDto {
@@ -41,7 +40,7 @@ public class RoomDetailDto {
 		this.address = room.getAddress();
 		this.hostName = room.getHost().getHostName();
 		this.hostImageUrl = room.getHost().getHostImageUrl();
-		this.headCountCapacity = room.getHeaderCountCapacity();
+		this.headCountCapacity = room.getHeadcountCapacity();
 		this.bedCount = room.getBedCount();
 		this.bedroomCount = room.getBedroomCount();
 		this.bathroomCount = room.getBathroomCount();
@@ -50,12 +49,13 @@ public class RoomDetailDto {
 		this.reviewCount = room.getReviewCount();
 		this.ratingStarScore = room.getRatingStarScore();
 		this.roomDetailPriceDto = roomDetailPriceDto;
-		this.hasAllInfoPrice = initHasAllInfoPrice(room.getRoomPrice());
+		this.hasAllInfoPrice = initHasAllInfoPrice();
 
 		this.checkWish = false; // todo 나중에 USER 구현한 후에 구현해야 함
 	}
 
-	private boolean initHasAllInfoPrice(RoomPrice roomPrice) {
-		return roomPrice != null;
+	private boolean initHasAllInfoPrice() {
+		return roomDetailPriceDto.getCheckIn() != null;
 	}
+
 }

@@ -13,14 +13,11 @@ public class EventRepository {
 	private final EntityManager entityManager;
 
 	public List<Event> findByCategoryTag(String tag) {
-
 		if (tag.equals("main")) {
 			return entityManager.createQuery(
 				"select e from Event e where e.isMain = true", Event.class).getResultList();
 		}
-
 		return entityManager.createQuery(
 			"select e from Event e where e.isMain = false", Event.class).getResultList();
-
 	}
 }

@@ -1,14 +1,19 @@
 package team13.kuje.airbnb.domain;
 
 import javax.persistence.Embeddable;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Embeddable
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Position {
 
+	public static final Double SEARCH_RANGE_DEGREE = 0.25;
+	public static final Integer ONE_DEGREE = 1;
+	public static final Integer TWO_DEGREE = 2;
+	
 	private static final Double SEOUL_CITY_HALL_LAT = 37.5666805;
 	private static final Double SEOUL_CITY_HALL_LNG = 126.9784147;
 	private static final Double MAX_LAT = 90.;

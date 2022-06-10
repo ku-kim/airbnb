@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Room {
 
 	@Id
@@ -36,7 +36,7 @@ public class Room {
 	private String address;
 	@Embedded
 	private Position position;
-	private int headerCountCapacity;
+	private int headcountCapacity;
 	private int bedCount;
 	private int bedroomCount;
 	private int bathroomCount;
@@ -44,57 +44,33 @@ public class Room {
 	@Embedded
 	private RoomPriceInfo roomPriceInfo;
 
-	@Transient
-	private RoomPrice roomPrice;
-
 	@OneToMany(mappedBy = "room")
 	private List<RoomImage> images = new ArrayList<>();
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "HOST_ID")
 	private Host host;
 
 	private int reviewCount ;
 	private float ratingStarScore;
 
-	public static Room of(String title, String description, String address, int headerCountCapacity,
-		int bedCount, int bedroomCount, int bathroomCount, long dailyPrice, long cleaningFee,
-		long serviceFee, long saleRatio, long lodgingTaxRatio,
-		int reviewCount, float ratingStarScore) {
+	public static Room of(String title, String description, String address, Position position, int headcountCapacity,
+		int bedCount, int bedroomCount, int bathroomCount, RoomPriceInfo roomPriceInfo, List<RoomImage> roomImages, Host host, int reviewCount, float ratingStarScore) {
 		Room room = new Room();
 
 		room.setTitle(title);
 		room.setDescription(description);
 		room.setAddress(address);
-		room.setHeaderCountCapacity(headerCountCapacity);
+		room.setPosition(position);
+		room.setHeadcountCapacity(headcountCapacity);
 		room.setBedCount(bedCount);
 		room.setBedroomCount(bedroomCount);
 		room.setBathroomCount(bathroomCount);
-		room.roomPriceInfo = RoomPriceInfo.of(dailyPrice, cleaningFee, serviceFee, saleRatio,
-			lodgingTaxRatio);
+		room.setRoomPriceInfo(roomPriceInfo);
+		room.setImages(roomImages);
+		room.setHost(host);
 		room.setReviewCount(reviewCount);
 		room.setRatingStarScore(ratingStarScore);
 		return room;
-	}
-
-	public void updateImages(RoomImage... roomImages) {
-		this.images = List.of(roomImages);
-
-		for (RoomImage roomImage : roomImages) {
-			roomImage.updateRoom(this);
-		}
-	}
-
-	public void updateHost(Host host) {
-		this.host = host;
-		host.getRooms().add(this);
-	}
-
-	public void calculatePrice(ReservationPeriod reservationPeriod,
-		ReservationGuest reservationGuest) {
-		if (reservationPeriod.isEmpty() || reservationGuest.isEmptyAdults()) {
-			return;
-		}
-		roomPrice = RoomPrice.of(reservationPeriod, reservationGuest, roomPriceInfo);
 	}
 }

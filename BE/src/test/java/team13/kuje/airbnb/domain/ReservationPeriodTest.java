@@ -89,7 +89,6 @@ class ReservationPeriodTest {
 					.isInstanceOf(IllegalArgumentException.class);
 			}
 		}
-
 	}
 
 }

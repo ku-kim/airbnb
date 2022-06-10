@@ -31,31 +31,33 @@ values ('서울', 37.5662952, 126.9779451,
        ('부천시', 37.5034813, 126.7658019,
         'https://s3-alpha-sig.figma.com/img/3497/9da4/c9e527d110cd34329a0593c99da39165?Expires=1655078400&Signature=H10rSlxRG1G8qtHbzeALQq~LVtSQmuYrlWXyluPoz1mGu6XAbG6hbmPPR-WWVukIqRDbGu0mDrGus8EzuP6JDb3pgGeQyHETcSuzXZDnApIIUsWhrpDz2BIVlYx0qVTTlhGVZJRSNaEoQzjUjNVpBmUwEB3Rth~-0Q-H3V60FYvfHa3lk3-35fVuIsJH5jyWXmFT2w-6BQUPe4jnBm3B3B0G6RNfHMeXxKxKpF531WfuBNtC6jT4f48wTa~EY7ut9iFqVQnM1YpZbDBWxdUaTnmtXEO0ytrXGTTsKJtpBV9H-aJAJ4TGORNPDksHfISHqXKbcmh6JRcMx1WJ2pYXhw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA');
 
+insert into host (host_name, host_image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host.csv');
 
 insert into host (host_name, host_image_url)
-values ('제리', 'https://avatars.githubusercontent.com/u/81368630?v=4'),
-       ('쿠킴', 'https://avatars.githubusercontent.com/u/57086195?v=4'),
-       ('데일', 'https://avatars.githubusercontent.com/u/78553659?v=4'),
-       ('메이스', 'https://avatars.githubusercontent.com/u/57667738?v=4');
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_host_plus.csv');
 
 
-insert into room (bathroom_count, bed_count, bedroom_count, address, lat, lng,
-                  header_count_capacity, rating_star_score, review_count, cleaning_fee, daily_price,
-                  lodging_tax_ratio, sale_ratio, service_fee, title, description, host_id)
-values (2, 2, 2, '서울시 송파구', 37.5, 127.1, 4, 4.6, 30, 8000, 80000, 20, 5, 5000, '제리네 집',
-        '제리가 살고 있는 집', 1),
-       (2, 2, 2, '서울시 송파구', 37.5, 127.1, 2, 4.6, 30, 8000, 100000, 20, 5, 5000, '쿠킴네 집',
-        '쿠킴이 살고 있는 집', 2),
-       (2, 4, 4, '경기도 하남', 36.5, 126.1, 8, 4.4, 30, 8000, 120000, 20, 5, 5000, '데일네 집',
-        '데일이 살고 있는 집', 3);
+insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
+                  bedroom_count, headcount_capacity, cleaning_fee, daily_price,
+                  lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms.csv');
+
+insert into room (host_id, title, description, address, lat, lng, bathroom_count, bed_count,
+                  bedroom_count, headcount_capacity, cleaning_fee, daily_price,
+                  lodging_tax_ratio, sale_ratio, service_fee, rating_star_score, review_count)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_rooms_plus.csv');
 
 
-insert into room_image(room_id, image_url)
-VALUES (1,
-        'https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80'),
-       (2,
-        'https://images.unsplash.com/photo-1564078516393-cf04bd966897?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'),
-       (2,
-        'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=958&q=80'),
-       (2,
-        'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80');
+insert into room_image(room_id,image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_room_images.csv');
+
+
+insert into room_image(room_id,image_url)
+SELECT *
+FROM CSVREAD('./src/main/resources/db/dummy_csv/dummy_room_images_plus.csv');
