@@ -34,7 +34,7 @@ final class MonthViewModel {
         self.year = month.year
         self.month = month.month
     }
-
+    
 }
 
 // MARK: - Providing Function

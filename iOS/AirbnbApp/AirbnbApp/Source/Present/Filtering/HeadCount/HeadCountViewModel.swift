@@ -9,17 +9,17 @@ import Foundation
 
 class HeadCountViewModel {
     
-    let loadItemViewModel = PublishRelay<Void>()
-    let loadedItemViewModel = PublishRelay<[HeadCountItemViewModel]>()
-    var itemViewModels: [HeadCountItemViewModel] = Age.allCases.map { HeadCountItemViewModel(age: $0) }
-    
     var currentCount = Age.allCases.map { _ in 0 }
     
-    let updatedTotalCount = PublishRelay<Int>()
+    let loadItemViewModel = PublishRelay<Void>()
+    let loadedItemViewModels = PublishRelay<[HeadCountItemViewModel]>()
+    let itemViewModels: [HeadCountItemViewModel] = Age.allCases.map { HeadCountItemViewModel(age: $0) }
+    
+    let updatedTotalCount = PublishRelay<[Int]?>()
     
     init() {
         loadItemViewModel.bind { [weak self] in
-            self?.loadedItemViewModel.accept(self?.itemViewModels ?? [] )
+            self?.loadedItemViewModels.accept(self?.itemViewModels ?? [] )
         }
         
         itemViewModels.forEach { viewModel in
@@ -45,7 +45,7 @@ class HeadCountViewModel {
                 
                 self?.itemViewModels[age.index].updateCount.accept(self?.currentCount[age.index] ?? 0)
                 
-                self?.updatedTotalCount.accept(totalCount)
+                self?.updatedTotalCount.accept(self?.currentCount)
             }
         }
     }

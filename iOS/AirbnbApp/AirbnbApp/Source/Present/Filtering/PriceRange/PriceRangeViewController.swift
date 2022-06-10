@@ -8,9 +8,9 @@
 import SnapKit
 import UIKit
 
-class PriceRangeViewController: FilteringConditionViewController {
+class PriceRangeViewController: FilteringBaseViewController {
     
-    private let viewModel = PriceRangeViewModel()
+    private var viewModel: PriceRangeViewModel?
     
     private lazy var priceRangeLabel = CustomLabel(text: .PriceRange.priceRangeLabel,
                                                    font: .SFProDisplay.semiBold,
@@ -27,6 +27,17 @@ class PriceRangeViewController: FilteringConditionViewController {
     private lazy var maxPriceLabel = CustomLabel(text: "₩1,000,000+", // TODO: PriceRange의 Max값으로 변경
                                                  font: .SFProDisplay.semiBold,
                                                  fontColor: .Custom.gray1)
+    
+    init(viewModel: PriceRangeViewModel?) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     private lazy var priceRangeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -85,7 +96,7 @@ class PriceRangeViewController: FilteringConditionViewController {
     }
     
     private func bind() {
-        viewModel.loadedState.bind { [ weak self ] priceRange in
+        viewModel?.loadedState.bind { [ weak self ] priceRange in
             self?.averagePriceLabel.text = "평균 1박 요금은 ₩\(priceRange.averagePrice) 입니다."
             
             guard let max = priceRange.histogram.max() else { return }
@@ -102,22 +113,19 @@ class PriceRangeViewController: FilteringConditionViewController {
             self?.histogramView.setNeedsDisplay()
         }
         
-        viewModel.loadedMinPrice.bind { [weak self] minPrice in
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            let formattedPrice = numberFormatter.string(from: NSNumber(value: minPrice)) ?? ""
-            self?.minPriceLabel.text = "₩\(formattedPrice)"
-            self?.loadedCondition.accept(formattedPrice)
+        viewModel?.loadedMinPrice.bind { [weak self] minPrice in
+            self?.minPriceLabel.text = minPrice
         }
         
-        viewModel.loadedMaxPrice.bind { [weak self] maxPrice in
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            let formattedPrice = numberFormatter.string(from: NSNumber(value: maxPrice)) ?? ""
-            self?.maxPriceLabel.text = "₩\(formattedPrice)+"
+        viewModel?.loadedMaxPrice.bind { [weak self] maxPrice in
+            self?.maxPriceLabel.text = maxPrice
         }
         
-        viewModel.loadAction.accept(())
+//        viewModel?.loadedPriceString.bind { [weak self] str in
+//            self?.loadedCondition.accept(str)
+//        }
+        
+        viewModel?.loadAction.accept(())
     }
 }
 
@@ -128,8 +136,7 @@ private extension PriceRangeViewController {
     @objc private func changeValue() {
         let width = histogramView.frame.width
         histogramForegroundView.snp.updateConstraints { make in
-            viewModel.loadMinPrice.accept(slider.lower)
-            viewModel.loadMaxPrice.accept(slider.upper)
+            viewModel?.loadPriceRange.accept((slider.lower, slider.upper))
             make.leading.equalToSuperview().offset(width * slider.lower)
             make.trailing.equalToSuperview().inset(width * (1 - slider.upper))
         }

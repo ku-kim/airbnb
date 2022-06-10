@@ -10,7 +10,7 @@ import UIKit
 class NextStepView: UIView {
     
     private lazy var leftButton = UIButton.make(title: .NextStep.leftButtonTitle, color: .Custom.black)
-    private lazy var rightButton = UIButton.make(title: .NextStep.rightButtonTitle, color: .Custom.gray4)
+    private(set) lazy var rightButton = UIButton.make(title: .NextStep.rightButtonTitle, color: .Custom.gray4)
     
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView()
@@ -62,7 +62,13 @@ private extension UIButton {
     static func make(title: String, color: UIColor) -> UIButton {
         let button = UIButton()
         button.setTitle(title, for: .normal)
-        button.setTitleColor(color, for: .normal)
+        button.setTitleColor(color, for: .disabled)
+        button.setTitleColor(.Custom.gray1, for: .normal)
+        button.isEnabled = false
+        
+        button.addAction(UIAction(handler: { _ in
+            
+        }), for: .touchUpInside)
         return button
     }
 }

@@ -7,6 +7,6 @@
 
 import UIKit
 
-class FilteringConditionViewController: UIViewController {
-    let loadedCondition = PublishRelay<String>()
+class FilteringBaseViewController: UIViewController {
+//    let loadedCondition = PublishRelay<String>()
 }

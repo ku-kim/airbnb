@@ -14,9 +14,12 @@ class PriceRangeViewModel {
     
     let loadMinPrice = PublishRelay<Double>()
     let loadMaxPrice = PublishRelay<Double>()
-
-    let loadedMinPrice = PublishRelay<Int>()
-    let loadedMaxPrice = PublishRelay<Int>()
+    let loadPriceRange = PublishRelay<(Double, Double)>()
+    
+    let loadedMinPrice = PublishRelay<String>()
+    let loadedMaxPrice = PublishRelay<String>()
+    
+    let loadedPriceRange = PublishRelay<(min: Double, max: Double)>()
     
     @NetworkInject(keypath: \.priceRangeRepository)
     private var repository: PriceRangeRepository
@@ -34,13 +37,18 @@ class PriceRangeViewModel {
             }
         })
         
-        loadMaxPrice.bind { [weak self] manRatio in
-            self?.loadedMaxPrice.accept(Int(1000000 * manRatio)) // TODO: 상수 -> PriceRange의 Max값으로 변경
+        loadPriceRange.bind { [weak self] min, max in
+//            let numberFormatter = NumberFormatter()
+//            numberFormatter.numberStyle = .decimal
+//            let formattedMinPrice = numberFormatter.string(from: NSNumber(value: Int(1000000 * min))) ?? ""
+//            let formattedMaxPrice = numberFormatter.string(from: NSNumber(value: Int(1000000 * max))) ?? ""
+//            self?.loadedMinPrice.accept(formattedMinPrice)
+//            self?.loadedMaxPrice.accept(formattedMaxPrice)
+            
+            self?.loadedPriceRange.accept((1000000 * min, 1000000 * max))
         }
-
-        loadMinPrice.bind { [weak self] minRatio in
-            self?.loadedMinPrice.accept(Int(1000000 * minRatio)) // TODO: 상수 -> PriceRange의 Max값으로 변경
-        }
+        
+        
     }
     
 }

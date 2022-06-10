@@ -12,10 +12,10 @@ class FilteringViewController: UIViewController {
     
     private var viewModel: FilteringViewModel?
     
-    private lazy var childViewControllerMap: [FilteringCondition: FilteringConditionViewController]
-    = [.checkInAndOut: CalendarViewController(),
-       .headCount: HeadCountViewController(viewModel: viewModel?.totalHeadCountViewModel),
-       .fee: PriceRangeViewController()]
+    private lazy var childViewControllerMap: [FilteringCondition: FilteringBaseViewController]
+    = [.checkInAndOut: CalendarViewController(viewModel: viewModel?.yearViewModel),
+       .headCount: HeadCountViewController(viewModel: viewModel?.headCountViewModel),
+       .fee: PriceRangeViewController(viewModel: viewModel?.priceRangeViewModel)]
     
     private var targetViewController: UIViewController = UIViewController() {
         didSet(previousViewController) {
@@ -93,16 +93,19 @@ class FilteringViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
-        childViewControllerMap.forEach { conditionKind, viewController in
-            viewController.loadedCondition.bind { [weak self] condition in
-                self?.tableViewDataSource.conditionMap[conditionKind] = condition
-                self?.tableView.reloadData()
-            }
-        }
+//        childViewControllerMap.forEach { conditionKind, viewController in
+//            viewController.loadedCondition.bind { [weak self] condition in
+//                self?.viewModel?.inputCondition.accept((conditionKind, condition))
+//            }
+            
+//            viewModel?.outputCondition.bind(onNext: { [weak self] (filteringCondition, str) in
+//                self?.tableViewDataSource.conditionMap[filteringCondition] = str
+//                self?.tableView.reloadData()
+//            })
+//        }
         
-        viewModel?.updatedTotalHeadCount.bind(onNext: { [weak self] value in
-            self?.tableViewDataSource.conditionMap[.headCount] = "\(value)"
-            self?.tableView.reloadData()
+        viewModel?.isEnableNextButton.bind(onNext: { [weak self] bool in
+            self?.nextStepView.rightButton.isEnabled = bool
         })
         
         tableViewDelegate.bind { [ weak self ] index in
