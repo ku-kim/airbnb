@@ -10,17 +10,53 @@ import UIKit
 
 final class HeadCountViewController: UIViewController {
     
-    private let headCountView = HeadCountView()
+    private let itemStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        return stackView
+    }()
+    
+    private let viewModel: HeadCountViewModel?
+    
+    init(viewModel: HeadCountViewModel?) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(headCountView)
-        
-        headCountView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(32)
-            make.leading.trailing.equalToSuperview().inset(16)
-        }
+        bind()
+        layoutItemStackView()
     }
     
+    private func bind() {
+        viewModel?.loadedItemViewModels.bind { [weak self] itemViewModels in
+            itemViewModels.forEach { itemViewModel in
+                let itemView = HeadCountItemView(viewModel: itemViewModel)
+                self?.itemStackView.addArrangedSubview(itemView)
+            }
+        }
+        
+        viewModel?.loadItemViewModel.accept(())
+    }
+    
+}
+
+// MARK: - View Layout
+
+private extension HeadCountViewController {
+    func layoutItemStackView() {
+        view.addSubview(itemStackView)
+        
+        itemStackView.snp.makeConstraints { make in
+            make.leading.top.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().inset(16)
+        }
+    }
 }

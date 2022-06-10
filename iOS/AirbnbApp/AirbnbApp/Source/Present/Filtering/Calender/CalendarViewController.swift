@@ -9,9 +9,7 @@ import UIKit
 
 final class CalendarViewController: UIViewController {
     
-    let loadedRange = PublishRelay<String>()
-    
-    private let viewModel = YearViewModel()
+    private var viewModel: YearViewModel?
     
     private lazy var weekDayStackView = WeekDaysStackView()
     
@@ -26,24 +24,26 @@ final class CalendarViewController: UIViewController {
         return collectionView
     }()
     
+    init(viewModel: YearViewModel?) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         layoutWeekDatyStackView()
         layoutCalendarCollectionView()
         bind()
     }
-
-}
-
-private extension CalendarViewController {
-    func bind() {
-        
-        viewModel.loadedCalendar.bind { [ weak self ] calender in
+    
+    private func bind() {
+        viewModel?.loadedCalendar.bind { [weak self] calender in
             self?.calendarCollectionViewDataSource.loadCalender.accept(calender)
-        }
-        
-        viewModel.loadedRange.bind { [ weak self ] dates in
-            self?.loadedRange.accept(dates)
         }
         
         calendarCollectionViewDataSource.bindSelectedCellAction { [ weak self ] in
@@ -52,10 +52,15 @@ private extension CalendarViewController {
         calendarCollectionViewDelegate.bindSelectedCell { [ weak self ] indexPath in
             self?.calendarCollectionViewDataSource.selectedCell.accept(indexPath)
         }
-
-        viewModel.loadCalendar.accept(())
-
+        
+        viewModel?.loadCalendar.accept(())
     }
+    
+}
+
+// MARK: - View Layout
+
+private extension CalendarViewController {
     
     func layoutWeekDatyStackView() {
         view.addSubview(weekDayStackView)
@@ -73,4 +78,5 @@ private extension CalendarViewController {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
 }

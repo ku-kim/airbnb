@@ -7,12 +7,16 @@
 
 import Foundation
 
+// MARK: - String Extension
+
 extension String {
     enum SFImage {
         static let mappinAndEllipse = "mappin.and.ellipse"
         static let magnifyingglass = "magnifyingglass"
         static let heart = "heart"
         static let person = "person"
+        static let plusButton = "plus.circle"
+        static let minusButton = "minus.circle"
     }
     
     enum MainTabBar {
@@ -42,7 +46,7 @@ extension String {
     enum FilteringCondition {
         static let location = "위치"
         static let checkInAndOut = "체크인/체크아웃"
-        static let fee = "요금"
+        static let priceRange = "요금"
         static let headCount = "인원"
     }
     
@@ -60,8 +64,9 @@ extension String {
         static let calender = "yyyy.MM.dd.e"
     }
     
-    enum YearViewModel {
-        static let separater = " - "
+    enum Separator {
+        static let schedule = " - "
+        static let guest = ", "
     }
     
     enum Age {
@@ -82,9 +87,24 @@ extension String {
         static let plus = "+"
         static let minus = "-"
     }
-    
 }
+
+// MARK: - Array<String> Extension
 
 extension Array where Element == String {
     static let weekend = ["일", "월", "화", "수", "목", "금", "토"]
+}
+
+// MARK: - Int Extension
+
+extension Int {
+    enum HeadCount {
+        static let maxGuestCount = 16
+    }
+}
+
+// MARK: - Double Extension
+
+extension Double {
+    static let maxPriceOffset = 1000000.0
 }

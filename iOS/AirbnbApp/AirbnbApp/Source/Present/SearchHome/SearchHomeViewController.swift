@@ -10,6 +10,8 @@ import SnapKit
 
 final class SearchHomeViewController: UIViewController {
     
+    private var refreshControl = UIRefreshControl()
+    
     private let viewModel: SearchHomeViewModel
     
     private lazy var searchBarDelegate = SearchHomeSearchBarDelegate()
@@ -29,12 +31,19 @@ final class SearchHomeViewController: UIViewController {
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: SearchHomeHeaderView.identifier)
         collectionView.dataSource = self.collectionViewDataSource
+        collectionView.refreshControl = refreshControl
+        collectionView.refreshControl?.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         return collectionView
     }()
     
     init(viewModel: SearchHomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    @objc func reloadData() {
+        viewModel.reload()
+        collectionView.refreshControl?.endRefreshing()
     }
     
     @available(*, unavailable)

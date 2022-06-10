@@ -15,22 +15,24 @@ struct PriceRangeEntity: Decodable {
     }
 }
 
-struct PriceRange: Decodable {
-    let averagePrice: Int
-    let histogram: [Histogram]
-    
-    enum CodingKeys: String, CodingKey {
-        case averagePrice = "average_price"
-        case histogram
+extension PriceRangeEntity {
+    struct PriceRange: Decodable {
+        let averagePrice: Double
+        let histogram: [Histogram]
+        
+        enum CodingKeys: String, CodingKey {
+            case averagePrice = "average"
+            case histogram = "histogramBins"
+        }
     }
-}
 
-struct Histogram: Decodable, Comparable {
-    static func < (lhs: Histogram, rhs: Histogram) -> Bool {
-        return lhs.count < rhs.count
+    struct Histogram: Decodable, Comparable {
+        static func < (lhs: Histogram, rhs: Histogram) -> Bool {
+            return lhs.count < rhs.count
+        }
+        
+        let min: Int
+        let max: Int?
+        let count: Int
     }
-    
-    let min: Int
-    let max: Int?
-    let count: Int
 }
