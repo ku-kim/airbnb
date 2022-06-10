@@ -11,7 +11,7 @@ final class YearViewModel {
     
     let loadCalendar = PublishRelay<Void>()
     let loadedCalendar = PublishRelay<YearViewModel>()
-    let updatedRange = PublishRelay<[(MonthViewModel, DayViewModel)]>()
+    let updatedRange = PublishRelay<[(month: MonthViewModel, day: DayViewModel)]>()
     
     private var monthViewModels: [MonthViewModel] = []
     private var selectedRange: [IndexPath] = []

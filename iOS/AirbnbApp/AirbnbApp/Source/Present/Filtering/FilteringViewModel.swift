@@ -78,13 +78,14 @@ class FilteringViewModel {
         
         yearViewModel.updatedRange.bind { range in
             
-            print(range[0].0.getYear())
-            print(range[0].0.getMonth())
-            print(range[0].1.getDay())
-
-            print(range[1].0.getYear())
-            print(range[1].0.getMonth())
-            print(range[1].1.getDay())
+            let checkInDate = range[0]
+            let checkOutDate = range[1]
+            
+            let checkInString = "\(checkInDate.month.getMonth())월 \(checkInDate.day.getDay())일"
+            let checkOutString = "\(checkOutDate.month.getMonth())월 \(checkOutDate.day.getDay())일"
+            
+            let travelSchedule = [checkInString, checkOutString].joined(separator: " - ")
+            print(travelSchedule)
         }
         
         priceRangeViewModel.loadedPriceRange.bind { range in
