@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-class PriceRangeViewModel {
+final class PriceRangeViewModel {
     
     let loadAction = PublishRelay<Void>()
     let loadedState = PublishRelay<PriceRangeEntity.PriceRange>()

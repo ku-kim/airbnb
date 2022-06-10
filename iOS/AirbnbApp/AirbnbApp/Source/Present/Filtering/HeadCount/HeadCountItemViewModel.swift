@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HeadCountItemViewModel {
+final class HeadCountItemViewModel {
     
     let loadContent = PublishRelay<Void>()
     let loadedTitle = PublishRelay<String>()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NextStepView: UIView {
+final class NextStepView: UIView {
     
     private lazy var leftButton = UIButton.make(title: .NextStep.leftButtonTitle, color: .Custom.black)
     private lazy var rightButton = UIButton.make(title: .NextStep.rightButtonTitle, color: .Custom.gray4)

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeadCountItemView: UIView {
+final class HeadCountItemView: UIView {
     
     private let viewModel: HeadCountItemViewModel
     

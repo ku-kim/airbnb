@@ -7,7 +7,7 @@
 
 import Foundation
 
-class HeadCountViewModel {
+final class HeadCountViewModel {
     
     var currentCount = Age.allCases.map { _ in 0 }
     
