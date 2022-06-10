@@ -72,3 +72,10 @@ private extension UIButton {
         return button
     }
 }
+
+extension NextStepView {
+    
+    func enableRightButton(bool: Bool) {
+        rightButton.isEnabled = bool
+    }
+}

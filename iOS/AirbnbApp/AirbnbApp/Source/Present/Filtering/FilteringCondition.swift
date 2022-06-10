@@ -10,7 +10,7 @@ import Foundation
 enum FilteringCondition: CaseIterable {
     case location
     case checkInAndOut
-    case fee
+    case priceRange
     case headCount
     
     var title: String {
@@ -19,8 +19,8 @@ enum FilteringCondition: CaseIterable {
             return .FilteringCondition.location
         case .checkInAndOut:
             return .FilteringCondition.checkInAndOut
-        case .fee:
-            return .FilteringCondition.fee
+        case .priceRange:
+            return .FilteringCondition.priceRange
         case .headCount:
             return .FilteringCondition.headCount
         }

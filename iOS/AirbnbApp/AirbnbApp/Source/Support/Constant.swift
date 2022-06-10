@@ -46,7 +46,7 @@ extension String {
     enum FilteringCondition {
         static let location = "위치"
         static let checkInAndOut = "체크인/체크아웃"
-        static let fee = "요금"
+        static let priceRange = "요금"
         static let headCount = "인원"
     }
     

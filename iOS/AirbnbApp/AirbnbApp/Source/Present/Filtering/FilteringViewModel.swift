@@ -14,99 +14,79 @@ class FilteringViewModel {
     let priceRangeViewModel = PriceRangeViewModel()
     let headCountViewModel = HeadCountViewModel()
     
-    let selectedDateRange = PublishRelay<[(MonthViewModel, DayViewModel)]>()
-    let selectedHeadCount = PublishRelay<Int>()
+//    var conditionMap: [FilteringCondition: String?] = FilteringCondition.allCases.reduce(into: [FilteringCondition: String]()) {
+//        $0[$1] = nil
+//    }
     
+    let enableButton = PublishRelay<Bool>()
     
-    
-    let inputCondition = PublishRelay<(FilteringCondition, String)>()
-    
-    var conditionMap: [FilteringCondition: String?] = FilteringCondition.allCases.reduce(into: [FilteringCondition: String]()) {
-        $0[$1] = nil
+    lazy var conditionMap: [FilteringCondition: String] = [:] {
+        didSet {
+            if conditionMap.count == FilteringCondition.count {
+                enableButton.accept(true)
+            }
+        }
     }
     
-    let outputCondition = PublishRelay<(FilteringCondition, String)>()
-    
-    let updatedTotalHeadCount = PublishRelay<Int>()
-    let isEnableNextButton = PublishRelay<Bool>()
-    
-    
-    //4가지 조건 다 채워지면 '다음'버튼 활성화
-    //다음버튼이 눌러지면, 4가지 조건을 서버로 보내서, 받아온 정보에 대한 ViewModel을 만들어서 다음 VC를 Push
-    
     let location: MKLocalSearchCompletion
-    //    let 일정:
-    //    let 가격:
-    //    let 인원:
-    //
-    
-    
-    
-    let findFiltered숙소 = PublishRelay<Void>()
-    
     
     let loadLoacationName = PublishRelay<Void>()
     let loadedLocationName = PublishRelay<String>()
     
+    let updatedSchedule = PublishRelay<String>()
+    let updatedPriceRange = PublishRelay<String>()
+    let updatedTotalCount = PublishRelay<String>()
+    
     init(location: MKLocalSearchCompletion) {
         self.location = location
-        conditionMap[.location] = location.title
         
         loadLoacationName.bind { [weak self] in
+            self?.conditionMap[.location] = location.title
             self?.loadedLocationName.accept(location.title)
         }
         
-//        headCountViewModel.updatedTotalCount.bind { [weak self] value in
-////            print(value)
-////            self?.updatedTotalHeadCount.accept(value)
-//        }
-        
-        inputCondition.bind { [weak self] (filteringCondition, str) in
-            self?.conditionMap.updateValue(str, forKey: filteringCondition)
-            self?.outputCondition.accept((filteringCondition, str))
-        }
-        
-        inputCondition.bind { [weak self] (_, _) in
-            var isEnable = false
-            
-            if self?.conditionMap.count == FilteringCondition.allCases.count {
-                isEnable = true
-            }
-            
-            self?.isEnableNextButton.accept(isEnable)
-        }
-        
-        yearViewModel.updatedRange.bind { range in
-            
-            let checkInDate = range[0]
-            let checkOutDate = range[1]
+        yearViewModel.updatedSchedule.bind { [weak self] date in
+            let checkInDate = date[0]
+            let checkOutDate = date[1]
             
             let checkInString = "\(checkInDate.month.getMonth())월 \(checkInDate.day.getDay())일"
             let checkOutString = "\(checkOutDate.month.getMonth())월 \(checkOutDate.day.getDay())일"
             
-            let travelSchedule = [checkInString, checkOutString].joined(separator: " - ")
-            print(travelSchedule)
+            let schedule = [checkInString, checkOutString].joined(separator: " - ")
+            
+            self?.conditionMap.updateValue(schedule, forKey: .checkInAndOut)
+            self?.updatedSchedule.accept(schedule)
         }
         
-        priceRangeViewModel.loadedPriceRange.bind { range in
+        priceRangeViewModel.updatedPriceRange.bind { [weak self] range in
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
             let formattedMinPrice = numberFormatter.string(from: NSNumber(value: Int(range.min))) ?? ""
             let formattedMaxPrice = numberFormatter.string(from: NSNumber(value: Int(range.max))) ?? ""
-            print("₩\(formattedMinPrice) - ₩\(formattedMaxPrice)+")
+            let priceRange = "₩\(formattedMinPrice) - ₩\(formattedMaxPrice)+"
+            
+            self?.conditionMap.updateValue(priceRange, forKey: .priceRange)
+            self?.updatedPriceRange.accept(priceRange)
+            
+            self?.priceRangeViewModel.labelMin.accept(formattedMinPrice)
+            self?.priceRangeViewModel.labelMax.accept(formattedMaxPrice)
         }
         
-        headCountViewModel.updatedTotalCount.bind { totalCount in
+        headCountViewModel.updatedTotalCount.bind { [weak self] totalCount in
             guard let totalCount = totalCount else { return }
             let totalAdult = totalCount[Age.adult.index]
             let totalKid = totalCount[Age.kid.index]
             let totalToddler = totalCount[Age.toddler.index]
             
-            if totalToddler == 0 {
-                print("게스트 \(totalAdult + totalKid)명")
-            } else {
-                print("게스트 \(totalAdult + totalKid)명 유아 \(totalToddler)명")
+            var guests = ["게스트 \(totalAdult + totalKid)명"]
+            
+            if totalToddler != 0 {
+                guests.append("유아 \(totalToddler)명")
             }
+            
+            let guest = guests.joined(separator: ", ")
+//            self?.conditionMap.updateValue((totalAdult, totalKid, totalToddler), forKey: .headCount)
+            self?.updatedTotalCount.accept(guest)
         }
     }
     

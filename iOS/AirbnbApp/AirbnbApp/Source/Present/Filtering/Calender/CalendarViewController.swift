@@ -9,7 +9,6 @@ import UIKit
 
 final class CalendarViewController: FilteringBaseViewController {
     
-    
     private var viewModel: YearViewModel?
     
     private lazy var weekDayStackView = WeekDaysStackView()
@@ -51,10 +50,10 @@ private extension CalendarViewController {
             self?.calendarCollectionViewDataSource.loadCalender.accept(calender)
         }
         
-        viewModel?.updatedRange.bind { [weak self] dates in
-            
-            
-        }
+//        viewModel?.updatedRange.bind { [weak self] dates in
+//
+//
+//        }
         
         calendarCollectionViewDataSource.bindSelectedCellAction { [ weak self ] in
             self?.calendarCollectionView.reloadData()

@@ -14,12 +14,16 @@ class PriceRangeViewModel {
     
     let loadMinPrice = PublishRelay<Double>()
     let loadMaxPrice = PublishRelay<Double>()
+    
     let loadPriceRange = PublishRelay<(Double, Double)>()
     
     let loadedMinPrice = PublishRelay<String>()
     let loadedMaxPrice = PublishRelay<String>()
     
-    let loadedPriceRange = PublishRelay<(min: Double, max: Double)>()
+    let updatedPriceRange = PublishRelay<(min: Double, max: Double)>()
+    
+    let labelMin = PublishRelay<String>()
+    let labelMax = PublishRelay<String>()
     
     @NetworkInject(keypath: \.priceRangeRepository)
     private var repository: PriceRangeRepository
@@ -38,17 +42,8 @@ class PriceRangeViewModel {
         })
         
         loadPriceRange.bind { [weak self] min, max in
-//            let numberFormatter = NumberFormatter()
-//            numberFormatter.numberStyle = .decimal
-//            let formattedMinPrice = numberFormatter.string(from: NSNumber(value: Int(1000000 * min))) ?? ""
-//            let formattedMaxPrice = numberFormatter.string(from: NSNumber(value: Int(1000000 * max))) ?? ""
-//            self?.loadedMinPrice.accept(formattedMinPrice)
-//            self?.loadedMaxPrice.accept(formattedMaxPrice)
-            
-            self?.loadedPriceRange.accept((1000000 * min, 1000000 * max))
+            self?.updatedPriceRange.accept((1000000 * min, 1000000 * max))
         }
-        
-        
     }
     
 }

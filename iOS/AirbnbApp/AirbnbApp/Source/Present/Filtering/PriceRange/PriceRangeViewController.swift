@@ -113,17 +113,13 @@ class PriceRangeViewController: FilteringBaseViewController {
             self?.histogramView.setNeedsDisplay()
         }
         
-        viewModel?.loadedMinPrice.bind { [weak self] minPrice in
-            self?.minPriceLabel.text = minPrice
-        }
+        viewModel?.labelMin.bind(onNext: { [weak self] text in
+            self?.minPriceLabel.text = "₩\(text)"
+        })
         
-        viewModel?.loadedMaxPrice.bind { [weak self] maxPrice in
-            self?.maxPriceLabel.text = maxPrice
-        }
-        
-//        viewModel?.loadedPriceString.bind { [weak self] str in
-//            self?.loadedCondition.accept(str)
-//        }
+        viewModel?.labelMax.bind(onNext: { [weak self] text in
+            self?.maxPriceLabel.text = "₩\(text)+"
+        })
         
         viewModel?.loadAction.accept(())
     }

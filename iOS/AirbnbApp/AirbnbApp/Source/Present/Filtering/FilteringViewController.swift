@@ -15,7 +15,7 @@ class FilteringViewController: UIViewController {
     private lazy var childViewControllerMap: [FilteringCondition: FilteringBaseViewController]
     = [.checkInAndOut: CalendarViewController(viewModel: viewModel?.yearViewModel),
        .headCount: HeadCountViewController(viewModel: viewModel?.headCountViewModel),
-       .fee: PriceRangeViewController(viewModel: viewModel?.priceRangeViewModel)]
+       .priceRange: PriceRangeViewController(viewModel: viewModel?.priceRangeViewModel)]
     
     private var targetViewController: UIViewController = UIViewController() {
         didSet(previousViewController) {
@@ -93,6 +93,25 @@ class FilteringViewController: UIViewController {
             self?.tableView.reloadData()
         }
         
+        viewModel?.updatedSchedule.bind(onNext: { [weak self] schedule in
+            self?.tableViewDataSource.conditionMap[.checkInAndOut] = schedule
+            self?.tableView.reloadData()
+        })
+        
+        viewModel?.updatedPriceRange.bind(onNext: { [weak self] priceRange in
+            self?.tableViewDataSource.conditionMap[.priceRange] = priceRange
+            self?.tableView.reloadData()
+        })
+        
+        viewModel?.updatedTotalCount.bind(onNext: { [weak self] headCount in
+            self?.tableViewDataSource.conditionMap[.headCount] = headCount
+            self?.tableView.reloadData()
+        })
+        
+        viewModel?.enableButton.bind(onNext: { [weak self] bool in
+            self?.nextStepView.enableRightButton(bool: bool)
+        })
+        
 //        childViewControllerMap.forEach { conditionKind, viewController in
 //            viewController.loadedCondition.bind { [weak self] condition in
 //                self?.viewModel?.inputCondition.accept((conditionKind, condition))
@@ -104,9 +123,11 @@ class FilteringViewController: UIViewController {
 //            })
 //        }
         
-        viewModel?.isEnableNextButton.bind(onNext: { [weak self] bool in
-            self?.nextStepView.rightButton.isEnabled = bool
-        })
+        
+        
+//        viewModel?.isEnableNextButton.bind(onNext: { [weak self] bool in
+//            self?.nextStepView.rightButton.isEnabled = bool
+//        })
         
         tableViewDelegate.bind { [ weak self ] index in
             self?.tableViewDataSource.accept(index)

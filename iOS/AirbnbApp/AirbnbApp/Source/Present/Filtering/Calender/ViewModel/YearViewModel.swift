@@ -11,7 +11,7 @@ final class YearViewModel {
     
     let loadCalendar = PublishRelay<Void>()
     let loadedCalendar = PublishRelay<YearViewModel>()
-    let updatedRange = PublishRelay<[(month: MonthViewModel, day: DayViewModel)]>()
+    let updatedSchedule = PublishRelay<[(month: MonthViewModel, day: DayViewModel)]>()
     
     private var monthViewModels: [MonthViewModel] = []
     private var selectedRange: [IndexPath] = []
@@ -140,7 +140,7 @@ extension YearViewModel {
         //          checkInRange.append("\(monthViewModel.getMonth())월 \(dayViewModel.getDay())일")
         //        }
         
-        updatedRange.accept(dateRange)
+        updatedSchedule.accept(dateRange)
         //        loadedRange.accept(checkInRange.joined(separator: .YearViewModel.separater))
     }
     
