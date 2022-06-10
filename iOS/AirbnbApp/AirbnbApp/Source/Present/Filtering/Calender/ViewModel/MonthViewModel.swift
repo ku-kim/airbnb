@@ -72,10 +72,10 @@ extension MonthViewModel {
             }
             return
         }
+        
         for day in firstDay...lastDay {
             cellViewModels[day].setBetWeen()
         }
-        
     }
     
 }

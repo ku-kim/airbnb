@@ -25,7 +25,9 @@ final class CalendarCollectionViewDelegate: NSObject, UICollectionViewDelegate {
 // MARK: - Providing Function
 
 extension CalendarCollectionViewDelegate {
+    
     func bindSelectedCell(_ value: @escaping (IndexPath) -> Void) {
         selectedCell.bind(onNext: value)
     }
+    
 }

@@ -23,7 +23,6 @@ extension UIFont {
         static let bold: (CGFloat) -> UIFont? = { (size) -> UIFont? in
             UIFont(name: .Font.SFProDisplayBold, size: size)
         }
-        
     }
     
 }

@@ -26,11 +26,9 @@ class HeadCountViewModel {
             viewModel.changeGuestCount.bind { [weak self] (age, value) in
                 
                 var totalCount = self?.currentCount.reduce(0, +) ?? 0
-                
                 if value > 0, totalCount >= Int.HeadCount.maxGuestCount { return }
                 
                 self?.currentCount[age.index] += value
-                
                 totalCount = self?.currentCount.reduce(0, +) ?? 0
                 
                 self?.itemViewModels.forEach { viewModel in
@@ -44,7 +42,6 @@ class HeadCountViewModel {
                 }
                 
                 self?.itemViewModels[age.index].updateCount.accept(self?.currentCount[age.index] ?? 0)
-                
                 self?.updatedTotalCount.accept(self?.currentCount)
             }
         }

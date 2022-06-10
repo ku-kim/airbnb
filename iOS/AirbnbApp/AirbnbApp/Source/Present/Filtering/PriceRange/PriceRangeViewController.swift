@@ -8,7 +8,7 @@
 import SnapKit
 import UIKit
 
-class PriceRangeViewController: FilteringBaseViewController {
+final class PriceRangeViewController: UIViewController {
     
     private var viewModel: PriceRangeViewModel?
     
@@ -16,16 +16,14 @@ class PriceRangeViewController: FilteringBaseViewController {
                                                    font: .SFProDisplay.semiBold,
                                                    fontColor: .Custom.gray1)
     
-    private lazy var minPriceLabel = CustomLabel(text: "₩0",
-                                                 font: .SFProDisplay.semiBold,
+    private lazy var minPriceLabel = CustomLabel(font: .SFProDisplay.semiBold,
                                                  fontColor: .Custom.gray1)
     
     private lazy var separaterLabel = CustomLabel(text: .PriceRange.separaterLabel,
                                                   font: .SFProDisplay.semiBold,
                                                   fontColor: .Custom.gray1)
     
-    private lazy var maxPriceLabel = CustomLabel(text: "₩1,000,000+", // TODO: PriceRange의 Max값으로 변경
-                                                 font: .SFProDisplay.semiBold,
+    private lazy var maxPriceLabel = CustomLabel(font: .SFProDisplay.semiBold,
                                                  fontColor: .Custom.gray1)
     
     init(viewModel: PriceRangeViewModel?) {
@@ -37,7 +35,6 @@ class PriceRangeViewController: FilteringBaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private lazy var priceRangeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -96,29 +93,30 @@ class PriceRangeViewController: FilteringBaseViewController {
     }
     
     private func bind() {
-        viewModel?.loadedState.bind { [ weak self ] priceRange in
-            self?.averagePriceLabel.text = "평균 1박 요금은 ₩\(priceRange.averagePrice) 입니다."
-            
-            guard let max = priceRange.histogram.max() else { return }
-            let maxCount: CGFloat = CGFloat(max.count)
-            var points: [CGPoint] = []
-            let count = priceRange.histogram.count
-            
-            priceRange.histogram.enumerated().forEach { index, histogram in
-                let point = CGPoint(x: CGFloat(index) / CGFloat(count), y: CGFloat(histogram.count) / maxCount)
-                points.append(point)
-            }
-            
-            self?.histogramView.setPath(points: points)
-            self?.histogramView.setNeedsDisplay()
-        }
         
-        viewModel?.labelMin.bind(onNext: { [weak self] text in
-            self?.minPriceLabel.text = "₩\(text)"
+        viewModel?.loadedMinPrice.bind(onNext: { [weak self] minPrice in
+            self?.minPriceLabel.text = "₩\(minPrice)"
         })
         
-        viewModel?.labelMax.bind(onNext: { [weak self] text in
+        viewModel?.loadedMaxPrice.bind(onNext: { [weak self] maxPrice in
+            self?.maxPriceLabel.text = "₩\(maxPrice)+"
+        })
+        
+        viewModel?.loadedAveragePrice.bind(onNext: { [weak self] averagePrice in
+            self?.averagePriceLabel.text = "평균 1박 요금은 ₩\(averagePrice) 입니다."
+        })
+        
+        viewModel?.updatedMinPrice.bind(onNext: { [weak self] text in
+            self?.minPriceLabel.text = "₩\(text)"
+        })
+
+        viewModel?.updatedMaxPrice.bind(onNext: { [weak self] text in
             self?.maxPriceLabel.text = "₩\(text)+"
+        })
+        
+        viewModel?.loadedHistogramViewPoints.bind(onNext: { [weak self] points in
+            self?.histogramView.setPath(points: points)
+            self?.histogramView.setNeedsDisplay()
         })
         
         viewModel?.loadAction.accept(())
@@ -132,7 +130,7 @@ private extension PriceRangeViewController {
     @objc private func changeValue() {
         let width = histogramView.frame.width
         histogramForegroundView.snp.updateConstraints { make in
-            viewModel?.loadPriceRange.accept((slider.lower, slider.upper))
+            viewModel?.slideAdjusted.accept((slider.lower, slider.upper))
             make.leading.equalToSuperview().offset(width * slider.lower)
             make.trailing.equalToSuperview().inset(width * (1 - slider.upper))
         }

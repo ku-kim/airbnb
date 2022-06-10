@@ -113,6 +113,7 @@ extension YearViewModel {
         if !monthViewModels[indexPath.section].getIsSelectable(at: indexPath) {
             return
         }
+        
         toggleRange()
         
         if selectedRange.isEmpty || selectedRange[0] > indexPath {
@@ -124,24 +125,17 @@ extension YearViewModel {
         }
         
         toggleRange()
-        //        var checkInRange: [String] = []
+        
         guard let checkInDate = selectedRange.first else { return }
         guard let checkOutDate = selectedRange.last else { return }
+        
         let monthViewModel1 = monthViewModels[checkInDate.section]
         let dayViewModel1 = monthViewModel1.getCellViewModel(at: checkInDate.item)
         let monthViewModel2 = monthViewModels[checkOutDate.section]
         let dayViewModel2 = monthViewModel2.getCellViewModel(at: checkOutDate.item)
         
         let dateRange = [(monthViewModel1, dayViewModel1), (monthViewModel2, dayViewModel2)]
-        //        selectedRange.enumerated().forEach {
-        //          let date = $0.element
-        //          let monthViewModel = monthViewModels[date.section]
-        //          let dayViewModel = monthViewModel.getCellViewModel(at: date.item)
-        //          checkInRange.append("\(monthViewModel.getMonth())월 \(dayViewModel.getDay())일")
-        //        }
-        
         updatedSchedule.accept(dateRange)
-        //        loadedRange.accept(checkInRange.joined(separator: .YearViewModel.separater))
     }
     
     func getMonthViewModel(at index: Int) -> MonthViewModel {

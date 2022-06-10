@@ -12,7 +12,7 @@ class FilteringViewController: UIViewController {
     
     private var viewModel: FilteringViewModel?
     
-    private lazy var childViewControllerMap: [FilteringCondition: FilteringBaseViewController]
+    private lazy var childViewControllerMap: [FilteringCondition: UIViewController]
     = [.checkInAndOut: CalendarViewController(viewModel: viewModel?.yearViewModel),
        .headCount: HeadCountViewController(viewModel: viewModel?.headCountViewModel),
        .priceRange: PriceRangeViewController(viewModel: viewModel?.priceRangeViewModel)]
@@ -88,6 +88,16 @@ class FilteringViewController: UIViewController {
     
     private func bind() {
         
+        tableViewDelegate.bind { [ weak self ] index in
+            self?.tableViewDataSource.accept(index)
+        }
+        
+        tableViewDataSource.bind { [ weak self ] condition in
+            guard let targetVC = self?.childViewControllerMap[condition] else { return }
+            if self?.targetViewController == targetVC { return }
+            self?.targetViewController = targetVC
+        }
+        
         viewModel?.loadedLocationName.bind { [weak self] locationName in
             self?.tableViewDataSource.conditionMap[.location] = locationName
             self?.tableView.reloadData()
@@ -107,37 +117,6 @@ class FilteringViewController: UIViewController {
             self?.tableViewDataSource.conditionMap[.headCount] = headCount
             self?.tableView.reloadData()
         })
-        
-        viewModel?.enableButton.bind(onNext: { [weak self] bool in
-            self?.nextStepView.enableRightButton(bool: bool)
-        })
-        
-//        childViewControllerMap.forEach { conditionKind, viewController in
-//            viewController.loadedCondition.bind { [weak self] condition in
-//                self?.viewModel?.inputCondition.accept((conditionKind, condition))
-//            }
-            
-//            viewModel?.outputCondition.bind(onNext: { [weak self] (filteringCondition, str) in
-//                self?.tableViewDataSource.conditionMap[filteringCondition] = str
-//                self?.tableView.reloadData()
-//            })
-//        }
-        
-        
-        
-//        viewModel?.isEnableNextButton.bind(onNext: { [weak self] bool in
-//            self?.nextStepView.rightButton.isEnabled = bool
-//        })
-        
-        tableViewDelegate.bind { [ weak self ] index in
-            self?.tableViewDataSource.accept(index)
-        }
-        
-        tableViewDataSource.bind { [ weak self ] condition in
-            guard let targetVC = self?.childViewControllerMap[condition] else { return }
-            if self?.targetViewController == targetVC { return }
-            self?.targetViewController = targetVC
-        }
         
         viewModel?.loadLoacationName.accept(())
     }

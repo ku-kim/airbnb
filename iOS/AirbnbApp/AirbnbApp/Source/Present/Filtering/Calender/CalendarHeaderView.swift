@@ -29,6 +29,7 @@ final class CalendarHeaderView: UICollectionReusableView {
         super.init(coder: coder)
         layoutHeaderLabel()
     }
+    
 }
 
 // MARK: - View Layout
@@ -42,6 +43,7 @@ private extension CalendarHeaderView {
             make.edges.equalToSuperview()
         }
     }
+    
 }
 
 // MARK: - Providing Function

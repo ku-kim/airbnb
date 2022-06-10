@@ -13,7 +13,6 @@
 		1EA8F816285184BE007DF8A1 /* HeadCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8F815285184BE007DF8A1 /* HeadCountViewModel.swift */; };
 		1EA8F818285184CF007DF8A1 /* HeadCountItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8F817285184CF007DF8A1 /* HeadCountItemViewModel.swift */; };
 		1EA8F81A285184DF007DF8A1 /* HeadCountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8F819285184DF007DF8A1 /* HeadCountItemView.swift */; };
-		1EA8F81C285189E8007DF8A1 /* FilteringConditionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA8F81B285189E8007DF8A1 /* FilteringConditionViewController.swift */; };
 		1EAB24E22845B68100AAA121 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E12845B68100AAA121 /* Int+Extension.swift */; };
 		1EAB24E42847427000AAA121 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E32847427000AAA121 /* Coordinate.swift */; };
 		1EAB24E6284894FD00AAA121 /* PriceRangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */; };
@@ -115,7 +114,6 @@
 		1EA8F815285184BE007DF8A1 /* HeadCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCountViewModel.swift; sourceTree = "<group>"; };
 		1EA8F817285184CF007DF8A1 /* HeadCountItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCountItemViewModel.swift; sourceTree = "<group>"; };
 		1EA8F819285184DF007DF8A1 /* HeadCountItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadCountItemView.swift; sourceTree = "<group>"; };
-		1EA8F81B285189E8007DF8A1 /* FilteringConditionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteringConditionViewController.swift; sourceTree = "<group>"; };
 		1EAB24E12845B68100AAA121 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		1EAB24E32847427000AAA121 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		1EAB24E5284894FD00AAA121 /* PriceRangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRangeViewController.swift; sourceTree = "<group>"; };
@@ -493,7 +491,6 @@
 				1EAB2534284F18A500AAA121 /* FilteringViewModel.swift */,
 				6C405F4D284F47CD00BEDC57 /* FilteringTableViewDelegate.swift */,
 				1EAB251E284B521C00AAA121 /* FilteringTableVIewDataSource.swift */,
-				1EA8F81B285189E8007DF8A1 /* FilteringConditionViewController.swift */,
 				1EAB2536284F18DA00AAA121 /* FilteringCondition.swift */,
 				1EAB2528284B689000AAA121 /* NextStepView.swift */,
 				1EAB2520284B534700AAA121 /* FilteringTableViewCell.swift */,
@@ -518,9 +515,9 @@
 		6C5E87CB2848621B003550CD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				6C5E87DA28486702003550CD /* CellViewModelable.swift */,
 				6C5E87CC2848627E003550CD /* BannerCellViewModel.swift */,
 				6C5E87CE284862CC003550CD /* ThemeCellViewModel.swift */,
-				6C5E87DA28486702003550CD /* CellViewModelable.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -743,7 +740,6 @@
 				1ED6491A284278FC00AA5380 /* SearchHomeRepositoryImpl.swift in Sources */,
 				1EAB24EA28489F7E00AAA121 /* PriceRangeRepository.swift in Sources */,
 				1EAB251F284B521C00AAA121 /* FilteringTableVIewDataSource.swift in Sources */,
-				1EA8F81C285189E8007DF8A1 /* FilteringConditionViewController.swift in Sources */,
 				1EA8F81028508A64007DF8A1 /* Constant.swift in Sources */,
 				6C405F4C284F405500BEDC57 /* CalendarViewController.swift in Sources */,
 				1ED648FF283F9FFF00AA5380 /* ViewModelState.swift in Sources */,

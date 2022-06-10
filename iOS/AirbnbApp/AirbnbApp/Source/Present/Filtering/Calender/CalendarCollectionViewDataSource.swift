@@ -66,7 +66,9 @@ final class CalendarCollectionViewDataSource: NSObject, UICollectionViewDataSour
 // MARK: - Providing Function
 
 extension CalendarCollectionViewDataSource {
+    
     func bindSelectedCellAction(_ value: @escaping () -> Void) {
         selectedCellAction.bind(onNext: value)
     }
+    
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    
     func startOfMonth() -> Date {
         guard let date = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self))) else { return Date()}
             return date

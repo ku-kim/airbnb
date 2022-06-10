@@ -14,19 +14,7 @@ class FilteringViewModel {
     let priceRangeViewModel = PriceRangeViewModel()
     let headCountViewModel = HeadCountViewModel()
     
-//    var conditionMap: [FilteringCondition: String?] = FilteringCondition.allCases.reduce(into: [FilteringCondition: String]()) {
-//        $0[$1] = nil
-//    }
-    
-    let enableButton = PublishRelay<Bool>()
-    
-    lazy var conditionMap: [FilteringCondition: String] = [:] {
-        didSet {
-            if conditionMap.count == FilteringCondition.count {
-                enableButton.accept(true)
-            }
-        }
-    }
+    lazy var conditionMap: [FilteringCondition: String] = [:]
     
     let location: MKLocalSearchCompletion
     
@@ -46,30 +34,25 @@ class FilteringViewModel {
         }
         
         yearViewModel.updatedSchedule.bind { [weak self] date in
-            let checkInDate = date[0]
-            let checkOutDate = date[1]
+            guard let checkInDate = date.first,
+                  let checkOutDate = date.last else { return }
             
             let checkInString = "\(checkInDate.month.getMonth())월 \(checkInDate.day.getDay())일"
             let checkOutString = "\(checkOutDate.month.getMonth())월 \(checkOutDate.day.getDay())일"
             
-            let schedule = [checkInString, checkOutString].joined(separator: " - ")
+            let schedule = [checkInString, checkOutString].joined(separator: .Separator.schedule)
             
-            self?.conditionMap.updateValue(schedule, forKey: .checkInAndOut)
             self?.updatedSchedule.accept(schedule)
         }
         
-        priceRangeViewModel.updatedPriceRange.bind { [weak self] range in
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = .decimal
-            let formattedMinPrice = numberFormatter.string(from: NSNumber(value: Int(range.min))) ?? ""
-            let formattedMaxPrice = numberFormatter.string(from: NSNumber(value: Int(range.max))) ?? ""
+        priceRangeViewModel.updatedPriceCondition.bind { [weak self] (min, max) in
+            let formattedMinPrice = NumberFormatter.toPriceUnit(from: Int(min)) ?? ""
+            let formattedMaxPrice = NumberFormatter.toPriceUnit(from: Int(max)) ?? ""
             let priceRange = "₩\(formattedMinPrice) - ₩\(formattedMaxPrice)+"
             
-            self?.conditionMap.updateValue(priceRange, forKey: .priceRange)
+            self?.priceRangeViewModel.updatedMinPrice.accept(formattedMinPrice)
+            self?.priceRangeViewModel.updatedMaxPrice.accept(formattedMaxPrice)
             self?.updatedPriceRange.accept(priceRange)
-            
-            self?.priceRangeViewModel.labelMin.accept(formattedMinPrice)
-            self?.priceRangeViewModel.labelMax.accept(formattedMaxPrice)
         }
         
         headCountViewModel.updatedTotalCount.bind { [weak self] totalCount in
@@ -84,10 +67,19 @@ class FilteringViewModel {
                 guests.append("유아 \(totalToddler)명")
             }
             
-            let guest = guests.joined(separator: ", ")
-//            self?.conditionMap.updateValue((totalAdult, totalKid, totalToddler), forKey: .headCount)
+            let guest = guests.joined(separator: .Separator.guest)
             self?.updatedTotalCount.accept(guest)
         }
     }
     
+}
+
+extension NumberFormatter {
+    static func toPriceUnit(from number: Int) -> String? {
+        let nsNumber = NSNumber(value: number)
+        let formatter = Self()
+        formatter.numberStyle = .decimal
+        let formattedNumber = formatter.string(from: nsNumber)
+        return formattedNumber
+    }
 }

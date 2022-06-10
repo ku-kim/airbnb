@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CalendarViewController: FilteringBaseViewController {
+final class CalendarViewController: UIViewController {
     
     private var viewModel: YearViewModel?
     
@@ -41,19 +41,10 @@ final class CalendarViewController: FilteringBaseViewController {
         bind()
     }
     
-}
-
-private extension CalendarViewController {
-    func bind() {
-        
+    private func bind() {
         viewModel?.loadedCalendar.bind { [weak self] calender in
             self?.calendarCollectionViewDataSource.loadCalender.accept(calender)
         }
-        
-//        viewModel?.updatedRange.bind { [weak self] dates in
-//
-//
-//        }
         
         calendarCollectionViewDataSource.bindSelectedCellAction { [ weak self ] in
             self?.calendarCollectionView.reloadData()
@@ -63,8 +54,13 @@ private extension CalendarViewController {
         }
         
         viewModel?.loadCalendar.accept(())
-        
     }
+    
+}
+
+// MARK: - View Layout
+
+private extension CalendarViewController {
     
     func layoutWeekDatyStackView() {
         view.addSubview(weekDayStackView)
@@ -82,4 +78,5 @@ private extension CalendarViewController {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
 }

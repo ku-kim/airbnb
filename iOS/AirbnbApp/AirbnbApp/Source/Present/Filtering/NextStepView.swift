@@ -71,6 +71,7 @@ private extension UIButton {
         }), for: .touchUpInside)
         return button
     }
+    
 }
 
 extension NextStepView {
@@ -78,4 +79,5 @@ extension NextStepView {
     func enableRightButton(bool: Bool) {
         rightButton.isEnabled = bool
     }
+    
 }
