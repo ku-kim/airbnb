@@ -11,7 +11,7 @@ final class YearViewModel {
     
     let loadCalendar = PublishRelay<Void>()
     let loadedCalendar = PublishRelay<YearViewModel>()
-    let loadedRange = PublishRelay<String>()
+    let updatedSchedule = PublishRelay<[(month: MonthViewModel, day: DayViewModel)]>()
     
     private var monthViewModels: [MonthViewModel] = []
     private var selectedRange: [IndexPath] = []
@@ -67,7 +67,7 @@ private extension YearViewModel {
             let months = calendar.map {
                 MonthViewModel(month: $0)
             }
-
+            
             self?.monthViewModels = months
             guard let self = self else { return }
             self.loadedCalendar.accept(self)
@@ -111,30 +111,32 @@ extension YearViewModel {
     
     func selectDay(at indexPath: IndexPath) {
         if !monthViewModels[indexPath.section].getIsSelectable(at: indexPath) {
-          return
+            return
         }
+        
         toggleRange()
-         
-         
+        
         if selectedRange.isEmpty || selectedRange[0] > indexPath {
-          selectedRange = [indexPath]
+            selectedRange = [indexPath]
         } else if selectedRange[0] == indexPath {
-          selectedRange = []
+            selectedRange = []
         } else {
-          selectedRange = [selectedRange[0], indexPath]
+            selectedRange = [selectedRange[0], indexPath]
         }
-         
-        var checkInRange: [String] = []
-         
-        selectedRange.enumerated().forEach {
-          let date = $0.element
-          let monthViewModel = monthViewModels[date.section]
-          let dayViewModel = monthViewModel.getCellViewModel(at: date.item)
-          checkInRange.append("\(monthViewModel.getMonth())월 \(dayViewModel.getDay())일")
-        }
-        loadedRange.accept(checkInRange.joined(separator: .YearViewModel.separater))
+        
         toggleRange()
-      }
+        
+        guard let checkInDate = selectedRange.first else { return }
+        guard let checkOutDate = selectedRange.last else { return }
+        
+        let monthViewModel1 = monthViewModels[checkInDate.section]
+        let dayViewModel1 = monthViewModel1.getCellViewModel(at: checkInDate.item)
+        let monthViewModel2 = monthViewModels[checkOutDate.section]
+        let dayViewModel2 = monthViewModel2.getCellViewModel(at: checkOutDate.item)
+        
+        let dateRange = [(monthViewModel1, dayViewModel1), (monthViewModel2, dayViewModel2)]
+        updatedSchedule.accept(dateRange)
+    }
     
     func getMonthViewModel(at index: Int) -> MonthViewModel {
         return monthViewModels[index]
