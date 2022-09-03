@@ -1,6 +1,8 @@
 # 🏡 Airbnb
 이 저장소는 2022 코드스쿼드 그룹 프로젝트입니다. iOS와 BE 두 팀이 협업하며 숙박 App을 개발합니다.
 
+보다 자세한 내용(Wiki, PR, Issues)는 [jeremy0405/airbnb](https://github.com/jeremy0405/airbnb) 을 참고해주세요.
+
 <br>
 
 ---
